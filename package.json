@@ -1,0 +1,22 @@
+{
+  "name": "junjie-xu-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Junjie Xu's static academic portfolio and work blog.",
+  "scripts": {
+    "dev": "sh -c 'vite --host localhost --port \"${PORT:-4173}\"'",
+    "start": "sh -c 'vite --host localhost --port \"${PORT:-4173}\"'",
+    "build": "vite build",
+    "build:public": "vite build --config vite.public.config.mjs",
+    "content:import": "node scripts/import-content.mjs",
+    "preview": "sh -c 'vite preview --host localhost --port \"${PORT:-4173}\"'"
+  },
+  "dependencies": {
+    "dompurify": "3.4.14",
+    "js-yaml": "5.4.1",
+    "marked": "18.0.11"
+  },
+  "devDependencies": {
+    "vite": "8.2.2"
+  }
+}

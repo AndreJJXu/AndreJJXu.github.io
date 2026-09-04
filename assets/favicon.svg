@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>JX</title>
+  <rect width="64" height="64" fill="#07111f"/>
+  <path d="M17 17h8v20c0 7-3 10-9 10-3 0-6-1-8-3l4-6c1 1 2 2 4 2 1 0 1-1 1-3V17Zm17 0h8v13l10-13h10L51 31l12 16H53L42 33v14h-8V17Z" fill="#eff6ff"/>
+</svg>

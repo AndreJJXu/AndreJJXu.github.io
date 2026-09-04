@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# Private local materials — never publish
+已完成论文/
+已完成专利/
+docs/
+studio/

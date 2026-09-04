@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "publishedAt": null,
+  "profiles": [],
+  "contact": {
+    "email": "jjxu_dr@stu.ecnu.edu.cn",
+    "cvUrl": ""
+  },
+  "projects": [],
+  "publications": [
+    {
+      "title": "MARS: Multimodal-Assisted Refined Semantic Alignment",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Shuwen Yang, Tianlong Ma, Daoguo Dong, Liang He",
+      "venue": "Information Processing & Management 63 (2026) 104292",
+      "status": "Published",
+      "statusZh": "已发表",
+      "url": "https://doi.org/10.1016/j.ipm.2025.104292"
+    },
+    {
+      "title": "Phoenix: Prioritize the Hierarchical Observation of Auditory Expression for Audio-based Image Generation",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Luwei Xiao, Daoguo Dong, Liang He",
+      "venue": "IEEE Transactions on Circuits and Systems for Video Technology",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "COFFEE: Listen, with your eyes: Cross-modal Fine-grained Alignment and Fusion Enhanced for Audio-based Image Generation",
+      "authors": "Junjie Xu and collaborators",
+      "venue": "IEEE Transactions on Neural Networks and Learning Systems",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "UMAAF: Unveiling Aesthetics via Multifarious Attributes of Images",
+      "authors": "Junjie Xu, Weijie Li, Xingjiao Wu, Cheng Jin, Liang He",
+      "venue": "IEEE Transactions on Circuits and Systems for Video Technology",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "Affective Dynamics in Human-AI Agent Collaboration: A Survey of Mechanisms, Risks, and Governance",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Yujia Xu, Yuzhe Yang, Jin Zhu, Luwei Xiao, Wen Wu, Liang He",
+      "venue": "ACM Computing Surveys",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "Large Language Models have Chain-of-Affect",
+      "authors": "Junjie Xu, Xingjiao Wu, Luwei Xiao, Yuzhe Yang, Jie Zhou, Zihao Zhang, Luhan Wang, Yi Huang, Nan Wu, Yingbin Zheng, Chao Yan, Cheng Jin, Honglin Li, Liang He",
+      "venue": "Research manuscript",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "ElysianMV: Bridging Therapeutic Emotions and Aesthetic Imagery via Music-Visual Cross-modal Synthesis",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Luwei Xiao, Jiabao Zhao, Liang He",
+      "venue": "Preprint submitted to Pattern Recognition",
+      "status": "Preprint",
+      "statusZh": "预印本"
+    },
+    {
+      "title": "Cross-Modal Alignment and Human Preference Learning for Fine-Grained Music-Guided Image Generation",
+      "authors": "Junjie Xu and collaborators",
+      "venue": "ICLR 2026",
+      "status": "Under review",
+      "statusZh": "评审中"
+    },
+    {
+      "title": "GARBO-T2I: Gradient-Aware Reinforcement-Based Optimization for Text-to-Image Generation",
+      "authors": "Junjie Xu and collaborators",
+      "venue": "Research manuscript",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "HealBench: A Fine-Grained Benchmark for Evaluating Psychological Comfort in Text-to-Image Generation",
+      "authors": "Junjie Xu and collaborators",
+      "venue": "Research manuscript",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "Evidence Before Severity: Auditing Safety-Evidence Fidelity and Metadata Sensitivity in Depression-Related Dialogues",
+      "authors": "Junjie Xu and collaborators",
+      "venue": "Research manuscript · anonymous submission",
+      "status": "Manuscript",
+      "statusZh": "手稿"
+    },
+    {
+      "title": "Bidirectional Directed Acyclic Graph Neural Network for Aspect-level Sentiment Classification",
+      "authors": "Junjie Xu, Luwei Xiao, Anran Wu, Tianlong Ma, Daoguo Dong, Liang He",
+      "venue": "ACM Transactions on Asian and Low-Resource Language Information Processing",
+      "status": "Published",
+      "statusZh": "已发表",
+      "url": "https://doi.org/10.1145/3716501"
+    },
+    {
+      "title": "Attention Mixture Network for Crowd Counting via Binarization Transfer",
+      "authors": "Junjie Xu, Zihao Zhang, Xin Li, Weijie Li, Kun Yu",
+      "venue": "ACM Multimedia Content Generation and Evaluation Workshop",
+      "status": "Published",
+      "statusZh": "已发表",
+      "url": "https://doi.org/10.1145/3688867.3690172"
+    },
+    {
+      "title": "Graph Convolution over the Semantic-syntactic Hybrid Graph Enhanced by Affective Knowledge for Aspect-level Sentiment Classification",
+      "authors": "Junjie Xu, Shuwen Yang, Luwei Xiao, Zhichao Fu, Xingjiao Wu, Tianlong Ma, Liang He",
+      "venue": "2022 International Joint Conference on Neural Networks",
+      "status": "Published",
+      "statusZh": "已发表",
+      "url": "https://doi.org/10.1109/IJCNN55064.2022.9892027"
+    }
+  ],
+  "patents": [
+    { "title": "一种基于Kapur阈值法的黑色素瘤皮肤镜图像分割方法", "publicationNumber": "CN 118840378 A", "publicationDate": "2024-10-25", "inventor": "杨静" },
+    { "title": "一种基于人在回路与视觉基础模型的医学图像增强方法", "publicationNumber": "CN 120298246 A", "publicationDate": "2025-07-11", "inventor": "董道国" },
+    { "title": "一种基于人在回路中标注样本的医学图像分割方法", "publicationNumber": "CN 118485681 A", "publicationDate": "2024-08-13", "inventor": "贺樑" },
+    { "title": "一种基于偏好传递性的人在回路强化学习数据增强方法", "publicationNumber": "CN 118916133 A", "publicationDate": "2024-11-08", "inventor": "杨静" },
+    { "title": "一种基于图像多属性建模的美学评估方法", "publicationNumber": "CN 117422962 A", "publicationDate": "2024-01-19", "inventor": "贺樑" },
+    { "title": "一种基于多层次对抗学习的图像质量评估方法", "publicationNumber": "CN 120198411 A", "publicationDate": "2025-06-24", "inventor": "朱晓雅" },
+    { "title": "一种基于多模态交叉注意力与动态特征融合的音乐生成方法", "publicationNumber": "CN 120316301 A", "publicationDate": "2025-07-15", "inventor": "杨宇哲" },
+    { "title": "一种基于对抗神经网络的音频驱动图像编辑方法", "publicationNumber": "CN 118524266 A", "publicationDate": "2024-08-20", "inventor": "贺樑" },
+    { "title": "一种基于情感驱动和人类专家反馈的机器行为学习方法", "publicationNumber": "CN 120318634 A", "publicationDate": "2025-07-15", "inventor": "吴兴蛟" },
+    { "title": "一种基于情感驱动的多乐器分离协同音乐生成方法", "publicationNumber": "CN 120319204 A", "publicationDate": "2025-07-15", "inventor": "周仕哲" },
+    { "title": "一种基于扩散模型的小样本字体生成方法", "publicationNumber": "CN 118898549 A", "publicationDate": "2024-11-05", "inventor": "贺樑" },
+    { "title": "一种基于有向无环图网络的方面级情感分类方法", "publicationNumber": "CN 116127072 A", "publicationDate": "2023-05-16", "inventor": "马天龙" },
+    { "title": "一种基于注意力图卷积网络的多模态融合机械缺陷检测方法", "publicationNumber": "CN 114170477 A", "publicationDate": "2022-03-11", "inventor": "马天龙" },
+    { "title": "基于人在回路与视觉基础模型的少样本医学图像分割方法", "publicationNumber": "CN 120298698 A", "publicationDate": "2025-07-11", "inventor": "马天龙" }
+  ],
+  "awards": [],
+  "articles": [],
+  "researchNotes": []
+}
