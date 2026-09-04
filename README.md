@@ -92,3 +92,13 @@ featured: true
 The same `id` updates an existing imported post instead of creating a duplicate. `Manage` opens the local post list so you can delete individual imports or clear them all. See `examples/work-blog-post.md` for a ready-to-copy example.
 
 The public site intentionally renders Email and Download CV links only when verified values are present in the published content package. This prevents placeholder or private contact information from leaking into the public page.
+
+## Add project demo sub-pages
+
+The site is published as a GitHub Pages user site, so every folder pushed to the repo becomes a sub-page under `https://andrejjxu.github.io/` — no extra domain needed.
+
+**Static demos (HTML/CSS/JS):** drop the files into `public/demos/<demo-name>/`. Vite copies the `public/` folder verbatim into every build, so `public/demos/elysianmv/index.html` is served at `/demos/elysianmv/` right after the next push. Reference assets with absolute paths (for example, `/demos/elysianmv/figure.png`).
+
+**Bundled demos (React/Vite projects):** keep each demo in its own repository and enable GitHub Pages there as a project site. It is then served at `https://andrejjxu.github.io/<repo-name>/`; remember to set the Vite `base` option to `/<repo-name>/` in that repo so assets resolve.
+
+Link new demos from the main page (for example, a project card `url` in `content/published.json`, or a dedicated Demos nav entry) once they are deployed.
