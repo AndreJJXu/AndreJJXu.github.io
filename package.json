@@ -8,6 +8,7 @@
     "start": "sh -c 'vite --host localhost --port \"${PORT:-4173}\"'",
     "build": "vite build",
     "build:public": "vite build --config vite.public.config.mjs",
+    "check": "node scripts/check-content.mjs",
     "content:import": "node scripts/import-content.mjs",
     "preview": "sh -c 'vite preview --host localhost --port \"${PORT:-4173}\"'"
   },

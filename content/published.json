@@ -112,22 +112,243 @@
     }
   ],
   "patents": [
-    { "title": "一种基于Kapur阈值法的黑色素瘤皮肤镜图像分割方法", "publicationNumber": "CN 118840378 A", "publicationDate": "2024-10-25", "inventor": "杨静" },
-    { "title": "一种基于人在回路与视觉基础模型的医学图像增强方法", "publicationNumber": "CN 120298246 A", "publicationDate": "2025-07-11", "inventor": "董道国" },
-    { "title": "一种基于人在回路中标注样本的医学图像分割方法", "publicationNumber": "CN 118485681 A", "publicationDate": "2024-08-13", "inventor": "贺樑" },
-    { "title": "一种基于偏好传递性的人在回路强化学习数据增强方法", "publicationNumber": "CN 118916133 A", "publicationDate": "2024-11-08", "inventor": "杨静" },
-    { "title": "一种基于图像多属性建模的美学评估方法", "publicationNumber": "CN 117422962 A", "publicationDate": "2024-01-19", "inventor": "贺樑" },
-    { "title": "一种基于多层次对抗学习的图像质量评估方法", "publicationNumber": "CN 120198411 A", "publicationDate": "2025-06-24", "inventor": "朱晓雅" },
-    { "title": "一种基于多模态交叉注意力与动态特征融合的音乐生成方法", "publicationNumber": "CN 120316301 A", "publicationDate": "2025-07-15", "inventor": "杨宇哲" },
-    { "title": "一种基于对抗神经网络的音频驱动图像编辑方法", "publicationNumber": "CN 118524266 A", "publicationDate": "2024-08-20", "inventor": "贺樑" },
-    { "title": "一种基于情感驱动和人类专家反馈的机器行为学习方法", "publicationNumber": "CN 120318634 A", "publicationDate": "2025-07-15", "inventor": "吴兴蛟" },
-    { "title": "一种基于情感驱动的多乐器分离协同音乐生成方法", "publicationNumber": "CN 120319204 A", "publicationDate": "2025-07-15", "inventor": "周仕哲" },
-    { "title": "一种基于扩散模型的小样本字体生成方法", "publicationNumber": "CN 118898549 A", "publicationDate": "2024-11-05", "inventor": "贺樑" },
-    { "title": "一种基于有向无环图网络的方面级情感分类方法", "publicationNumber": "CN 116127072 A", "publicationDate": "2023-05-16", "inventor": "马天龙" },
-    { "title": "一种基于注意力图卷积网络的多模态融合机械缺陷检测方法", "publicationNumber": "CN 114170477 A", "publicationDate": "2022-03-11", "inventor": "马天龙" },
-    { "title": "基于人在回路与视觉基础模型的少样本医学图像分割方法", "publicationNumber": "CN 120298698 A", "publicationDate": "2025-07-11", "inventor": "马天龙" }
+    {
+      "title": "一种基于Kapur阈值法的黑色素瘤皮肤镜图像分割方法",
+      "publicationNumber": "CN 118840378 A",
+      "publicationDate": "2024-10-25",
+      "inventor": "杨静"
+    },
+    {
+      "title": "一种基于人在回路与视觉基础模型的医学图像增强方法",
+      "publicationNumber": "CN 120298246 A",
+      "publicationDate": "2025-07-11",
+      "inventor": "董道国"
+    },
+    {
+      "title": "一种基于人在回路中标注样本的医学图像分割方法",
+      "publicationNumber": "CN 118485681 A",
+      "publicationDate": "2024-08-13",
+      "inventor": "贺樑"
+    },
+    {
+      "title": "一种基于偏好传递性的人在回路强化学习数据增强方法",
+      "publicationNumber": "CN 118916133 A",
+      "publicationDate": "2024-11-08",
+      "inventor": "杨静"
+    },
+    {
+      "title": "一种基于图像多属性建模的美学评估方法",
+      "publicationNumber": "CN 117422962 A",
+      "publicationDate": "2024-01-19",
+      "inventor": "贺樑"
+    },
+    {
+      "title": "一种基于多层次对抗学习的图像质量评估方法",
+      "publicationNumber": "CN 120198411 A",
+      "publicationDate": "2025-06-24",
+      "inventor": "朱晓雅"
+    },
+    {
+      "title": "一种基于多模态交叉注意力与动态特征融合的音乐生成方法",
+      "publicationNumber": "CN 120316301 A",
+      "publicationDate": "2025-07-15",
+      "inventor": "杨宇哲"
+    },
+    {
+      "title": "一种基于对抗神经网络的音频驱动图像编辑方法",
+      "publicationNumber": "CN 118524266 A",
+      "publicationDate": "2024-08-20",
+      "inventor": "贺樑"
+    },
+    {
+      "title": "一种基于情感驱动和人类专家反馈的机器行为学习方法",
+      "publicationNumber": "CN 120318634 A",
+      "publicationDate": "2025-07-15",
+      "inventor": "吴兴蛟"
+    },
+    {
+      "title": "一种基于情感驱动的多乐器分离协同音乐生成方法",
+      "publicationNumber": "CN 120319204 A",
+      "publicationDate": "2025-07-15",
+      "inventor": "周仕哲"
+    },
+    {
+      "title": "一种基于扩散模型的小样本字体生成方法",
+      "publicationNumber": "CN 118898549 A",
+      "publicationDate": "2024-11-05",
+      "inventor": "贺樑"
+    },
+    {
+      "title": "一种基于有向无环图网络的方面级情感分类方法",
+      "publicationNumber": "CN 116127072 A",
+      "publicationDate": "2023-05-16",
+      "inventor": "马天龙"
+    },
+    {
+      "title": "一种基于注意力图卷积网络的多模态融合机械缺陷检测方法",
+      "publicationNumber": "CN 114170477 A",
+      "publicationDate": "2022-03-11",
+      "inventor": "马天龙"
+    },
+    {
+      "title": "基于人在回路与视觉基础模型的少样本医学图像分割方法",
+      "publicationNumber": "CN 120298698 A",
+      "publicationDate": "2025-07-11",
+      "inventor": "马天龙"
+    }
   ],
   "awards": [],
-  "articles": [],
+  "articles": [
+    {
+      "id": "music-to-image-project-log",
+      "featured": true,
+      "title": "从情绪意图到画面决策：音乐图像生成的工作记录",
+      "titleEn": "From affective intent to visual decisions: Notes on music-to-image generation",
+      "date": "2026.08",
+      "readTime": "7 min read",
+      "tags": [
+        "Project Log",
+        "Music-to-Image",
+        "Affective Computing"
+      ],
+      "summary": "情感可控音乐图像生成不是把音乐标签换成图像标签；真正要解决的是，如何让节奏、音色与人类意图共同影响画面的构图、风格和情绪强度。",
+      "summaryEn": "Affective music-to-image generation is not a matter of replacing music labels with image labels. The real question is how rhythm, timbre, and human intention can jointly shape composition, style, and emotional intensity.",
+      "body": [
+        "在“人机混合智能下情感可控的音乐图像生成研究”中，我关心的不是得到一张看起来与音乐有关的图，而是让生成过程能够回应人的主观意图。音乐中可被模型捕捉的节拍、频谱和语义线索，和人对画面情绪、张力、留白的判断，并不处在同一个层级。",
+        "这让项目更像一次持续的协商：模型提供跨模态候选，人以反馈修正情绪方向，系统再把这些反馈转化为可控的视觉决策。工作中最重要的不是把控制变量堆得更多，而是找出哪些反馈真的改变了体验，哪些只是表面上的偏好。"
+      ],
+      "bodyEn": [
+        "In the project on affective music-to-image generation with human-AI hybrid intelligence, I am less interested in producing an image that merely looks related to music than in making generation respond to a person's subjective intent. Beat, spectral, and semantic cues that a model can capture do not sit at the same level as a person's judgment about mood, tension, and visual breathing room.",
+        "The project therefore feels like an ongoing negotiation: the model proposes cross-modal candidates, a person redirects the affective trajectory through feedback, and the system turns that feedback into controllable visual decisions. The important task is not to add more control variables, but to find which kinds of feedback genuinely change the experience."
+      ]
+    },
+    {
+      "id": "digital-therapeutics-project-log",
+      "title": "数字疗法项目里，先把“支持”说清楚",
+      "titleEn": "In digital therapeutics, define what support means first",
+      "date": "2026.07",
+      "readTime": "5 min read",
+      "tags": [
+        "Project Log",
+        "Digital Therapeutics",
+        "Human-AI Collaboration"
+      ],
+      "summary": "多模态数字药物的研究不应只追求生成质量。系统若要成为一种支持，需要从使用场景、情绪负荷和人的自主性重新定义有效性。",
+      "summaryEn": "Multimodal digital therapeutics should not optimize for generation quality alone. A system becomes supportive only when effectiveness is reconsidered through context, emotional load, and human autonomy.",
+      "body": [
+        "在“人机混合下基于多模态的数字药物研究”中，技术问题常常比真正的问题更容易被写下来。我们可以衡量模型是否识别出情绪、是否生成了合适的内容，却很难仅凭这些指标回答：它是否在合适的时刻给到了恰当的支持。",
+        "我的工作重点是把这类模糊的体验拆成可以观察、讨论和迭代的维度。人机混合的价值不在于把人变成模型的标注补丁，而在于让系统保留人的判断、犹豫与边界。"
+      ],
+      "bodyEn": [
+        "In the multimodal digital therapeutics project, technical questions are often easier to write down than the real question. We can measure whether a model recognizes emotion or generates appropriate content, but those metrics alone cannot answer whether it offered the right support at the right moment.",
+        "My focus is to break this ambiguous experience into dimensions that can be observed, discussed, and iterated on. The value of human-AI hybrid work is not turning people into annotation patches for a model, but preserving human judgment, hesitation, and boundaries inside the system."
+      ]
+    },
+    {
+      "id": "educhat-r1-open-source-log",
+      "title": "参与 EduChat-R1：开源协作如何让研究落到真实场景",
+      "titleEn": "Working on EduChat-R1: How open collaboration reaches real settings",
+      "date": "2026.06",
+      "readTime": "4 min read",
+      "tags": [
+        "Project Log",
+        "Open Source",
+        "Education AI"
+      ],
+      "summary": "参与 EduChat-R1 的过程让我重新理解开源研究：模型能力、工程协作和实际使用者的需求，必须在同一个反馈回路里被持续校准。",
+      "summaryEn": "EduChat-R1 clarified how open research works for me: model capability, engineering collaboration, and the needs of real users must be calibrated in the same feedback loop.",
+      "body": [
+        "开源教育推理模型的工作并不只是在发布一个结果。它要求研究者把抽象的能力目标转化为能被他人复现、使用和反馈的系统边界，也要求我们承认真实教育场景中的问题并不总能被单一基准衡量。",
+        "我从中获得的一个判断是：当研究走向开放协作，最重要的产出往往不止模型本身，还包括一套让不同角色能够继续对话、继续修正的工作方式。"
+      ],
+      "bodyEn": [
+        "Work on an open education reasoning model is not only about releasing a result. It asks researchers to turn abstract capability goals into system boundaries that others can reproduce, use, and critique, while acknowledging that real educational problems are not always captured by a single benchmark.",
+        "One conclusion I take from the project is that open research produces more than a model. It also produces a way of working that lets different roles keep talking, testing, and correcting together."
+      ]
+    },
+    {
+      "id": "aesthetic-alignment",
+      "title": "对齐，不只是让模型听懂音乐",
+      "titleEn": "Alignment is more than making a model understand music",
+      "date": "2026.08",
+      "readTime": "6 min read",
+      "tags": [
+        "Multimodal AI",
+        "Music-to-Image"
+      ],
+      "summary": "音乐驱动图像生成的难题并不只是跨模态映射，而是如何把节奏、张力与情感质地转换成稳定、可感知的视觉决策。",
+      "summaryEn": "Music-driven image generation is not only a cross-modal mapping problem. It is also about turning rhythm, tension, and affective texture into stable visual decisions that people can perceive.",
+      "body": [
+        "当我们说“音乐和图像对齐”时，通常想到的是语义上的对应：欢快的音乐对应明亮的画面，低沉的旋律对应冷色的构图。但真正值得研究的部分，往往发生在更细微的层级。节奏的推进、音色的颗粒感、情绪的转折，都会改变人如何看待一张图。",
+        "我更愿意把对齐理解为一种可被审视的审美协商。模型需要保留声音带来的方向感，也要为图像自身的构图和风格留出空间。好的生成结果不是逐元素翻译，而是让两个模态在同一段体验里彼此成立。"
+      ],
+      "bodyEn": [
+        "When we say that music and images are aligned, we often mean a semantic correspondence: cheerful music maps to a bright image, while a low melody maps to a cool composition. The more interesting work happens at a finer level. Rhythmic movement, the grain of a timbre, and an emotional turn can all change how a person sees an image.",
+        "I prefer to think of alignment as an aesthetic negotiation that can be examined. The model should preserve the direction carried by sound while leaving room for the image's own composition and style. A good result is not an element-by-element translation, but a moment in which both modalities make sense together."
+      ]
+    },
+    {
+      "id": "comfort-benchmark",
+      "title": "为什么“舒适感”值得成为生成模型的评价维度",
+      "titleEn": "Why comfort deserves a place in generative model evaluation",
+      "date": "2026.07",
+      "readTime": "5 min read",
+      "tags": [
+        "Digital Therapeutics",
+        "Affective Computing"
+      ],
+      "summary": "如果一张图被用于陪伴、舒缓或干预，只评价它是否真实或美观远远不够。我们还需要理解它是否给人留出了呼吸的空间。",
+      "summaryEn": "When an image is used for companionship, relief, or intervention, realism and beauty are not enough. We also need to ask whether it leaves a person room to breathe.",
+      "body": [
+        "生成模型的评价经常围绕清晰度、语义一致性或人类偏好展开。但在数字疗法的语境里，这些指标并不能完整描述使用者的体验。一个技术上优秀的画面，仍可能因为情绪强度、视觉负荷或联想路径不合适而令人不安。",
+        "把心理舒适感变成可研究的问题，并不意味着把人的感受压缩为单一分数。更有价值的做法是建立细粒度的观察维度，让不同的人、不同的情境和不同的使用目标都能被认真对待。"
+      ],
+      "bodyEn": [
+        "Generative model evaluation often centers on clarity, semantic consistency, or human preference. In a digital therapeutics context, those metrics do not fully describe the user's experience. A technically excellent image can still be unsettling because its emotional intensity, visual load, or associations are wrong for the moment.",
+        "Making psychological comfort a research question does not mean compressing human experience into a single score. A more useful approach is to establish fine-grained dimensions of observation that take different people, contexts, and goals seriously."
+      ]
+    },
+    {
+      "id": "human-in-loop",
+      "title": "人类反馈不应只是训练数据的最后一列",
+      "titleEn": "Human feedback should not be the final column in a training set",
+      "date": "2026.06",
+      "readTime": "4 min read",
+      "tags": [
+        "Human-AI Collaboration",
+        "Affective Computing"
+      ],
+      "summary": "在人机协作系统中，人不只是给模型打分的标注者，也是在定义何为有效、何为合适、何为值得继续探索的人。",
+      "summaryEn": "In human-AI systems, people are not only annotators who score model outputs. They also define what is effective, appropriate, and worth exploring next.",
+      "body": [
+        "把人放进学习回路，并不等于在训练末端增加一个偏好标签。人类反馈携带的是目标、语境、犹豫和价值判断，它决定了系统应该朝哪个方向试探，而不仅仅是哪个答案更高分。",
+        "这也是我对人机混合智能感兴趣的原因：它把“谁拥有判断权”这个问题带回到系统设计中。真正有意义的协作，不是让人替模型补漏洞，而是让模型能够参与人的思考，同时不抹去人的主动性。"
+      ],
+      "bodyEn": [
+        "Putting people in the learning loop does not mean adding a preference label at the end of training. Human feedback carries goals, context, hesitation, and values. It tells a system which direction to explore, not only which answer scored higher.",
+        "This is why human-AI hybrid intelligence interests me: it brings the question of who owns judgment back into system design. Meaningful collaboration is not asking people to patch a model's weaknesses, but allowing a model to participate in human thinking without erasing human agency."
+      ]
+    },
+    {
+      "id": "research-rhythm",
+      "title": "给研究留一点慢下来的节奏",
+      "titleEn": "Leave research room to slow down",
+      "date": "2026.05",
+      "readTime": "3 min read",
+      "tags": [
+        "Research Notes"
+      ],
+      "summary": "在不断追逐指标和截止日期的研究里，慢下来不是降低效率，而是给真正的问题留下出现的机会。",
+      "summaryEn": "In research shaped by metrics and deadlines, slowing down is not a loss of efficiency. It gives the real questions room to appear.",
+      "body": [
+        "有些研究问题并不是在实验第一次跑通时出现的，而是在你愿意回头看那些“不够好”的结果时才变得清楚。它们可能暴露了数据里的偏差，也可能提醒我们，原本设定的目标并不足够贴近人的体验。",
+        "我希望保留这样的工作节奏：快速验证想法，但不快速放弃疑问。因为许多最有价值的线索，恰好藏在看似偏离预期的地方。"
+      ],
+      "bodyEn": [
+        "Some research questions do not appear when an experiment first works. They become clear when you are willing to revisit the results that were not good enough. Those results may expose a bias in the data or show that the original goal was not close enough to human experience.",
+        "I want to keep this rhythm in my work: validate ideas quickly, but do not abandon questions quickly. Many of the most valuable clues are hidden in results that seem to miss the expected path."
+      ]
+    }
+  ],
   "researchNotes": []
 }

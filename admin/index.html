@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>工作台 · 站点内容管理 | Junjie Xu</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #07111f;
+        color: #eff6ff;
+        font-family: "DM Sans", "PingFang SC", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; color: inherit; }
+      .shell { max-width: 960px; margin: 0 auto; padding: 48px 20px 80px; }
+      .top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 34px; }
+      .top h1 { margin: 0; font-size: 24px; }
+      .top-right { display: flex; gap: 16px; align-items: center; color: #9eafc4; font-size: 13px; }
+      .top-right a { color: #75b7ff; }
+      .card {
+        border: 1px solid rgba(170, 199, 230, 0.22);
+        border-radius: 6px;
+        background: rgba(11, 26, 44, 0.66);
+        padding: 24px;
+      }
+      .card + .card { margin-top: 18px; }
+      label { display: block; margin: 0 0 6px; color: #aebdd0; font-size: 12px; font-weight: 650; text-transform: uppercase; }
+      input[type="text"], input[type="password"], input[type="month"], textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid rgba(192, 216, 241, 0.38);
+        border-radius: 3px;
+        background: rgba(4, 13, 25, 0.72);
+        color: #eff6ff;
+        font: inherit;
+        font-size: 14px;
+        outline: 0;
+      }
+      input:focus, textarea:focus { border-color: #75b7ff; }
+      textarea { resize: vertical; }
+      .field { margin-bottom: 16px; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+      .hint { margin: 8px 0 0; color: #9eafc4; font-size: 12px; line-height: 1.7; }
+      .hint a { color: #75b7ff; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 7px;
+        min-height: 42px; padding: 8px 16px;
+        border: 1px solid rgba(192, 216, 241, 0.38); border-radius: 3px;
+        background: transparent; color: #c3d1e1;
+        cursor: pointer; font-size: 13px; font-weight: 650;
+        transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+      }
+      .btn:hover { border-color: #75b7ff; background: rgba(117, 183, 255, 0.1); color: #eff6ff; }
+      .btn-primary { border-color: rgba(117, 183, 255, 0.62); background: rgba(117, 183, 255, 0.12); color: #eff6ff; }
+      .btn-primary:hover { background: #75b7ff; color: #07111f; }
+      .btn-danger { border-color: rgba(255, 139, 114, 0.5); color: #ff9b86; }
+      .btn-danger:hover { border-color: #ff9b86; background: rgba(255, 139, 114, 0.1); color: #ffb4a2; }
+      .btn:disabled { opacity: 0.55; cursor: wait; }
+      .status { min-height: 22px; margin: 14px 0 0; color: #9eafc4; font-size: 13px; }
+      .status[data-kind="error"] { color: #ff9b86; }
+      .status[data-kind="success"] { color: #69ddb5; }
+      .status a { color: #75b7ff; }
+      .post-list { margin: 0; padding: 0; list-style: none; }
+      .post-list li {
+        display: flex; justify-content: space-between; gap: 14px; align-items: center;
+        padding: 14px 0; border-bottom: 1px solid rgba(170, 199, 230, 0.14);
+      }
+      .post-list strong { display: block; font-size: 14px; font-weight: 650; }
+      .post-list span { display: block; margin-top: 3px; color: #9eafc4; font-size: 12px; }
+      .row-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+      .tabs { display: flex; gap: 14px; margin-bottom: 12px; border-bottom: 1px solid rgba(170, 199, 230, 0.2); }
+      .tab { min-height: 38px; padding: 4px 2px 8px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #9eafc4; cursor: pointer; font-size: 13px; font-weight: 650; }
+      .tab.is-active { border-bottom-color: #75b7ff; color: #eff6ff; }
+      .preview { min-height: 200px; padding: 4px 2px; color: #c3d1e1; font-size: 14px; line-height: 1.8; }
+      .preview h1, .preview h2, .preview h3 { color: #eff6ff; }
+      .preview code { padding: 2px 5px; border: 1px solid rgba(170, 199, 230, 0.2); background: rgba(143, 188, 231, 0.08); border-radius: 2px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.9em; }
+      .preview pre { overflow-x: auto; padding: 12px 14px; border: 1px solid rgba(170, 199, 230, 0.2); background: rgba(1, 8, 17, 0.55); }
+      .preview blockquote { margin: 0 0 12px; padding-left: 14px; border-left: 2px solid #75b7ff; color: #aebdd0; }
+      .checkbox { display: flex; align-items: center; gap: 8px; color: #c3d1e1; font-size: 13px; text-transform: none; }
+      .checkbox input { width: auto; }
+      .hidden { display: none !important; }
+      @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="top">
+        <h1>站点内容管理</h1>
+        <div class="top-right hidden" id="session-info">
+          <span id="session-user"></span>
+          <a href="/" target="_blank" rel="noreferrer">查看站点 ↗</a>
+          <button class="btn" type="button" id="logout-btn">退出登录</button>
+        </div>
+      </div>
+
+      <div class="card" id="login-card">
+        <div class="field">
+          <label for="login-username">GitHub 用户名</label>
+          <input id="login-username" type="text" autocomplete="username" placeholder="AndreJJXu" />
+        </div>
+        <div class="field">
+          <label for="login-token">访问令牌（作为密码）</label>
+          <input id="login-token" type="password" autocomplete="current-password" placeholder="github_pat_… 或 gho_…" />
+          <p class="hint">
+            本站是纯静态站点，没有服务器保存密码。这里使用 GitHub 细粒度访问令牌（Fine-grained Personal Access Token）作为密码，仅授予本仓库的 Contents 读写权限，站点内容之外什么也做不了。
+            <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer noopener">创建令牌 ↗</a>
+            （Repository access 选本仓库，Permissions → Contents → Read and write；令牌只在当前浏览器会话中保存，关闭标签页即失效。）
+          </p>
+        </div>
+        <button class="btn btn-primary" type="button" id="login-btn">登录</button>
+        <p class="status" id="login-status" aria-live="polite"></p>
+      </div>
+
+      <div id="app" class="hidden">
+        <div class="card">
+          <div class="top" style="margin-bottom: 10px">
+            <h1 style="font-size: 18px">已发布的工作记录</h1>
+            <button class="btn btn-primary" type="button" id="new-post-btn">＋ 新建记录</button>
+          </div>
+          <ul class="post-list" id="post-list"></ul>
+          <p class="status" id="list-status" aria-live="polite"></p>
+        </div>
+
+        <div class="card hidden" id="editor-card">
+          <div class="field">
+            <label for="post-title">标题</label>
+            <input id="post-title" type="text" placeholder="记录的标题" />
+          </div>
+          <div class="grid">
+            <div class="field">
+              <label for="post-slug">ID（URL 标识，创建后建议不改）</label>
+              <input id="post-slug" type="text" placeholder="my-new-post" />
+            </div>
+            <div class="field">
+              <label for="post-date">日期</label>
+              <input id="post-date" type="month" />
+            </div>
+          </div>
+          <div class="grid">
+            <div class="field">
+              <label for="post-tags">标签（英文逗号分隔）</label>
+              <input id="post-tags" type="text" placeholder="Project Log, Affective Computing" />
+            </div>
+            <div class="field">
+              <label class="checkbox" for="post-featured"><input id="post-featured" type="checkbox" /> 设为精选记录</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="post-summary">摘要</label>
+            <textarea id="post-summary" rows="2" placeholder="显示在列表页的一段简介"></textarea>
+          </div>
+          <div class="field">
+            <div class="tabs" role="tablist">
+              <button class="tab is-active" type="button" id="tab-write">撰写</button>
+              <button class="tab" type="button" id="tab-preview">预览</button>
+            </div>
+            <textarea id="post-body" rows="16" placeholder="用 Markdown 撰写正文…"></textarea>
+            <div class="preview markdown-body hidden" id="post-preview"></div>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap">
+            <button class="btn btn-primary" type="button" id="save-btn">保存并发布</button>
+            <button class="btn" type="button" id="cancel-btn">取消</button>
+            <button class="btn btn-danger hidden" type="button" id="delete-btn">删除此记录</button>
+          </div>
+          <p class="status" id="editor-status" aria-live="polite"></p>
+          <p class="hint">保存即提交到 GitHub 仓库并触发自动部署，通常约 1 分钟后出现在站点上。</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./admin.js"></script>
+  </body>
+</html>

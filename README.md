@@ -102,3 +102,13 @@ The site is published as a GitHub Pages user site, so every folder pushed to the
 **Bundled demos (React/Vite projects):** keep each demo in its own repository and enable GitHub Pages there as a project site. It is then served at `https://andrejjxu.github.io/<repo-name>/`; remember to set the Vite `base` option to `/<repo-name>/` in that repo so assets resolve.
 
 Link new demos from the main page (for example, a project card `url` in `content/published.json`, or a dedicated Demos nav entry) once they are deployed.
+
+## Online admin workbench (write and publish from anywhere)
+
+The site ships with a token-authenticated admin page that turns GitHub into the backend: login, edit articles in `content/published.json`, save, and the deploy workflow publishes automatically (~1 minute).
+
+1. Open `https://andrejjxu.github.io/admin/`.
+2. Create a fine-grained personal access token at https://github.com/settings/personal-access-tokens/new — restrict it to this repository only, with **Contents: Read and write**.
+3. Log in with your GitHub username and the token (it acts as the password). The token is kept only in this browser's storage and is sent only to `api.github.com`.
+
+Features: create/edit/delete bilingual posts (Chinese/English title, summary, body), tags, featured flag, conflict detection (409) when the file changed elsewhere, Cmd/Ctrl+S to save. Every deploy runs `npm run check` first, so malformed content fails the build instead of breaking the live site.
