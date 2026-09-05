@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#07111f" />
+    <meta name="theme-color" content="#060d18" />
     <title>内容管理工作台 · Junjie Xu</title>
     <style>
       :root {
@@ -49,8 +49,14 @@
 
       ::selection { background: rgba(111, 179, 255, 0.35); }
 
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-thumb { border-radius: 99px; background: rgba(143, 161, 184, 0.28); }
+      ::-webkit-scrollbar-track { background: transparent; }
+
       button { font: inherit; color: inherit; cursor: pointer; }
       input, textarea { font: inherit; color: inherit; }
+
+      /* ---------- 登录 ---------- */
 
       .login-stage {
         display: grid;
@@ -200,13 +206,7 @@
         color: #ffb4a2;
       }
 
-      .notice[data-kind="success"] {
-        border: 1px solid rgba(95, 216, 174, 0.4);
-        background: rgba(95, 216, 174, 0.1);
-        color: var(--success);
-      }
-
-      /* ---------- editor shell ---------- */
+      /* ---------- 编辑器骨架 ---------- */
 
       .shell {
         display: flex;
@@ -240,10 +240,7 @@
         font-weight: 700;
       }
 
-      .topbar-title {
-        flex: 1;
-        min-width: 0;
-      }
+      .topbar-title { flex: 1; min-width: 0; }
 
       .topbar-title strong {
         display: block;
@@ -285,7 +282,7 @@
       .workbench {
         display: grid;
         flex: 1;
-        grid-template-columns: 336px minmax(0, 1fr);
+        grid-template-columns: 330px minmax(0, 1fr);
         gap: 26px;
         width: min(1240px, 100%);
         margin: 0 auto;
@@ -306,8 +303,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 18px 20px;
-        border-bottom: 1px solid var(--line);
+        padding: 18px 20px 14px;
       }
 
       .panel-head h2 {
@@ -322,27 +318,53 @@
         font-size: 12px;
       }
 
-      .btn-new {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 7px 13px;
-        border: 0;
+      .search-wrap { padding: 0 14px 10px; }
+
+      .search-wrap input {
+        width: 100%;
+        padding: 8px 13px;
+        border: 1px solid var(--line);
         border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
-        font-size: 12.5px;
-        font-weight: 620;
-        transition: background-color 160ms ease, transform 140ms ease;
+        outline: 0;
+        background: rgba(3, 10, 20, 0.45);
+        color: var(--ink);
+        font-size: 13px;
+        transition: border-color 180ms ease, box-shadow 180ms ease;
       }
 
-      .btn-new:hover { background: rgba(111, 179, 255, 0.24); }
-      .btn-new:active { transform: scale(0.96); }
+      .search-wrap input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(111, 179, 255, 0.13);
+      }
+
+      .search-wrap input::placeholder { color: rgba(143, 161, 184, 0.55); }
+
+      .new-wrap { padding: 0 14px 12px; }
+
+      .btn-new {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 9px 14px;
+        border: 0;
+        border-radius: var(--radius-m);
+        background: linear-gradient(180deg, #7cb6ff, #558fe0);
+        color: #04101f;
+        font-size: 13.5px;
+        font-weight: 640;
+        transition: filter 160ms ease, transform 140ms ease;
+        box-shadow: 0 8px 22px rgba(90, 148, 214, 0.25);
+      }
+
+      .btn-new:hover { filter: brightness(1.07); }
+      .btn-new:active { transform: scale(0.98); }
 
       .article-list {
-        max-height: calc(100svh - 220px);
+        max-height: calc(100svh - 328px);
         margin: 0;
-        padding: 8px;
+        padding: 4px 8px 10px;
         overflow-y: auto;
         list-style: none;
       }
@@ -350,7 +372,7 @@
       .article-item {
         display: block;
         width: 100%;
-        padding: 13px 14px;
+        padding: 12px 14px;
         border: 0;
         border-radius: var(--radius-m);
         background: transparent;
@@ -374,7 +396,12 @@
         line-height: 1.4;
       }
 
-      .article-item-title span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .article-item-title span {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
       .badge {
         flex: 0 0 auto;
@@ -388,26 +415,39 @@
       }
 
       .article-item-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
         margin: 5px 0 0;
         color: var(--ink-tertiary);
         font-size: 11.5px;
       }
 
-      /* ---------- form ---------- */
-
-      .editor-panel { padding-bottom: 8px; }
-
-      .form-body { padding: 22px 24px 10px; }
-
-      .form-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 15px 16px;
+      .list-empty {
+        padding: 34px 16px;
+        color: var(--ink-tertiary);
+        font-size: 12.5px;
+        text-align: center;
       }
+
+      /* ---------- 表单 ---------- */
+
+      .form-body { padding: 22px 24px 8px; }
+
+      .section-label {
+        margin: 0 0 12px;
+        color: var(--ink-tertiary);
+        font-size: 11px;
+        font-weight: 650;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .section-label:not(:first-child) { margin-top: 22px; }
 
       .form-field { display: grid; gap: 6px; min-width: 0; }
 
-      .form-field.span-2 { grid-column: 1 / -1; }
+      .form-field + .form-field { margin-top: 15px; }
 
       .form-field label {
         color: var(--ink-tertiary);
@@ -433,9 +473,120 @@
 
       .form-field textarea { resize: vertical; line-height: 1.7; }
 
+      .form-field input:focus,
+      .form-field textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(111, 179, 255, 0.14);
+      }
+
+      .form-field input::placeholder,
+      .form-field textarea::placeholder { color: rgba(143, 161, 184, 0.55); }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: 96px 110px minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 15px;
+      }
+
+      .meta-grid .form-field { margin-top: 0; }
+
+      .option-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 17px;
+        padding: 11px 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-m);
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .option-row .hint-text {
+        flex: 1;
+        color: var(--ink-secondary);
+        font-size: 12.5px;
+      }
+
+      .option-row .hint-text small {
+        display: block;
+        margin-top: 1px;
+        color: var(--ink-tertiary);
+        font-size: 11px;
+      }
+
+      .switch { position: relative; flex: 0 0 auto; width: 40px; height: 24px; }
+
+      .switch input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+
+      .switch .knob {
+        position: absolute;
+        inset: 0;
+        border-radius: 999px;
+        background: rgba(143, 161, 184, 0.35);
+        transition: background-color 200ms ease;
+      }
+
+      .switch .knob::after {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+        transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+        content: "";
+      }
+
+      .switch input:checked + .knob { background: var(--success); }
+
+      .switch input:checked + .knob::after { transform: translateX(16px); }
+
+      .segment {
+        display: inline-flex;
+        gap: 3px;
+        margin-top: 24px;
+        padding: 3px;
+        border-radius: 999px;
+        background: rgba(3, 10, 20, 0.5);
+        border: 1px solid var(--line);
+      }
+
+      .segment button {
+        padding: 7px 20px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--ink-tertiary);
+        font-size: 13px;
+        font-weight: 600;
+        transition: background-color 180ms ease, color 180ms ease;
+      }
+
+      .segment button.is-active {
+        background: var(--surface-strong);
+        color: var(--ink);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      .lang-hint {
+        margin: 10px 0 0;
+        color: var(--ink-tertiary);
+        font-size: 12px;
+      }
+
       .body-toolbar {
         display: flex;
         gap: 8px;
+        align-items: center;
+      }
+
+      .body-toolbar .word-count {
+        margin-left: auto;
+        color: var(--ink-tertiary);
+        font-size: 11.5px;
       }
 
       .tool-btn {
@@ -493,37 +644,20 @@
 
       .body-preview a { color: var(--accent); }
 
-      .form-field input:focus,
-      .form-field textarea:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 4px rgba(111, 179, 255, 0.14);
-      }
-
-      .form-field input::placeholder,
-      .form-field textarea::placeholder { color: rgba(143, 161, 184, 0.55); }
-
-      .form-field.checkbox-row {
-        grid-template-columns: auto 1fr;
-        align-items: center;
-        gap: 9px;
-      }
-
-      .form-field.checkbox-row label { font-size: 12.5px; }
-
-      .form-field.checkbox-row input {
-        width: 15px;
-        height: 15px;
-        margin: 0;
-        accent-color: var(--accent);
-      }
-
       .form-foot {
+        position: sticky;
+        bottom: 0;
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
-        padding: 16px 24px 20px;
+        margin-top: 18px;
+        padding: 16px 24px;
         border-top: 1px solid var(--line);
+        border-radius: 0 0 var(--radius-l) var(--radius-l);
+        background: rgba(9, 17, 30, 0.88);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
       }
 
       .btn-danger-ghost {
@@ -550,11 +684,16 @@
       }
 
       .status-line[data-kind="error"] { color: #ffb4a2; }
+
       .status-line[data-kind="success"] { color: var(--success); }
+
       .status-line a { color: var(--accent); }
 
       .save-btn {
-        padding: 11px 26px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 24px;
         border: 0;
         border-radius: var(--radius-s);
         background: linear-gradient(180deg, #7cb6ff, #558fe0);
@@ -562,30 +701,57 @@
         font-size: 14px;
         font-weight: 650;
         box-shadow: 0 10px 26px rgba(90, 148, 214, 0.3);
-        transition: filter 160ms ease, transform 140ms ease;
+        transition: filter 160ms ease, transform 140ms ease, opacity 160ms ease;
       }
 
       .save-btn:hover { filter: brightness(1.07); }
       .save-btn:active { transform: scale(0.98); }
       .save-btn:disabled { opacity: 0.55; cursor: wait; }
 
+      .save-btn .kbd {
+        padding: 1px 6px;
+        border-radius: 5px;
+        background: rgba(4, 16, 31, 0.22);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(4, 16, 31, 0.3);
+        border-top-color: #04101f;
+        border-radius: 50%;
+        animation: spin 700ms linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
       .empty-hint {
-        padding: 60px 24px;
+        padding: 90px 24px;
         color: var(--ink-tertiary);
         font-size: 13.5px;
         text-align: center;
       }
 
       @media (max-width: 900px) {
-        .workbench { grid-template-columns: minmax(0, 1fr); padding: 20px 16px 32px; }
+        .workbench { grid-template-columns: minmax(0, 1fr); padding: 20px 16px 32px; gap: 18px; }
 
-        .article-list { max-height: 300px; }
+        .article-list { max-height: 260px; }
 
-        .form-grid { grid-template-columns: minmax(0, 1fr); }
+        .meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-        .form-foot { align-items: stretch; flex-direction: column; }
+        .meta-grid .form-field:nth-child(3) { grid-column: 1 / -1; }
+
+        .form-foot { align-items: stretch; flex-direction: column-reverse; }
 
         .status-line { text-align: left; }
+
+        .save-btn { width: 100%; justify-content: center; }
+
+        .btn-danger-ghost { margin-right: 0; }
+
+        .topbar { padding: 12px 16px; gap: 12px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -641,27 +807,33 @@
       </header>
 
       <div class="workbench">
+        <!-- 文章列表 -->
         <section class="panel">
           <div class="panel-head">
             <h2>工作记录</h2>
             <span class="count" id="list-count"></span>
-            <button class="btn-new" type="button" id="new-btn">＋ 新文章</button>
+          </div>
+          <div class="search-wrap">
+            <input id="article-search" type="search" placeholder="搜索标题或标签…" autocomplete="off" />
+          </div>
+          <div class="new-wrap">
+            <button class="btn-new" type="button" id="new-btn">＋ 写新文章</button>
           </div>
           <ul class="article-list" id="article-list"></ul>
         </section>
 
-        <section class="panel editor-panel">
+        <!-- 编辑器 -->
+        <section class="panel">
           <form id="editor-form" novalidate>
             <div class="form-body">
-              <div class="form-grid">
-                <div class="form-field span-2">
-                  <label for="f-title">中文标题</label>
-                  <input id="f-title" required placeholder="文章标题" />
-                </div>
-                <div class="form-field span-2">
-                  <label for="f-title-en">英文标题 <small>可选</small></label>
-                  <input id="f-title-en" placeholder="English title" />
-                </div>
+              <p class="section-label">文章信息</p>
+
+              <div class="form-field">
+                <label for="f-title">标题</label>
+                <input id="f-title" required placeholder="文章标题" />
+              </div>
+
+              <div class="meta-grid">
                 <div class="form-field">
                   <label for="f-date">日期</label>
                   <input id="f-date" required placeholder="2026.09" pattern="\d{4}\.\d{2}" title="格式：YYYY.MM" />
@@ -670,54 +842,82 @@
                   <label for="f-read">阅读时长</label>
                   <input id="f-read" required placeholder="5 min read" />
                 </div>
-                <div class="form-field span-2">
-                  <label for="f-tags">标签 <small>英文逗号分隔</small></label>
-                  <input id="f-tags" required placeholder="Project Log, Music-to-Image" />
+                <div class="form-field">
+                  <label for="f-tags">标签 <small>逗号分隔</small></label>
+                  <input id="f-tags" required placeholder="Project Log, Affective Computing" />
                 </div>
-                <div class="form-field span-2">
-                  <label for="f-summary">中文摘要</label>
-                  <textarea id="f-summary" rows="3" required placeholder="一两句话概括这篇文章"></textarea>
+              </div>
+
+              <div class="option-row">
+                <span class="hint-text">
+                  设为精选
+                  <small>置顶为首页大卡片，全站仅展示一篇</small>
+                </span>
+                <label class="switch">
+                  <input type="checkbox" id="f-featured" />
+                  <span class="knob" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <div class="segment" role="tablist" aria-label="语言">
+                <button type="button" data-lang="zh" class="is-active">中文内容</button>
+                <button type="button" data-lang="en">English</button>
+              </div>
+
+              <div id="pane-zh">
+                <div class="form-field">
+                  <label for="f-summary">摘要</label>
+                  <textarea id="f-summary" rows="3" required placeholder="一两句话概括这篇文章，会显示在列表卡片上"></textarea>
                 </div>
-                <div class="form-field span-2">
-                  <label for="f-summary-en">英文摘要 <small>可选</small></label>
-                  <textarea id="f-summary-en" rows="3" placeholder="English summary"></textarea>
-                </div>
-                <div class="form-field span-2">
-                  <label for="f-body">中文正文 <small>支持 Markdown · 可直接粘贴或拖入图片</small></label>
+                <div class="form-field">
+                  <label for="f-body">正文 <small>Markdown · 支持粘贴 / 拖入图片</small></label>
                   <div class="body-toolbar">
                     <button type="button" class="tool-btn" data-body-action="image" data-target="f-body">图片</button>
                     <button type="button" class="tool-btn" data-body-action="preview" data-target="f-body">预览</button>
+                    <span class="word-count" id="word-count"></span>
                   </div>
-                  <textarea id="f-body" rows="10" placeholder="支持 Markdown：## 小标题、**加粗**、[链接](网址)、![图片说明](图片地址)&#10;截图后直接 ⌘V 粘贴，或把图片文件拖进这里，会自动上传并插入"></textarea>
+                  <textarea id="f-body" rows="11" placeholder="支持 Markdown：## 小标题、**加粗**、[链接](网址)、![图片说明](图片地址)&#10;截图后直接 ⌘V 粘贴，或把图片文件拖进这里，会自动上传并插入"></textarea>
                   <div class="body-preview" id="f-body-preview" hidden></div>
                 </div>
-                <div class="form-field span-2">
-                  <label for="f-body-en">英文正文 <small>可选 · Markdown</small></label>
+              </div>
+
+              <div id="pane-en" hidden>
+                <p class="lang-hint">英文内容留空时，站点会自动显示中文内容，建议至少填写英文标题。</p>
+                <div class="form-field">
+                  <label for="f-title-en">English title</label>
+                  <input id="f-title-en" placeholder="English title" />
+                </div>
+                <div class="form-field">
+                  <label for="f-summary-en">Summary</label>
+                  <textarea id="f-summary-en" rows="3" placeholder="English summary"></textarea>
+                </div>
+                <div class="form-field">
+                  <label for="f-body-en">Body <small>Markdown</small></label>
                   <div class="body-toolbar">
                     <button type="button" class="tool-btn" data-body-action="image" data-target="f-body-en">Image</button>
                     <button type="button" class="tool-btn" data-body-action="preview" data-target="f-body-en">Preview</button>
                   </div>
-                  <textarea id="f-body-en" rows="10" placeholder="English body in Markdown — optional"></textarea>
+                  <textarea id="f-body-en" rows="11" placeholder="English body in Markdown — optional"></textarea>
                   <div class="body-preview" id="f-body-en-preview" hidden></div>
-                </div>
-                <input type="file" id="image-input" accept="image/*" hidden />
-                <div class="form-field span-2 checkbox-row">
-                  <input type="checkbox" id="f-featured" />
-                  <label for="f-featured">设为精选（置顶大卡片，全站仅一篇）</label>
                 </div>
               </div>
             </div>
+
             <div class="form-foot">
               <button class="btn-danger-ghost" type="button" id="delete-btn" hidden>删除这篇文章</button>
               <p class="status-line" id="status-line"></p>
-              <button class="save-btn" type="submit" id="save-btn">保存并发布</button>
+              <button class="save-btn" type="submit" id="save-btn">
+                <span id="save-label">保存并发布</span>
+                <span class="kbd">⌘S</span>
+              </button>
             </div>
           </form>
-          <p class="empty-hint" id="empty-hint" hidden>从左侧选择一篇文章，或点击「新文章」开始写作。</p>
+          <p class="empty-hint" id="empty-hint" hidden>从左侧选择一篇文章，或点击「写新文章」开始创作。</p>
         </section>
       </div>
     </div>
 
+    <input type="file" id="image-input" accept="image/*" hidden />
     <script>
       const REPO = "AndreJJXu/AndreJJXu.github.io";
       const CONTENT_PATH = "content/published.json";
@@ -731,6 +931,7 @@
         data: null,
         selectedId: "",
         dirty: false,
+        lang: "zh",
       };
 
       const $ = (id) => document.getElementById(id);
@@ -762,6 +963,22 @@
         notice.hidden = !message;
       }
 
+      function setSaveBusy(busy) {
+        const button = $("save-btn");
+        button.disabled = busy;
+        $("save-label").textContent = busy ? "处理中…" : "保存并发布";
+        let spinner = button.querySelector(".spinner");
+        if (busy && !spinner) {
+          spinner = document.createElement("span");
+          spinner.className = "spinner";
+          button.prepend(spinner);
+          button.querySelector(".kbd").hidden = true;
+        } else if (!busy && spinner) {
+          spinner.remove();
+          button.querySelector(".kbd").hidden = false;
+        }
+      }
+
       async function api(path, options = {}) {
         const response = await fetch(`https://api.github.com${path}`, {
           ...options,
@@ -780,6 +997,17 @@
           throw error;
         }
         return response.status === 204 ? null : response.json();
+      }
+
+      /* ---------- 语言分段 ---------- */
+
+      function setLang(lang) {
+        state.lang = lang;
+        document.querySelectorAll(".segment button").forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.lang === lang);
+        });
+        $("pane-zh").hidden = lang !== "zh";
+        $("pane-en").hidden = lang !== "en";
       }
 
       /* ---------- 登录 ---------- */
@@ -850,11 +1078,31 @@
 
       function renderList() {
         const list = $("article-list");
+        const query = ($("article-search").value || "").trim().toLowerCase();
         const articles = state.data.articles;
-        $("list-count").textContent = `${articles.length} 篇`;
+        const visible = articles.filter((article) => {
+          if (!query) return true;
+          return (
+            String(article.title || "").toLowerCase().includes(query) ||
+            String(article.titleEn || "").toLowerCase().includes(query) ||
+            (article.tags || []).some((tag) => tag.toLowerCase().includes(query))
+          );
+        });
+
+        $("list-count").textContent = query
+          ? `${visible.length} / ${articles.length} 篇`
+          : `${articles.length} 篇`;
         list.innerHTML = "";
 
-        for (const article of articles) {
+        if (!visible.length) {
+          const empty = document.createElement("li");
+          empty.className = "list-empty";
+          empty.textContent = query ? "没有匹配的文章" : "还没有文章，点「写新文章」开始。";
+          list.append(empty);
+          return;
+        }
+
+        for (const article of visible) {
           const item = document.createElement("li");
           const button = document.createElement("button");
           button.type = "button";
@@ -864,16 +1112,35 @@
               ${article.featured ? '<span class="badge">精选</span>' : ""}
               <span></span>
             </span>
-            <p class="article-item-meta"></p>`;
+            <span class="article-item-meta"><em></em><b></b></span>`;
           button.querySelector(".article-item-title span").textContent = article.title || article.id;
-          button.querySelector(".article-item-meta").textContent = `${article.date || ""} · ${article.readTime || ""}`;
+          button.querySelector(".article-item-meta em").textContent = article.date || "";
+          button.querySelector(".article-item-meta b").textContent = article.readTime || "";
           button.addEventListener("click", () => selectArticle(article.id));
           item.append(button);
           list.append(item);
         }
       }
 
-  function selectArticle(id) {
+      function resetBodyPane(fieldId) {
+        const textarea = $(fieldId);
+        const pane = $(`${fieldId}-preview`);
+        const button = document.querySelector(`.tool-btn[data-body-action="preview"][data-target="${fieldId}"]`);
+        if (pane) {
+          pane.hidden = true;
+          pane.innerHTML = "";
+        }
+        textarea.hidden = false;
+        if (button) button.textContent = fieldId === "f-body" ? "预览" : "Preview";
+        if (fieldId === "f-body") updateWordCount();
+      }
+
+      function updateWordCount() {
+        const text = $("f-body").value.trim();
+        $("word-count").textContent = text ? `${text.replace(/\s/g, "").length} 字` : "";
+      }
+
+      function selectArticle(id) {
         if (state.dirty && !window.confirm("当前文章尚未保存，切换将丢失修改。继续？")) return;
         const article = state.data.articles.find((item) => item.id === id);
         if (!article) return;
@@ -881,17 +1148,18 @@
         state.dirty = false;
 
         $("f-title").value = article.title || "";
-        $("f-title-en").value = article.titleEn || "";
         $("f-date").value = article.date || "";
         $("f-read").value = article.readTime || "";
         $("f-tags").value = (article.tags || []).join(", ");
         $("f-summary").value = article.summary || "";
-        $("f-summary-en").value = article.summaryEn || "";
         $("f-body").value = article.bodyMarkdown || (article.body || []).join("\n\n");
+        $("f-title-en").value = article.titleEn || "";
+        $("f-summary-en").value = article.summaryEn || "";
         $("f-body-en").value = article.bodyMarkdownEn || (article.bodyEn || []).join("\n\n");
         $("f-featured").checked = Boolean(article.featured);
         resetBodyPane("f-body");
         resetBodyPane("f-body-en");
+        setLang("zh");
 
         $("editor-form").hidden = false;
         $("empty-hint").hidden = true;
@@ -912,6 +1180,7 @@
         $("f-read").value = "5 min read";
         resetBodyPane("f-body");
         resetBodyPane("f-body-en");
+        setLang("zh");
 
         $("editor-form").hidden = false;
         $("empty-hint").hidden = true;
@@ -920,12 +1189,6 @@
         setStatus("新文章：填写完成后保存即可发布。");
         $("f-title").focus();
       }
-
-      const paragraphs = (value) =>
-        String(value || "")
-          .split(/\n\s*\n/)
-          .map((p) => p.trim())
-          .filter(Boolean);
 
       function provisionalId() {
         return (
@@ -937,10 +1200,10 @@
       function collectForm() {
         const title = $("f-title").value.trim();
         const tags = $("f-tags").value.split(",").map((t) => t.trim()).filter(Boolean);
-        if (!title) throw new Error("请填写中文标题。");
+        if (!title) throw new Error("请填写标题。");
         if (!tags.length) throw new Error("请至少填写一个标签。");
         const bodyMarkdown = $("f-body").value.trim();
-        if (!bodyMarkdown) throw new Error("请填写中文正文。");
+        if (!bodyMarkdown) throw new Error("请填写正文。");
 
         const article = {
           id: state.selectedId || provisionalId(),
@@ -978,8 +1241,7 @@
         if (existing >= 0) articles[existing] = article;
         else articles.unshift(article);
 
-        const button = $("save-btn");
-        button.disabled = true;
+        setSaveBusy(true);
         setStatus("正在提交到 GitHub…");
         try {
           const result = await api(`/repos/${REPO}/contents/${CONTENT_PATH}`, {
@@ -999,7 +1261,7 @@
           line.dataset.kind = "success";
           line.textContent = "";
           line.append(
-            document.createTextNode("已提交，站点正在自动部署（约 1 分钟）。"),
+            document.createTextNode("已发布，站点部署中（约 1 分钟）。"),
             " · ",
             Object.assign(document.createElement("a"), {
               href: `https://github.com/${REPO}/actions`,
@@ -1023,7 +1285,7 @@
             setStatus(`保存失败：${error.message}`, "error");
           }
         } finally {
-          button.disabled = false;
+          setSaveBusy(false);
         }
       }
 
@@ -1034,8 +1296,7 @@
         if (!window.confirm(`确定删除《${article.title}》？保存后将从公开站点移除。`)) return;
 
         state.data.articles = state.data.articles.filter((item) => item.id !== state.selectedId);
-        const button = $("save-btn");
-        button.disabled = true;
+        setSaveBusy(true);
         setStatus("正在删除…");
         try {
           const result = await api(`/repos/${REPO}/contents/${CONTENT_PATH}`, {
@@ -1062,7 +1323,7 @@
             setStatus(`删除失败：${error.message}`, "error");
           }
         } finally {
-          button.disabled = false;
+          setSaveBusy(false);
         }
       }
 
@@ -1159,18 +1420,6 @@
           .join("");
       }
 
-      function resetBodyPane(fieldId) {
-        const textarea = $(fieldId);
-        const pane = $(`${fieldId}-preview`);
-        const button = document.querySelector(`.tool-btn[data-body-action="preview"][data-target="${fieldId}"]`);
-        if (pane) {
-          pane.hidden = true;
-          pane.innerHTML = "";
-        }
-        textarea.hidden = false;
-        if (button) button.textContent = fieldId === "f-body" ? "预览" : "Preview";
-      }
-
       function toggleBodyPreview(fieldId) {
         const textarea = $(fieldId);
         const pane = $(`${fieldId}-preview`);
@@ -1193,6 +1442,7 @@
         state.data = null;
         state.sha = "";
         state.selectedId = "";
+        state.dirty = false;
         localStorage.removeItem(STORAGE_KEY);
         sessionStorage.removeItem(STORAGE_KEY);
         editorView.hidden = true;
@@ -1201,7 +1451,7 @@
         setLoginNotice(message);
       }
 
-      /* ---------- 启动 ---------- */
+      /* ---------- 启动与事件 ---------- */
 
       $("login-form").addEventListener("submit", handleLogin);
       $("logout-btn").addEventListener("click", () => logout());
@@ -1211,15 +1461,22 @@
         loadContent();
       });
       $("new-btn").addEventListener("click", newArticle);
+      $("article-search").addEventListener("input", renderList);
       $("editor-form").addEventListener("submit", saveArticle);
       $("delete-btn").addEventListener("click", deleteArticle);
 
-      const imageInput = $("image-input");
+      document.querySelectorAll(".segment button").forEach((button) => {
+        button.addEventListener("click", () => setLang(button.dataset.lang));
+      });
+
+      $("f-body").addEventListener("input", updateWordCount);
+
       document.addEventListener("click", (event) => {
         const button = event.target.closest(".tool-btn[data-body-action]");
         if (!button) return;
         const fieldId = button.dataset.target;
         if (button.dataset.bodyAction === "image") {
+          const imageInput = $("image-input");
           imageInput.dataset.target = fieldId;
           imageInput.value = "";
           imageInput.click();
@@ -1228,10 +1485,10 @@
         }
       });
 
-      imageInput.addEventListener("change", () => {
-        const file = imageInput.files[0];
+      $("image-input").addEventListener("change", (event) => {
+        const file = event.target.files[0];
         if (!file) return;
-        uploadImageFile(file, $(imageInput.dataset.target || "f-body"));
+        uploadImageFile(file, $(event.target.dataset.target || "f-body"));
       });
 
       for (const fieldId of ["f-body", "f-body-en"]) {
