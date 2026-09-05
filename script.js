@@ -5,7 +5,7 @@ import publishedContent from "./content/published.json";
 const siteData = {
   contact: {
     email: "jjxu_dr@stu.ecnu.edu.cn",
-    cvUrl: "",
+    cvUrl: "/cv/",
   },
   profiles: [
     {
