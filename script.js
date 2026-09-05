@@ -336,7 +336,18 @@ function articleMeta(article) {
 }
 
 function articleBody(article) {
-  const body = article.bodyHtml || article.body.map((paragraph) => `<p>${escapeHTML(paragraph)}</p>`).join("");
+  let body = "";
+  if (article.bodyHtml) {
+    body = article.bodyHtml;
+  } else if (article.bodyMarkdown) {
+    try {
+      body = renderMarkdown(article.bodyMarkdown);
+    } catch {
+      body = `<p>${escapeHTML(article.bodyMarkdown)}</p>`;
+    }
+  } else if (Array.isArray(article.body) && article.body.length) {
+    body = article.body.map((paragraph) => `<p>${escapeHTML(paragraph)}</p>`).join("");
+  }
   return `<div class="markdown-body">${body}</div>`;
 }
 
@@ -372,6 +383,7 @@ function renderWriting() {
           summary: article.summaryEn || article.summary,
           body: article.bodyEn || article.body,
           bodyHtml: article.bodyHtmlEn || article.bodyHtml,
+          bodyMarkdown: article.bodyMarkdownEn || article.bodyMarkdown,
         }
       : article,
   );

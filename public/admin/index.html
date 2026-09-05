@@ -433,6 +433,66 @@
 
       .form-field textarea { resize: vertical; line-height: 1.7; }
 
+      .body-toolbar {
+        display: flex;
+        gap: 8px;
+      }
+
+      .tool-btn {
+        padding: 5px 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--ink-secondary);
+        font-size: 12px;
+        font-weight: 570;
+        transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+      }
+
+      .tool-btn:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        color: var(--ink);
+      }
+
+      .body-preview {
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-s);
+        background: rgba(3, 10, 20, 0.5);
+        min-height: 120px;
+        max-height: 420px;
+        overflow-y: auto;
+        color: var(--ink-secondary);
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .body-preview img {
+        display: block;
+        max-width: 100%;
+        margin: 10px 0;
+        border-radius: var(--radius-s);
+      }
+
+      .body-preview h4 { margin: 14px 0 6px; color: var(--ink); }
+
+      .body-preview blockquote {
+        margin: 10px 0;
+        padding: 4px 14px;
+        border-left: 3px solid var(--accent);
+      }
+
+      .body-preview code {
+        padding: 1px 5px;
+        border-radius: 5px;
+        background: rgba(111, 179, 255, 0.12);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92em;
+      }
+
+      .body-preview a { color: var(--accent); }
+
       .form-field input:focus,
       .form-field textarea:focus {
         border-color: var(--accent);
@@ -591,7 +651,7 @@
         </section>
 
         <section class="panel editor-panel">
-          <form id="editor-form">
+          <form id="editor-form" novalidate>
             <div class="form-body">
               <div class="form-grid">
                 <div class="form-field span-2">
@@ -623,13 +683,24 @@
                   <textarea id="f-summary-en" rows="3" placeholder="English summary"></textarea>
                 </div>
                 <div class="form-field span-2">
-                  <label for="f-body">中文正文 <small>段落之间空一行</small></label>
-                  <textarea id="f-body" rows="9" required placeholder="第一段…&#10;&#10;第二段…"></textarea>
+                  <label for="f-body">中文正文 <small>支持 Markdown · 可直接粘贴或拖入图片</small></label>
+                  <div class="body-toolbar">
+                    <button type="button" class="tool-btn" data-body-action="image" data-target="f-body">图片</button>
+                    <button type="button" class="tool-btn" data-body-action="preview" data-target="f-body">预览</button>
+                  </div>
+                  <textarea id="f-body" rows="10" placeholder="支持 Markdown：## 小标题、**加粗**、[链接](网址)、![图片说明](图片地址)&#10;截图后直接 ⌘V 粘贴，或把图片文件拖进这里，会自动上传并插入"></textarea>
+                  <div class="body-preview" id="f-body-preview" hidden></div>
                 </div>
                 <div class="form-field span-2">
-                  <label for="f-body-en">英文正文 <small>可选</small></label>
-                  <textarea id="f-body-en" rows="9" placeholder="English body"></textarea>
+                  <label for="f-body-en">英文正文 <small>可选 · Markdown</small></label>
+                  <div class="body-toolbar">
+                    <button type="button" class="tool-btn" data-body-action="image" data-target="f-body-en">Image</button>
+                    <button type="button" class="tool-btn" data-body-action="preview" data-target="f-body-en">Preview</button>
+                  </div>
+                  <textarea id="f-body-en" rows="10" placeholder="English body in Markdown — optional"></textarea>
+                  <div class="body-preview" id="f-body-en-preview" hidden></div>
                 </div>
+                <input type="file" id="image-input" accept="image/*" hidden />
                 <div class="form-field span-2 checkbox-row">
                   <input type="checkbox" id="f-featured" />
                   <label for="f-featured">设为精选（置顶大卡片，全站仅一篇）</label>
@@ -816,9 +887,11 @@
         $("f-tags").value = (article.tags || []).join(", ");
         $("f-summary").value = article.summary || "";
         $("f-summary-en").value = article.summaryEn || "";
-        $("f-body").value = (article.body || []).join("\n\n");
-        $("f-body-en").value = (article.bodyEn || []).join("\n\n");
+        $("f-body").value = article.bodyMarkdown || (article.body || []).join("\n\n");
+        $("f-body-en").value = article.bodyMarkdownEn || (article.bodyEn || []).join("\n\n");
         $("f-featured").checked = Boolean(article.featured);
+        resetBodyPane("f-body");
+        resetBodyPane("f-body-en");
 
         $("editor-form").hidden = false;
         $("empty-hint").hidden = true;
@@ -837,6 +910,8 @@
         $("editor-form").reset();
         $("f-date").value = date;
         $("f-read").value = "5 min read";
+        resetBodyPane("f-body");
+        resetBodyPane("f-body-en");
 
         $("editor-form").hidden = false;
         $("empty-hint").hidden = true;
@@ -852,16 +927,23 @@
           .map((p) => p.trim())
           .filter(Boolean);
 
+      function provisionalId() {
+        return (
+          slugify($("f-title-en").value || $("f-title").value) ||
+          `post-${Date.now()}`
+        );
+      }
+
       function collectForm() {
         const title = $("f-title").value.trim();
         const tags = $("f-tags").value.split(",").map((t) => t.trim()).filter(Boolean);
         if (!title) throw new Error("请填写中文标题。");
         if (!tags.length) throw new Error("请至少填写一个标签。");
-        const body = paragraphs($("f-body").value);
-        if (!body.length) throw new Error("请填写中文正文。");
+        const bodyMarkdown = $("f-body").value.trim();
+        if (!bodyMarkdown) throw new Error("请填写中文正文。");
 
         const article = {
-          id: state.selectedId || slugify($("f-title-en").value || title) || `post-${Date.now()}`,
+          id: state.selectedId || provisionalId(),
           title,
           titleEn: $("f-title-en").value.trim(),
           date: $("f-date").value.trim(),
@@ -869,13 +951,13 @@
           tags,
           summary: $("f-summary").value.trim(),
           summaryEn: $("f-summary-en").value.trim(),
-          body,
-          bodyEn: paragraphs($("f-body-en").value),
+          bodyMarkdown,
+          bodyMarkdownEn: $("f-body-en").value.trim(),
           featured: $("f-featured").checked,
         };
         if (!article.titleEn) delete article.titleEn;
         if (!article.summaryEn) delete article.summaryEn;
-        if (!article.bodyEn.length) delete article.bodyEn;
+        if (!article.bodyMarkdownEn) delete article.bodyMarkdownEn;
         return article;
       }
 
@@ -984,6 +1066,127 @@
         }
       }
 
+      /* ---------- 图片上传 ---------- */
+
+      const fileToBase64 = (file) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+          reader.onerror = () => reject(new Error("无法读取该文件。"));
+          reader.readAsDataURL(file);
+        });
+
+      async function prepareImage(file) {
+        if (!file.type.startsWith("image/")) throw new Error("只能上传图片文件。");
+        const extByType = { "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
+        if (file.size <= 400 * 1024) {
+          return { base64: await fileToBase64(file), ext: extByType[file.type] || "jpg" };
+        }
+        const bitmap = await createImageBitmap(file);
+        const scale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(bitmap.width * scale);
+        canvas.height = Math.round(bitmap.height * scale);
+        canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.86));
+        if (!blob) throw new Error("图片处理失败。");
+        return { base64: await fileToBase64(blob), ext: "jpg" };
+      }
+
+      function insertAtCursor(textarea, snippet) {
+        const { selectionStart: start, selectionEnd: end, value } = textarea;
+        textarea.value = value.slice(0, start) + snippet + value.slice(end);
+        textarea.selectionStart = textarea.selectionEnd = start + snippet.length;
+        textarea.focus();
+        state.dirty = true;
+      }
+
+      async function uploadImageFile(file, textarea) {
+        if (!state.sha) {
+          setStatus("内容尚未加载完成，请稍后再试。", "error");
+          return;
+        }
+        setStatus(`正在上传图片 ${file.name}…`);
+        try {
+          const { base64, ext } = await prepareImage(file);
+          const articleId = state.selectedId || provisionalId();
+          const cleanName = (file.name || "image")
+            .replace(/\.[^.]+$/, "")
+            .replace(/[^a-zA-Z0-9_-]+/g, "-")
+            .replace(/^-+|-+$/g, "")
+            .slice(0, 40) || "image";
+          const path = `public/assets/posts/${articleId}/${Date.now()}-${cleanName}.${ext}`;
+          await api(`/repos/${REPO}/contents/${path}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              message: `content: add image for ${articleId}`,
+              content: base64,
+              branch: BRANCH,
+            }),
+          });
+          insertAtCursor(textarea, `![图片说明](/${path.replace(/^public\//, "")})`);
+          setStatus("图片已上传并插入正文，随文章一起发布。", "success");
+        } catch (error) {
+          if (error.status === 401) return logout("登录已失效，请重新登录。");
+          setStatus(`图片上传失败：${error.message}`, "error");
+        }
+      }
+
+      /* ---------- 正文预览 ---------- */
+
+      function miniMarkdown(source) {
+        const esc = (value) =>
+          value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        const inline = (text) =>
+          text
+            .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<img src="$2" alt="$1" loading="lazy">')
+            .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer noopener">$1</a>')
+            .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+            .replace(/`([^`]+)`/g, "<code>$1</code>");
+        return String(source || "")
+          .trim()
+          .split(/\n\s*\n/)
+          .map((block) => {
+            const trimmed = block.trim();
+            if (!trimmed) return "";
+            const heading = trimmed.match(/^(#{1,4})\s+(.*)$/);
+            if (heading) return `<h4>${inline(esc(heading[2]))}</h4>`;
+            if (/^>\s?/.test(trimmed)) {
+              return `<blockquote><p>${inline(esc(trimmed.replace(/^>\s?/gm, "")))}</p></blockquote>`;
+            }
+            return `<p>${inline(esc(trimmed)).replace(/\n/g, "<br>")}</p>`;
+          })
+          .join("");
+      }
+
+      function resetBodyPane(fieldId) {
+        const textarea = $(fieldId);
+        const pane = $(`${fieldId}-preview`);
+        const button = document.querySelector(`.tool-btn[data-body-action="preview"][data-target="${fieldId}"]`);
+        if (pane) {
+          pane.hidden = true;
+          pane.innerHTML = "";
+        }
+        textarea.hidden = false;
+        if (button) button.textContent = fieldId === "f-body" ? "预览" : "Preview";
+      }
+
+      function toggleBodyPreview(fieldId) {
+        const textarea = $(fieldId);
+        const pane = $(`${fieldId}-preview`);
+        const button = document.querySelector(`.tool-btn[data-body-action="preview"][data-target="${fieldId}"]`);
+        const showPreview = pane.hidden;
+        if (showPreview) {
+          pane.innerHTML =
+            miniMarkdown(textarea.value) || "<p>暂无内容 — 先写点什么吧。</p>";
+        }
+        pane.hidden = !showPreview;
+        textarea.hidden = showPreview;
+        button.textContent = showPreview
+          ? fieldId === "f-body" ? "编辑" : "Edit"
+          : fieldId === "f-body" ? "预览" : "Preview";
+      }
+
       function logout(message = "") {
         state.token = "";
         state.login = "";
@@ -1010,6 +1213,47 @@
       $("new-btn").addEventListener("click", newArticle);
       $("editor-form").addEventListener("submit", saveArticle);
       $("delete-btn").addEventListener("click", deleteArticle);
+
+      const imageInput = $("image-input");
+      document.addEventListener("click", (event) => {
+        const button = event.target.closest(".tool-btn[data-body-action]");
+        if (!button) return;
+        const fieldId = button.dataset.target;
+        if (button.dataset.bodyAction === "image") {
+          imageInput.dataset.target = fieldId;
+          imageInput.value = "";
+          imageInput.click();
+        } else if (button.dataset.bodyAction === "preview") {
+          toggleBodyPreview(fieldId);
+        }
+      });
+
+      imageInput.addEventListener("change", () => {
+        const file = imageInput.files[0];
+        if (!file) return;
+        uploadImageFile(file, $(imageInput.dataset.target || "f-body"));
+      });
+
+      for (const fieldId of ["f-body", "f-body-en"]) {
+        const textarea = $(fieldId);
+        textarea.addEventListener("paste", (event) => {
+          const file = [...(event.clipboardData?.files || [])].find((item) =>
+            item.type.startsWith("image/"),
+          );
+          if (!file) return;
+          event.preventDefault();
+          uploadImageFile(file, textarea);
+        });
+        textarea.addEventListener("dragover", (event) => event.preventDefault());
+        textarea.addEventListener("drop", (event) => {
+          const file = [...(event.dataTransfer?.files || [])].find((item) =>
+            item.type.startsWith("image/"),
+          );
+          if (!file) return;
+          event.preventDefault();
+          uploadImageFile(file, textarea);
+        });
+      }
 
       document.addEventListener("input", (event) => {
         if (event.target.closest("#editor-form")) state.dirty = true;

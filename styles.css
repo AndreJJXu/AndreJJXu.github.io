@@ -1488,6 +1488,15 @@ body.hero-rail-active .site-rail a:focus-visible {
   text-underline-offset: 3px;
 }
 
+.markdown-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
 .markdown-body a:hover,
 .markdown-body a:focus-visible {
   color: var(--ink);

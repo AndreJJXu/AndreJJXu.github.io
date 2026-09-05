@@ -12,7 +12,6 @@ const SAFE_MARKDOWN_CONFIG = {
     "embed",
     "form",
     "iframe",
-    "img",
     "input",
     "object",
     "script",

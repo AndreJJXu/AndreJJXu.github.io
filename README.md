@@ -112,3 +112,5 @@ The site ships with a token-authenticated admin page that turns GitHub into the 
 3. Log in with your GitHub username and the token (it acts as the password). The token is kept only in this browser's storage and is sent only to `api.github.com`.
 
 Features: create/edit/delete bilingual posts (Chinese/English title, summary, body), tags, featured flag, conflict detection (409) when the file changed elsewhere, Cmd/Ctrl+S to save. Every deploy runs `npm run check` first, so malformed content fails the build instead of breaking the live site.
+
+**Rich content:** the admin editor accepts Markdown (headings, bold, links, lists, code, quotes). Images can be added three ways — the `图片` toolbar button, pasting a screenshot with `⌘V`, or dragging an image file into the body. Files are compressed client-side (large ones downscaled to 1600px JPEG), committed to `public/assets/posts/<article-id>/`, and referenced as `/assets/posts/...`, so they ship with the site itself. A preview pane renders the Markdown before saving.

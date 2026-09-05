@@ -30,11 +30,14 @@ if (Array.isArray(data.articles)) {
     if (!Array.isArray(article.tags) || !article.tags.length) {
       problems.push(`${at}: needs at least one tag`);
     }
-    if (!Array.isArray(article.body) || !article.body.length) {
-      problems.push(`${at}: body must be a non-empty paragraph array`);
+    const hasBody =
+      (typeof article.bodyMarkdown === "string" && article.bodyMarkdown.trim().length > 0) ||
+      (Array.isArray(article.body) && article.body.length > 0);
+    if (!hasBody) {
+      problems.push(`${at}: needs bodyMarkdown (string) or body (non-empty array)`);
     }
-    if (article.bodyEn && !Array.isArray(article.bodyEn)) {
-      problems.push(`${at}: bodyEn must be an array when present`);
+    if (article.bodyMarkdownEn !== undefined && typeof article.bodyMarkdownEn !== "string") {
+      problems.push(`${at}: bodyMarkdownEn must be a string when present`);
     }
     if (article.featured) featured += 1;
   }
