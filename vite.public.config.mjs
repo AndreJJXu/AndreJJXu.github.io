@@ -13,6 +13,8 @@ export default defineConfig({
       input: {
         main: resolve(projectRoot, "index.html"),
         zh: resolve(projectRoot, "zh/index.html"),
+        works: resolve(projectRoot, "works/index.html"),
+        work_ebs: resolve(projectRoot, "works/evidence-before-severity/index.html"),
       },
     },
   },

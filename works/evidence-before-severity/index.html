@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="Evidence Before Severity: a controlled audit of safety-evidence fidelity and metadata sensitivity in depression-related dialogues."
+    />
+    <meta property="og:title" content="Evidence Before Severity | Junjie Xu" />
+    <meta
+      property="og:description"
+      content="A 21,628-evaluation controlled audit of whether LLM safety judgments follow evidence or just severity cues."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/healbench/teaser-overview.png" />
+    <title>Evidence Before Severity | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+      }
+
+      .work-page {
+        padding: 84px 0 40px;
+        font-family: var(--hero-font-body);
+      }
+
+      .work-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 58px;
+      }
+
+      .work-top a {
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 26px;
+        color: var(--wk-muted);
+        font-size: 11px;
+        font-weight: 650;
+        text-transform: uppercase;
+      }
+
+      .work-kicker .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--wk-green);
+      }
+
+      .work-title {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(34px, 5.4vw, 58px);
+        font-weight: 640;
+        line-height: 1.06;
+        letter-spacing: -0.015em;
+        max-width: 21ch;
+      }
+
+      .work-title em {
+        font-style: normal;
+        color: var(--wk-blue);
+      }
+
+      .work-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 10px;
+        margin-top: 26px;
+      }
+
+      .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 13px;
+        border: 1px solid var(--wk-line);
+        border-radius: 999px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4);
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .work-authors {
+        margin: 26px 0 0;
+        color: var(--wk-muted);
+        font-size: 14px;
+      }
+
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 760px;
+        margin: 34px 0 0;
+        padding-left: 18px;
+        border-left: 2px solid var(--wk-blue);
+        color: #dbe6f3;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .work-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 22px;
+        margin-top: 30px;
+      }
+
+      .work-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: 1px solid var(--wk-line);
+        border-radius: 10px;
+        color: var(--hero-ink);
+        font-size: 13.5px;
+        font-weight: 620;
+        transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover {
+        border-color: rgba(117, 183, 255, 0.5);
+        background: rgba(117, 183, 255, 0.08);
+      }
+
+      .work-action.is-primary {
+        border-color: rgba(117, 183, 255, 0.45);
+        background: rgba(117, 183, 255, 0.12);
+      }
+
+      /* ---------- stat strip ---------- */
+
+      .work-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 64px;
+      }
+
+      .work-stat {
+        padding: 22px 22px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 16px;
+        background: var(--wk-card);
+      }
+
+      .work-stat b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(24px, 2.6vw, 32px);
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span {
+        display: block;
+        margin-top: 7px;
+        color: var(--wk-muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      /* ---------- sections ---------- */
+
+      .work-section {
+        margin-top: 88px;
+      }
+
+      .work-heading {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 28px;
+        align-items: baseline;
+        margin-bottom: 26px;
+      }
+
+      .work-heading .num {
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-size: 17px;
+      }
+
+      .work-heading h2 {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px);
+        font-weight: 630;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+      }
+
+      .work-prose {
+        max-width: 780px;
+        color: #c3d1e1;
+        font-size: 15px;
+        line-height: 1.85;
+      }
+
+      .work-prose p { margin: 0 0 14px; }
+
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+
+      .work-prose code {
+        padding: 1px 7px;
+        border: 1px solid var(--wk-line);
+        border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07);
+        color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.88em;
+      }
+
+      /* ---------- figures ---------- */
+
+      .work-figure {
+        margin: 30px 0 0;
+        padding: 26px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      }
+
+      .work-figure img,
+      .work-figure object {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .work-figure img.dark-fit {
+        background: transparent;
+      }
+
+      .work-figcaption {
+        display: flex;
+        gap: 14px;
+        margin-top: 18px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+
+      .work-figcaption b {
+        flex: 0 0 auto;
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-weight: 500;
+      }
+
+      .figure-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .figure-grid .work-figure { margin: 0; }
+
+      /* ---------- two workflows ---------- */
+
+      .workflow-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .workflow-card {
+        padding: 26px 26px 24px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: var(--wk-card);
+      }
+
+      .workflow-card.is-evidence { border-color: rgba(105, 221, 181, 0.35); }
+
+      .workflow-tag {
+        display: inline-flex;
+        padding: 4px 11px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .workflow-card.is-direct .workflow-tag {
+        background: rgba(117, 183, 255, 0.12);
+        color: var(--wk-blue);
+      }
+
+      .workflow-card.is-evidence .workflow-tag {
+        background: rgba(105, 221, 181, 0.12);
+        color: var(--wk-green);
+      }
+
+      .workflow-card h3 {
+        margin: 15px 0 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: 21px;
+        font-weight: 630;
+      }
+
+      .workflow-card p {
+        margin: 10px 0 0;
+        color: #c3d1e1;
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .workflow-nums {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--wk-line);
+      }
+
+      .workflow-nums div b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: 19px;
+        font-weight: 650;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .workflow-nums div span {
+        display: block;
+        margin-top: 3px;
+        color: var(--wk-muted);
+        font-size: 10.5px;
+        line-height: 1.4;
+      }
+
+      /* ---------- claim boundary ---------- */
+
+      .boundary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .boundary-card {
+        padding: 24px 26px;
+        border-radius: 18px;
+        font-size: 13.5px;
+        line-height: 1.8;
+      }
+
+      .boundary-card h3 {
+        margin: 0 0 12px;
+        font-family: var(--hero-font-display);
+        font-size: 16px;
+        font-weight: 640;
+      }
+
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3);
+        background: rgba(105, 221, 181, 0.05);
+        color: #c9e9dd;
+      }
+
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28);
+        background: rgba(255, 139, 114, 0.045);
+        color: #ecd2c9;
+      }
+
+      .boundary-card.is-no h3 { color: var(--danger, #ff8b72); }
+
+      /* ---------- citation ---------- */
+
+      .work-cite {
+        position: relative;
+        margin-top: 30px;
+        padding: 24px 26px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: rgba(1, 8, 17, 0.55);
+      }
+
+      .work-cite pre {
+        margin: 0;
+        overflow-x: auto;
+        color: #b9cfe8;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.7;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        padding: 7px 14px;
+        border: 1px solid var(--wk-line);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--wk-muted);
+        font-size: 11.5px;
+        font-weight: 620;
+        cursor: pointer;
+        transition: color 160ms ease, border-color 160ms ease;
+      }
+
+      .copy-btn:hover { color: var(--wk-blue); border-color: rgba(117, 183, 255, 0.5); }
+
+      .work-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 90px;
+        padding-top: 24px;
+        border-top: 1px solid var(--wk-line);
+        color: var(--wk-muted);
+        font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+        .workflow-grid, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+
+        .work-figure { padding: 16px; }
+      }
+
+      @media (max-width: 560px) {
+        .work-stats { grid-template-columns: minmax(0, 1fr); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="en">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/#about">About</a>
+          <a href="/#work">Work</a>
+          <a href="/works/" class="is-active" aria-current="page">Works</a>
+          <a href="/#publications">Publications</a>
+          <a href="/#patents">Patents</a>
+          <a href="/#writing">Work Blog</a>
+          <a href="/#honors">Honors</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/zh/" lang="zh-CN">中文</a>
+          <a href="/cv/">CV</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <!-- ============ hero ============ -->
+          <header>
+            <div class="work-top">
+              <a href="/works/">← All works</a>
+              <a href="/#publications">Publication list ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> Work 01 · Safety evaluation audit</p>
+            <h1 class="work-title">Evidence <em>before</em> Severity.</h1>
+            <p style="max-width: 640px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              Auditing safety-evidence fidelity and metadata sensitivity in depression-related dialogues.
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">AAAI 2027 · Under review</span>
+              <span class="meta-chip">Safety evaluation</span>
+              <span class="meta-chip">Controlled audit</span>
+              <span class="meta-chip">LLM workflows</span>
+            </div>
+            <p class="work-authors"><strong>Junjie Xu</strong> and collaborators · East China Normal University</p>
+            <p class="work-tldr">
+              Do LLM safety judgments follow <strong style="color:#f0f6ff">expressed evidence</strong> — or just
+              depression severity cues? A 742-dialogue same-text intervention with
+              <strong style="color:#f0f6ff">21,628 evaluations</strong> found Direct classification barely moved when
+              severity changed; an evidence-first workflow changed its behavior
+              <strong style="color:#f0f6ff">50× more</strong> — but that, too, may not mean fidelity.
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="/assets/works/healbench/teaser-overview.png" target="_blank" rel="noreferrer noopener">Overview figure ↓</a>
+              <a class="work-action" href="#method">Method</a>
+              <a class="work-action" href="#results">Results</a>
+              <a class="work-action" href="#cite">Cite</a>
+            </div>
+          </header>
+
+          <!-- ============ stat strip ============ -->
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>742</b><span>frozen matched synthetic dialogues, NHANES-anchored</span></div>
+            <div class="work-stat"><b>21,628</b><span>terminal evaluations in the main same-text audit</span></div>
+            <div class="work-stat"><b>869,268</b><span>records from 29 sources in the Evidence Atlas</span></div>
+            <div class="work-stat"><b>17,280</b><span>calls across eight configurations in the R1 extension</span></div>
+          </div>
+
+          <!-- ============ teaser ============ -->
+          <figure class="work-figure reveal" style="margin-top: 26px;">
+            <img src="/assets/works/healbench/teaser-overview.png" alt="Same-text intervention audit overview: only the depression-burden cue P1 changes while safety evidence P2 stays fixed; Direct and Evidence-first workflows are compared." />
+            <figcaption class="work-figcaption">
+              <b>Fig. 1</b>
+              <span>The same-text intervention audit: only the non-safety depression-burden cue (P1) changes from 7 to 22 while safety evidence (P2) stays byte-identical. Direct outputs a judgment directly; Evidence-first extracts evidence spans first and abstains when evidence is non-decisive.</span>
+            </figcaption>
+          </figure>
+
+          <!-- ============ abstract ============ -->
+          <section class="work-section reveal" id="abstract">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>Abstract</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                Large language models may rely on depression severity instead of expressed safety evidence. <strong>Evidence Before Severity</strong> is a controlled audit separating non-safety depression burden, source-native safety self-report, narrative safety evidence, and judgment.
+              </p>
+              <p>
+                Across <strong>742</strong> matched NHANES-anchored synthetic dialogues, only a non-safety cue (P1) changes from 7 to 22; text and narrative safety evidence (P2) remain fixed. <code>Direct</code> emits a classification, whereas <code>Evidence-first</code> extracts ideation, plan, intent, access to means, behavior, and exact patient-role spans before frozen local rules derive the judgment. An <strong>Evidence Atlas</strong> catalogs 869,268 records from 29 sources to bound upstream transport; a provenance-pending 100-narrative reference file provides bounded calibration. The override comprised 21,628 repeated evaluations with numeric, grounding, coverage, and missingness controls.
+              </p>
+              <p>
+                Although P1 predicted selected-subset reference labels, <code>Direct</code> did not show the frozen positive response pattern: its high-minus-low passive-ideation contrast was −0.045 percentage points, with 0.449% paired changes. <code>Evidence-first</code> yielded a net contrast compatible with zero despite 22.552% paired changes and 42.273% non-abstaining coverage. A separate later-window P2 factorial passed its four-criterion gate (effect 0.988; joint correctness 0.957) but cannot validate main-run fidelity. <strong>Selected-set predictability did not imply observed cue sensitivity; nor did a small net effect establish workflow fidelity.</strong>
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ method ============ -->
+          <section class="work-section reveal" id="method">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>A three-layer audit design</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                The design keeps <strong>every text field byte-identical</strong> and manipulates only the depression-burden cue, so any behavioral difference must come from that single metadata field — not from what the patient actually said.
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/healbench/method-pipeline.png" alt="Three-panel pipeline: upstream measurement boundary from 869,268 records; main same-text audit over 742 matched dialogues; separate later-window P2 responsiveness control." />
+              <figcaption class="work-figcaption">
+                <b>Fig. 2</b>
+                <span>Left: the upstream Evidence Atlas bounds transport but is an inventory, not a cohort. Middle: the main same-text audit — two evaluation workflows applied to paired P1=7 / P1=22 configurations. Right: a separate later-window P2 responsiveness control with 1,920 planned trial IDs.</span>
+              </figcaption>
+            </figure>
+            <div class="workflow-grid">
+              <div class="workflow-card is-direct reveal">
+                <span class="workflow-tag">Workflow A</span>
+                <h3>Direct classification</h3>
+                <p>The model reads the dialogue plus the P1 cue and emits a terminal category directly — the shape of most deployed safety filters.</p>
+                <div class="workflow-nums">
+                  <div><b>−0.045<span style="font-size:11px"> pp</span></b><span>high-minus-low contrast [−0.135, 0.000]</span></div>
+                  <div><b>0.449%</b><span>paired changes across 2,226 item–repeat pairs</span></div>
+                  <div><b>99.98%</b><span>non-abstaining coverage</span></div>
+                </div>
+              </div>
+              <div class="workflow-card is-evidence reveal">
+                <span class="workflow-tag">Workflow B</span>
+                <h3>Evidence-first workflow</h3>
+                <p>First extract ideation, plan, intent, access to means, and behavior with exact patient-role spans; frozen local rules — not the model — derive the judgment, and abstain when evidence is non-decisive.</p>
+                <div class="workflow-nums">
+                  <div><b>−0.539<span style="font-size:11px"> pp</span></b><span>contrast [−1.482, 0.359] — compatible with zero</span></div>
+                  <div><b>22.55%</b><span>paired changes — 50× Direct's rate</span></div>
+                  <div><b>42.27%</b><span>coverage — abstains on non-decisive evidence</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ results ============ -->
+          <section class="work-section reveal" id="results">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>Results</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                The headline result is a <strong>double negative</strong>: the deployed-style Direct workflow was insensitive to the manipulated cue (selected-set predictability did not translate into observed sensitivity), and the more "engaged" Evidence-first workflow churned 50× more between paired repeats — yet its net effect stayed compatible with zero. <strong>More behavioral change is not more fidelity.</strong>
+              </p>
+            </div>
+            <figure class="work-figure">
+              <object data="/assets/works/healbench/fig-primary-results.svg" type="image/svg+xml" role="img" aria-label="Primary results figure"></object>
+              <figcaption class="work-figcaption">
+                <b>Fig. 3</b>
+                <span>Primary results: paired high-minus-low contrasts with uncertainty intervals for both workflows in the main audit.</span>
+              </figcaption>
+            </figure>
+            <div class="figure-grid">
+              <figure class="work-figure">
+                <object data="/assets/works/healbench/fig-effect-forest.svg" type="image/svg+xml" role="img" aria-label="Effect forest plot"></object>
+                <figcaption class="work-figcaption"><b>Fig. 4</b><span>Effect estimates with confidence intervals, per evaluation route.</span></figcaption>
+              </figure>
+              <figure class="work-figure">
+                <object data="/assets/works/healbench/fig-multiconfig-churn.svg" type="image/svg+xml" role="img" aria-label="Multi-configuration churn composition"></object>
+                <figcaption class="work-figcaption"><b>Fig. 5</b><span>Response churn composition across the eight-configuration R1 extension (17,280 calls).</span></figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <!-- ============ claim boundary ============ -->
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>What this work does — and does not — show</h2>
+            </div>
+            <div class="work-prose">
+              <p>The paper is deliberately explicit about its claim boundary. This honesty is part of the contribution.</p>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ Established</h3>
+                <ul>
+                  <li>A reusable same-text intervention protocol separating severity cues from safety evidence</li>
+                  <li>Bounded negative results for both a Direct filter and an evidence-first workflow on one frozen synthetic set</li>
+                  <li>A 29-source, 869,268-record Evidence Atlas bounding upstream measurement transport</li>
+                  <li>A separate P2 responsiveness factorial that passes its own four-criterion gate</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ Explicitly not claimed</h3>
+                <ul>
+                  <li>Faithful evidence use, clinician-validated performance, or diagnostic validity</li>
+                  <li>Clinical risk prediction or population prevalence</li>
+                  <li>That the Evidence Atlas is a patient cohort or evaluation denominator</li>
+                  <li>That passing the P2 gate validates the main run's fidelity</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ citation ============ -->
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>Citation</h2>
+            </div>
+            <div class="work-cite">
+              <button class="copy-btn" type="button" data-copy-cite>Copy</button>
+              <pre id="cite-text">@inproceedings{xu2026evidence,
+  title     = {Evidence Before Severity: Auditing Safety-Evidence Fidelity
+               and Metadata Sensitivity in Depression-Related Dialogues},
+  author    = {Xu, Junjie and collaborators},
+  booktitle = {Under review, AAAI 2027},
+  year      = {2026}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>Work 01 · Evidence Before Severity — <a href="/works/">all works</a></span>
+            <span><a href="/">junjiexu.github.io</a> · updated 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      // scroll reveal — position check covers anchor jumps as well as slow scrolls
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) {
+            clearTimeout(revealTimer);
+            revealTimer = 0;
+          }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (el.classList.contains("is-in")) continue;
+            if (el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => {
+          if (revealTimer) return;
+          revealTimer = setTimeout(checkReveals, 60);
+        };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+
+      // copy citation
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "Copied ✓";
+        } catch {
+          button.textContent = "Press ⌘C";
+        }
+        setTimeout(() => (button.textContent = "Copy"), 1800);
+      });
+    </script>
+  </body>
+</html>

@@ -82,9 +82,10 @@
     {
       "title": "Evidence Before Severity: Auditing Safety-Evidence Fidelity and Metadata Sensitivity in Depression-Related Dialogues",
       "authors": "Junjie Xu and collaborators",
-      "venue": "Research manuscript · anonymous submission",
-      "status": "Manuscript",
-      "statusZh": "手稿"
+      "venue": "Under review · AAAI 2027",
+      "status": "Under review",
+      "statusZh": "评审中",
+      "url": "/works/evidence-before-severity/"
     },
     {
       "title": "Bidirectional Directed Acyclic Graph Neural Network for Aspect-level Sentiment Classification",
