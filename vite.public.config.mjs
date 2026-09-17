@@ -23,6 +23,8 @@ export default defineConfig({
         work_cef_zh: resolve(projectRoot, "works/zh/counterfactual-evidence-fidelity/index.html"),
         work_ani: resolve(projectRoot, "works/affective-non-interference/index.html"),
         work_ani_zh: resolve(projectRoot, "works/zh/affective-non-interference/index.html"),
+        work_bts: resolve(projectRoot, "works/before-the-score/index.html"),
+        work_bts_zh: resolve(projectRoot, "works/zh/before-the-score/index.html"),
       },
     },
   },
