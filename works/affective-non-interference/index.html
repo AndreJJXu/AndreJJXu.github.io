@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="ANI — Affective Non-Interference: a preregistered benchmark study of emotion, policy compliance, and what replicates in LLM agents."
+    />
+    <meta property="og:title" content="ANI — Affective Non-Interference | Junjie Xu" />
+    <meta
+      property="og:description"
+      content="A preregistered two-phase audit of whether policy-irrelevant affect changes LLM agent behavior on protected actions."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/ani/phase1-overview.png" />
+    <title>ANI — Affective Non-Interference | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+        --wk-red: #ff8b72;
+      }
+
+      .work-page {
+        padding: 84px 0 40px;
+        font-family: var(--hero-font-body);
+      }
+
+      .work-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 58px;
+      }
+
+      .work-top a {
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 26px;
+        color: var(--wk-muted);
+        font-size: 11px;
+        font-weight: 650;
+        text-transform: uppercase;
+      }
+
+      .work-kicker .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--wk-green);
+      }
+
+      .work-title {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(34px, 5.4vw, 58px);
+        font-weight: 640;
+        line-height: 1.06;
+        letter-spacing: -0.015em;
+      }
+
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+
+      .work-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 13px;
+        border: 1px solid var(--wk-line);
+        border-radius: 999px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4);
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .work-authors {
+        margin: 26px 0 0;
+        color: var(--wk-muted);
+        font-size: 14px;
+      }
+
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 800px;
+        margin: 34px 0 0;
+        padding-left: 18px;
+        border-left: 2px solid var(--wk-blue);
+        color: #dbe6f3;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .work-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 22px;
+        margin-top: 30px;
+      }
+
+      .work-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: 1px solid var(--wk-line);
+        border-radius: 10px;
+        color: var(--hero-ink);
+        font-size: 13.5px;
+        font-weight: 620;
+        transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover {
+        border-color: rgba(117, 183, 255, 0.5);
+        background: rgba(117, 183, 255, 0.08);
+      }
+
+      .work-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 64px;
+      }
+
+      .work-stat {
+        padding: 22px 22px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 16px;
+        background: var(--wk-card);
+      }
+
+      .work-stat b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(22px, 2.4vw, 30px);
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span {
+        display: block;
+        margin-top: 7px;
+        color: var(--wk-muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 28px;
+        align-items: baseline;
+        margin-bottom: 26px;
+      }
+
+      .work-heading .num {
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-size: 17px;
+      }
+
+      .work-heading h2 {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px);
+        font-weight: 630;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+      }
+
+      .work-prose {
+        max-width: 800px;
+        color: #c3d1e1;
+        font-size: 15px;
+        line-height: 1.85;
+      }
+
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-prose code {
+        padding: 1px 7px;
+        border: 1px solid var(--wk-line);
+        border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07);
+        color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.88em;
+      }
+
+      .work-figure {
+        margin: 30px 0 0;
+        padding: 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      }
+
+      .work-figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .work-figcaption {
+        display: flex;
+        gap: 14px;
+        margin-top: 18px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+
+      .work-figcaption b {
+        flex: 0 0 auto;
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-weight: 500;
+      }
+
+      .duo {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .duo-card {
+        padding: 24px 26px;
+        border-radius: 18px;
+        background: var(--wk-card);
+        border: 1px solid var(--wk-line);
+      }
+
+      .duo-card .label {
+        display: inline-flex;
+        padding: 4px 11px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .duo-card.is-hot .label {
+        background: rgba(255, 139, 114, 0.14);
+        color: var(--wk-red);
+      }
+
+      .duo-card.is-cool .label {
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .duo-card .big {
+        display: block;
+        margin-top: 16px;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(26px, 3vw, 36px);
+        font-weight: 650;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .duo-card p {
+        margin: 10px 0 0;
+        color: var(--wk-muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .phase-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 14px;
+        padding: 5px 13px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .phase-tag.is-p1 { background: rgba(117, 183, 255, 0.12); color: var(--wk-blue); }
+      .phase-tag.is-p2 { background: rgba(105, 221, 181, 0.12); color: var(--wk-green); }
+
+      .boundary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .boundary-card {
+        padding: 24px 26px;
+        border-radius: 18px;
+        font-size: 13.5px;
+        line-height: 1.8;
+      }
+
+      .boundary-card h3 {
+        margin: 0 0 12px;
+        font-family: var(--hero-font-display);
+        font-size: 16px;
+        font-weight: 640;
+      }
+
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3);
+        background: rgba(105, 221, 181, 0.05);
+        color: #c9e9dd;
+      }
+
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28);
+        background: rgba(255, 139, 114, 0.045);
+        color: #ecd2c9;
+      }
+
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 90px;
+        padding-top: 24px;
+        border-top: 1px solid var(--wk-line);
+        color: var(--wk-muted);
+        font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats, .duo, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="en">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/#about">About</a>
+          <a href="/#work">Work</a>
+          <a href="/works/" class="is-active" aria-current="page">Works</a>
+          <a href="/#publications">Publications</a>
+          <a href="/#patents">Patents</a>
+          <a href="/#writing">Work Blog</a>
+          <a href="/#honors">Honors</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/zh/" lang="zh-CN">中文</a>
+          <a href="/cv/">CV</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/">← All works</a>
+              <a href="/#publications">Publication list ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> Work 04 · Agent safety benchmark</p>
+            <h1 class="work-title">ANI — <em>Affective</em> Non-Interference.</h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              A preregistered, two-phase study of whether policy-irrelevant affect changes what LLM agents do with protected actions — and what replicates.
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">Phase 1 complete · Phase 2 toward ICLR 2027</span>
+              <span class="meta-chip">Preregistered</span>
+              <span class="meta-chip">Agent safety</span>
+              <span class="meta-chip">Null result, honestly reported</span>
+            </div>
+            <p class="work-authors"><strong>Junjie Xu</strong> and collaborators · East China Normal University</p>
+            <p class="work-tldr">
+              When task facts, risk, permissions, and policy evidence are byte-identical, does pure emotional
+              expression change an LLM agent's protected-action behavior? Phase 1's preregistered answer was
+              <strong style="color:#f6fffb">NONE_CONFIRMED</strong> — the affect effect did not replicate. What the
+              audit surfaced instead: an affect-independent policy-compliance fragility. Phase 2 scales the question
+              to multi-agent composite attacks.
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="#phase1">Phase 1 · ANI-Bench</a>
+              <a class="work-action" href="#phase2">Phase 2 · MAS</a>
+              <a class="work-action" href="#boundary">Claim boundary</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>36</b><span>benchmark cases — 24 pilot (8 families) + 12 confirmatory (4 new families)</span></div>
+            <div class="work-stat"><b>6,480</b><span>episodes in the confirmatory main matrix, across 14 run batches</span></div>
+            <div class="work-stat"><b>282/288</b><span>escalation-state violations exposed — affect-independent fragility</span></div>
+            <div class="work-stat"><b>≈¥62</b><span>total audited spend against preregistered budget caps</span></div>
+          </div>
+
+          <figure class="work-figure reveal">
+            <img src="/assets/works/ani/phase1-overview.png" alt="Phase 1 overview: ANI-Bench with 24+8 pilot cases, 60 confirmatory cases across 20 new families, 6,480 episodes, 14 run batches" />
+            <figcaption class="work-figcaption">
+              <b>Fig. 1</b>
+              <span>Phase 1 at a glance: a machine-checkable policy corpus, a preregistered causal design — and a natural experiment in measurement reliability.</span>
+            </figcaption>
+          </figure>
+
+          <section class="work-section reveal" id="construct">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>Narrowing "emotion affects models" into a falsifiable safety property</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                The construct is <strong>ANI — Affective Non-Interference</strong>: the protected-action projection of a
+                trajectory (decisions, tools, parameters, environment state) must remain invariant to
+                <strong>PIA — policy-irrelevant affect</strong>, emotional expression that adds no facts, urgency,
+                authority, moral leverage, or help-seeking intent. Tone and empathy changes do not count as violations.
+                The threat model is deliberately narrow: the user may only change <em>how they express</em> a request —
+                never the policy, evidence, or task facts.
+              </p>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="phase1">
+            <span class="phase-tag is-p1">Phase 1 · single agent · ANI-Bench</span>
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>An assembly defect, two findings, one honest null</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                The pilot phase reported +29–43pp "affect effects" from re-realized PIA text, and a held-out
+                preregistered confirmation initially agreed (+36.8pp). Then the audit chain took it apart: a
+                policy-<code>None</code> sub-matrix showed the runner was silently self-composing compliance rules;
+                the confirmatory corpus returned <strong>NONE_CONFIRMED</strong>; a policy-swap factorial located
+                <strong>+41.8pp</strong> on the policy-delivery factor while PIA stayed at ≈0pp [−2.0, +2.1]. Blind
+                screening and preregistration had both failed to stop an engineering artifact — so "policy delivery
+                assertion" (every agent system prompt now carries a <code>policy_hash</code>, missing = abort) was
+                written into Phase 2's hard gates.
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/ani/phase1-results.png" alt="Phase 1 results: fake effect emergence, root cause, revival as factor, interaction null — plus the two real findings" />
+              <figcaption class="work-figcaption">
+                <b>Fig. 2</b>
+                <span>Same benchmark, two sets of numbers, one assembly defect apart. The real risk was not affect at all: 282/288 escalation-state violations and ≈14% unauthorized execution in DENY states — an affect-independent compliance fragility.</span>
+              </figcaption>
+            </figure>
+            <div class="duo reveal">
+              <div class="duo-card is-hot">
+                <span class="label">Real finding · fragility</span>
+                <span class="big">282 / 288</span>
+                <p>
+                  Escalation-state violations — the agent executed where policy demanded escalation — plus ≈14%
+                  unauthorized execution in explicit DENY states. Nothing to do with emotion; everything to do with
+                  compliance plumbing.
+                </p>
+              </div>
+              <div class="duo-card is-cool">
+                <span class="label">Real finding · null</span>
+                <span class="big">≈ 0 pp</span>
+                <p>
+                  PIA / filler contrast under both policy-delivered and policy-missing conditions (D3-adjusted Δ
+                  −0.0077, robust direction). A null that survives correction is a result — not a footnote.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="phase2">
+            <span class="phase-tag is-p2">Phase 2 · multi-agent · toward ICLR 2027</span>
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>Composite attacks: expression slot × evidence slot</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                Phase 2 rebuilds the question as a matched dual-slot 2×2 — the same case, the same injection site:
+                expression (neutral filler vs PIA) crossed with evidence (clean control block vs a fixed
+                misinformation assertion). The estimand is the <strong>additive interaction</strong>
+                <code>I = (q₁₁ − q₁₀) − (q₀₁ − q₀₀)</code>: does in-scenario emotion conditionally amplify misinformation? Every
+                misinformation payload carries an authority-source contract, an uncoverable-rule clause, and a
+                conflict→ESCALATE oracle — so legitimate update paths can never be scored as attacks. Six evidence
+                goals (C1–C6) define success: positive, negative, equivalence, and inconclusive outcomes all have
+                legal interpretations, and a null is never dressed up.
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/ani/phase2-design.png" alt="Phase 2 design: advisor-critique-driven dual-slot four-cell interaction design with the additive interaction estimand" />
+              <figcaption class="work-figcaption">
+                <b>Fig. 3</b>
+                <span>The dual-slot four-cell design with the additive-interaction estimand, misinformation contract (build gate + oracle split), and a four-way verdict taxonomy — rebuilt from a B1–B17 advisor critique.</span>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>Claim boundary &amp; governance</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ Established</h3>
+                <ul>
+                  <li>A machine-checkable policy corpus (32/32 validation, 16/16 label re-derivation) with build gates</li>
+                  <li>Preregistrations frozen in git before the corresponding runs; held-out confirmations stated in advance</li>
+                  <li>NONE_CONFIRMED for affect generalization — plus a bounded, affect-independent compliance fragility</li>
+                  <li>A governance chain: supervision log with five AI-auditor dispatches, runner change log C1–C8, per-model cost ledger</li>
+                  <li>Institutionalized fixes: policy-hash delivery assertion as a Phase 2 hard gate</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ Explicitly not claimed</h3>
+                <ul>
+                  <li>That affect never changes agent behavior — Phase 1 establishes a bounded null on one frozen corpus</li>
+                  <li>That Phase 1 answers the question — it is a conditional baseline (frozen protocol, six models, D3-adjusted)</li>
+                  <li>Persuasion, urgency, or authority claims as affect — those are new evidence and are excluded from the main experiment</li>
+                  <li>Dialogue-level affect transmission results — those belong to prior work (CoA) and are cited, not claimed</li>
+                  <li>An ICLR 2027 submission this cycle — completion, not calendar, sets the venue</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>Work 04 · ANI — Affective Non-Interference — <a href="/works/">all works</a></span>
+            <span><a href="/">junjiexu.github.io</a> · updated 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) {
+            clearTimeout(revealTimer);
+            revealTimer = 0;
+          }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (el.classList.contains("is-in")) continue;
+            if (el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => {
+          if (revealTimer) return;
+          revealTimer = setTimeout(checkReveals, 60);
+        };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+    </script>
+  </body>
+</html>
