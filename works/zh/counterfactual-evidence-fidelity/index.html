@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="反事实证据保真度（CEF）：选择性 LLM 评估器的一种可观察行为属性，经 42,240 个探索性条件审计。" />
+    <meta property="og:title" content="反事实证据保真度 | 许俊杰" />
+    <meta property="og:description" content="一项理论先行研究计划：在 42,240 个探索性条件下定义并测量 LLM 评估器的证据保真度。" />
+    <meta property="og:type" content="article" />
+    <title>反事实证据保真度（CEF） | 许俊杰</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+      }
+
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 58px; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px;
+        color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase;
+      }
+
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+
+      .work-title {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(32px, 5vw, 54px); font-weight: 640; line-height: 1.08; letter-spacing: -0.015em;
+      }
+
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+      .meta-chip {
+        display: inline-flex; align-items: center; padding: 6px 13px;
+        border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted);
+        font-size: 12.5px; font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue);
+      }
+
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 820px; margin: 34px 0 0; padding-left: 18px;
+        border-left: 2px solid var(--wk-blue); color: #dbe6f3; font-size: 16.5px; line-height: 1.75;
+      }
+
+      .work-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 30px; }
+
+      .work-action {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+        border: 1px solid var(--wk-line); border-radius: 10px; color: var(--hero-ink);
+        font-size: 13.5px; font-weight: 620; transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+
+      .work-stats {
+        display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px;
+      }
+
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+
+      .work-stat b {
+        display: block; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px;
+        align-items: baseline; margin-bottom: 26px;
+      }
+
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+
+      .work-heading h2 {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15;
+      }
+
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+
+      .work-prose code {
+        padding: 1px 7px; border: 1px solid var(--wk-line); border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07); color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em;
+      }
+
+      .tenet-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 30px; }
+
+      .tenet-card { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .tenet-card .n { display: block; color: var(--wk-blue); font-family: var(--font-serif); font-size: 15px; }
+      .tenet-card h3 {
+        margin: 10px 0 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: 17px; font-weight: 630; line-height: 1.3;
+      }
+      .tenet-card p { margin: 9px 0 0; color: var(--wk-muted); font-size: 12.5px; line-height: 1.65; }
+
+      .pipeline { display: grid; gap: 12px; margin-top: 30px; }
+
+      .pipeline-step {
+        display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
+        align-items: start; padding: 18px 20px; border: 1px solid var(--wk-line);
+        border-radius: 14px; background: var(--wk-card);
+      }
+
+      .pipeline-step .idx {
+        display: grid; width: 34px; height: 34px; place-items: center; border-radius: 10px;
+        background: rgba(117, 183, 255, 0.12); color: var(--wk-blue);
+        font-family: var(--hero-font-display); font-size: 14px; font-weight: 700;
+      }
+
+      .pipeline-step b { display: block; color: var(--hero-ink); font-size: 14px; font-weight: 640; }
+      .pipeline-step span { display: block; margin-top: 4px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+
+      .result-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+
+      .result-card { padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: var(--wk-card); }
+
+      .result-card .label {
+        display: inline-flex; padding: 4px 11px; border-radius: 999px;
+        font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      }
+
+      .result-card.is-gain .label { background: rgba(105, 221, 181, 0.12); color: var(--wk-green); }
+      .result-card.is-null .label { background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+
+      .result-card .big {
+        display: block; margin-top: 16px; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(26px, 3vw, 36px); font-weight: 650; font-variant-numeric: tabular-nums;
+      }
+
+      .result-card p { margin: 10px 0 0; color: var(--wk-muted); font-size: 13px; line-height: 1.7; }
+
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd;
+      }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9;
+      }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex; justify-content: space-between; gap: 16px; margin-top: 90px;
+        padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats, .tenet-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .result-strip, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+      }
+
+      @media (max-width: 560px) { .work-stats, .tenet-grid { grid-template-columns: minmax(0, 1fr); } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="页面导航">
+        <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
+        <nav class="section-nav" aria-label="主要章节">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="页面工具">
+          <a href="/works/counterfactual-evidence-fidelity/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <a href="/works/counterfactual-evidence-fidelity/" lang="en">English</a>
+              <a href="/works/zh/evidence-before-severity/">相关审计：Evidence Before Severity ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 作品 03 · 理论先行研究计划</p>
+            <h1 class="work-title">反事实<em>证据保真度</em>。</h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              CEF——选择性 LLM 评估器的一种可观察行为属性，作为一个 24 阶段的探索性研究计划推进，目标 ICLR 2027。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">探索性项目 · 目标 ICLR 2027</span>
+              <span class="meta-chip">行为测量</span>
+              <span class="meta-chip">信息论</span>
+              <span class="meta-chip">机制搜索</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong> 及合作者 · 华东师范大学</p>
+            <p class="work-tldr">
+              保真度应当从行为中测量，而不是靠感觉：当评估器对非决定性的干扰线索保持条件稳定、对决定性证据做出方向正确的响应、
+              并且不通过弃答 / 覆盖塌缩 / 合同失败 / 技术性缺失获得任何便宜时，它才具备
+              <strong style="color:#f0f6ff">反事实证据保真度（CEF）</strong>。
+              一个 24 阶段的项目检验这一构念——以及一个在四元组审计中拿到 1.0000 的候选机制。
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="#construct">构念</a>
+              <a class="work-action" href="#mechanism">机制候选</a>
+              <a class="work-action" href="#results">探索性结果</a>
+              <a class="work-action" href="#boundary">主张边界</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>42,240</b><span>阶段 1–15 的形式化实验条件</span></div>
+            <div class="work-stat"><b>2,040 万</b><span>历史证伪链消耗的 API tokens</span></div>
+            <div class="work-stat"><b>5 次运行</b><span>独立收敛到身份条件化归一化证据状态</span></div>
+            <div class="work-stat"><b>112</b><span>保持通过的测试，含治理检查</span></div>
+          </div>
+
+          <section class="work-section reveal" id="construct">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>一个有三条要件的构念</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                "评估器有没有在用证据？"这样问是无法证伪的。CEF 把它分解为三条共同可观察的行为要求——每一条都可以独立审计，也都可以<strong>独立失败</strong>。
+              </p>
+            </div>
+            <div class="tenet-grid reveal">
+              <div class="tenet-card">
+                <span class="n">一</span>
+                <h3>条件稳定性</h3>
+                <p>当非决定性的干扰线索（如严重度数字）变化时输出保持稳定——响应应跟随证据，而不是元数据。</p>
+              </div>
+              <div class="tenet-card">
+                <span class="n">二</span>
+                <h3>方向正确性</h3>
+                <p>当决定性证据被干预时，做出方向正确的响应——这是构念中"反事实"的一半。</p>
+              </div>
+              <div class="tenet-card">
+                <span class="n">三</span>
+                <h3>没有免费午餐</h3>
+                <p>不通过弃答、覆盖塌缩、合同失败或技术性缺失获得任何表面收益。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="mechanism">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>一个经得起消融的机制候选</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                五次正向全矩阵运行（v13 / v17 / v19.1 / v22 / v24）独立收敛到同一个最小机制：<strong>身份条件化归一化证据状态</strong>。v23 必要性消融支持归一化状态通道；阴性审计（v20 / v21）界定了设计不起作用的边界。工作方法名为<strong>保真感知证据瓶颈（Fidelity-aware Evidence Bottleneck）</strong>——在完成新颖性审查之前保持暂定。
+              </p>
+            </div>
+            <div class="pipeline reveal">
+              <div class="pipeline-step">
+                <span class="idx">1</span>
+                <div>
+                  <b>选择器——身份锁</b>
+                  <span>从完整数据包中，精确给出一个具名记录、逐字内容引用、证明该记录归属的逐字绑定引用，以及归一化的目标信号。</span>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <span class="idx">2</span>
+                <div>
+                  <b>归一化——硬切</b>
+                  <span>仅使用同源内容，投影到有限的 {存在, 不存在, 无法判定} 状态；切断所有原始上下文与干扰文本。</span>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <span class="idx">3</span>
+                <div>
+                  <b>读取器隔离——确定性合同</b>
+                  <span>读取器只看到被选身份与目标信号，服从确定性决策规则，并提供按通道归因的失败分析。</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="results">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>探索性结果，按探索性报告</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                四元组审计将每个条目与一次干扰干预、一次证据干预交叉，每格重复三次。候选机制在两个任务族上都把错误率降到零。这些数字<strong>不能</strong>确立的东西同样重要：它们是合成的、基于提示的发现结果，不是一个成品训练方法的证据。
+              </p>
+            </div>
+            <div class="result-strip reveal">
+              <div class="result-card is-gain">
+                <span class="label">GPT-5.4 · 候选机制 vs 基线</span>
+                <span class="big">0.8333 → 1.0000</span>
+                <p>
+                  临床三记录任务的四元组通过率；在非临床运营任务上为 0.8299 → 1.0000——且无弃答、无覆盖损失。一项来源可解析性挑战还成功区分了正确的"无法判定"行为与选择性遮蔽。
+                </p>
+              </div>
+              <div class="result-card is-null">
+                <span class="label">GPT-5.5 · 诚实的零结果</span>
+                <span class="big">1.0000 = 1.0000</span>
+                <p>
+                  在 GPT-5.5 上，修复后的证据先行基线与候选机制都拿到了满分，因此跨模型的相对优势仍未得到确认——我们把它作为零结果报告，而不是埋起来。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul>
+                  <li>CEF 构念：三条共同可观察的行为要件及其失败模式</li>
+                  <li>四元组审计设计与聚类自助不确定性（10,000 次重采样）</li>
+                  <li>五次收敛运行 + 支持"归一化状态通道"的必要性消融</li>
+                  <li>带自动化主张验证的理论章节——测量、统计、信息论前沿、通道分解</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul>
+                  <li>任何评估器具有一般性不变性、忠实性、安全性或临床有效性</li>
+                  <li>探索性收益确立了跨独立任务的一般性改进</li>
+                  <li>CEF 揭示了模型的内部推理或因果机制</li>
+                  <li>姊妹 AAAI 项目的封存证据能确认本项目任何内容——它只是外部动机，只读引用</li>
+                  <li>预注册或确证性可复现——Phase 0 v2 工程暂缓</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>作品 03 · 反事实证据保真度 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">许俊杰个人主页</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+    </script>
+  </body>
+</html>

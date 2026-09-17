@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="EviDial：面向抑郁对话评估的面板可评估性（panel-assessability）基准与测量框架。" />
+    <meta property="og:title" content="EviDial | 许俊杰" />
+    <meta property="og:description" content="1,910 次盲态面板裁定、26,415 个维度判定：测量抑郁对话证据的可评估性。" />
+    <meta property="og:type" content="article" />
+    <title>EviDial | 许俊杰</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+      }
+
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 58px; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px;
+        color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase;
+      }
+
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+
+      .work-title {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(34px, 5.4vw, 58px); font-weight: 640; line-height: 1.06; letter-spacing: -0.015em;
+      }
+
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+      .meta-chip {
+        display: inline-flex; align-items: center; padding: 6px 13px;
+        border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted);
+        font-size: 12.5px; font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue);
+      }
+
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 800px; margin: 34px 0 0; padding-left: 18px;
+        border-left: 2px solid var(--wk-blue); color: #dbe6f3; font-size: 16.5px; line-height: 1.75;
+      }
+
+      .work-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 30px; }
+
+      .work-action {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+        border: 1px solid var(--wk-line); border-radius: 10px; color: var(--hero-ink);
+        font-size: 13.5px; font-weight: 620;
+        transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+
+      .work-stats {
+        display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px;
+      }
+
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+
+      .work-stat b {
+        display: block; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(24px, 2.6vw, 32px); font-weight: 650; letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px;
+        align-items: baseline; margin-bottom: 26px;
+      }
+
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+
+      .work-heading h2 {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15;
+      }
+
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+
+      .work-prose code {
+        padding: 1px 7px; border: 1px solid var(--wk-line); border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07); color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em;
+      }
+
+      .work-figure {
+        margin: 30px 0 0; padding: 26px; border: 1px solid var(--wk-line); border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      }
+
+      .work-figure img {
+        display: block; width: 100%; height: auto; border-radius: 8px; background: #fff;
+      }
+
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+
+      .protocol-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 12px; margin-top: 30px;
+      }
+
+      .protocol-card { padding: 16px 18px; border: 1px solid var(--wk-line); border-radius: 14px; background: var(--wk-card); }
+      .protocol-card b { display: block; color: var(--hero-ink); font-size: 13.5px; font-weight: 640; }
+      .protocol-card span { display: block; margin-top: 6px; color: var(--wk-muted); font-size: 11.5px; line-height: 1.55; }
+
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd;
+      }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9;
+      }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex; justify-content: space-between; gap: 16px; margin-top: 90px;
+        padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 16px; }
+      }
+
+      @media (max-width: 560px) { .work-stats { grid-template-columns: minmax(0, 1fr); } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="页面导航">
+        <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
+        <nav class="section-nav" aria-label="主要章节">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="页面工具">
+          <a href="/works/evidial/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <a href="/works/evidial/" lang="en">English</a>
+              <a href="/works/zh/evidence-before-severity/">相关审计：Evidence Before Severity ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 作品 02 · 基准与测量</p>
+            <h1 class="work-title">EviDial<span style="color: var(--hero-accent)">.</span></h1>
+            <p style="max-width: 680px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              Evidence + Dialogue——一个用于评估"LLM 评委如何评判抑郁对话"的面板可评估性框架。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">撰写中 · ICLR 2027</span>
+              <span class="meta-chip">评估基准</span>
+              <span class="meta-chip">LLM 评委面板</span>
+              <span class="meta-chip">临床对话</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong> 及合作者 · 华东师范大学</p>
+            <p class="work-tldr">
+              一段抑郁对话的发言，究竟在什么条件下才是<strong style="color:#f0f6ff">可评估</strong>的？
+              EviDial 用<strong style="color:#f0f6ff">五协议 LLM 评委面板</strong>替代昂贵的人工金标准——
+              1,910 次裁定、100% 覆盖、零现金成本——并给出关键证据：
+              <strong style="color:#f0f6ff">协议多样性堪比模型族多样性</strong>（有效裁判数 1.59 vs 1.56）。
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="#design">设计</a>
+              <a class="work-action" href="#findings">发现</a>
+              <a class="work-action" href="#boundary">主张边界</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>1,910</b><span>M1 全量面板裁定，100% 覆盖</span></div>
+            <div class="work-stat"><b>17,190</b><span>382 段发言 × 5 协议的维度级判定</span></div>
+            <div class="work-stat"><b>26,415</b><span>DEPTH-PA 总账的维度判定（587 段）</span></div>
+            <div class="work-stat"><b>¥0</b><span>全量面板现金成本——协议多样性替代付费裁判</span></div>
+          </div>
+
+          <section class="work-section reveal" id="design">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>面板可评估性，而不是借来的金标准</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                临床对话评估通常默认人工金标准的存在。按 3,200 个锚定裁定点估算，约 ¥175k 与 4–6 个月的成本把大多数实验室挡在门外。EviDial 换了一条路：被测量的构念是<strong>面板可评估性（panel-assessability）</strong>——一个经干预校准的五协议评委面板，能否对一段发言给出稳定、可审计的裁定——并且论文<strong>明确不主张</strong>面板共识与临床专家判断等价。
+              </p>
+              <p>
+                冻结的 <code>suffneg_pass</code> 修复说明了这套机制为什么重要：一个恒阳性的系统在旧指标下拿到完美的 72/72 = 1.0，而在联合指标下恰好是 0/72 = 0.0。冻结容差下 8/8 的捕获保持不变。
+              </p>
+            </div>
+            <div class="protocol-grid reveal">
+              <div class="protocol-card"><b>逐句扫描</b><span>逐句扫描显式证据</span></div>
+              <div class="protocol-card"><b>整体临床阅读</b><span>整段对话的临床视角</span></div>
+              <div class="protocol-card"><b>怀疑派</b><span>质疑每个阳性判断</span></div>
+              <div class="protocol-card"><b>行为证据</b><span>更看重可观察行为而非自述</span></div>
+              <div class="protocol-card"><b>语用推理</b><span>读取会话含义与间接表达</span></div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>来自 3,000+ 次盲态裁定的发现</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                M1 全量面板交付了 <strong>1,910/1,910 次裁定、100% 覆盖、零现金成本</strong>；M2 分层扩展追加 205 段 × 5 协议 = 1,025 次。试点线确立了定量核心：同底座模型的协议面板有效裁判数达 <strong>1.59</strong>，而五族模型面板为 1.56——协议多样性是模型多样性的可行替代。
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/evidial/fig-mechanism.png" alt="机制实验：四个系统在证据/干扰存在与否下的错误率，以及针对绑定失败的双重差分分析。" />
+              <figcaption class="work-figcaption">
+                <b>图 1</b>
+                <span>T08 2×2 机制实验（64 场景 / 256 视图，4 系统 + 2 消融）：完整机制吸收了干扰影响；去掉绑定的消融则不能——双重差分把绑定特有的失败分离了出来。</span>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul>
+                  <li>冻结的任务合同、证据状态模式与指标规范，配有自动化检查器</li>
+                  <li>1,910 + 1,025 次盲态面板裁定，满覆盖、冻结协议、盲态对话文本</li>
+                  <li>分离绑定特有干扰失败的机制实验</li>
+                  <li>口径统一的结果清单（84 行）与冲突报告，三道门全绿</li>
+                  <li>独立人工标注工具链、标注手册与成本模型，随时可启动</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 尚不主张</h3>
+                <ul>
+                  <li>人工锚定金标准——2–3 名标注者的研究（约 196 人时）已设计但未执行</li>
+                  <li>五方法评委的真实比较——阻塞于 API 凭证</li>
+                  <li>面板共识与专家临床判断的等价性</li>
+                  <li>会议录用——内部模拟评审分数是工程反馈，不是结果</li>
+                  <li>一项早期构念效度发现已被主动撤回：单调上升的是症状负担，而非可评估性</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>作品 02 · EviDial — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">许俊杰个人主页</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="ANI · 情感非干扰：一项关于情绪、政策合规与 LLM 智能体行为可复现性的预注册基准研究。" />
+    <meta property="og:title" content="ANI · 情感非干扰 | 许俊杰" />
+    <meta property="og:description" content="两期预注册审计：政策无关的情绪会改变 LLM 智能体在受保护动作上的行为吗。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/ani/phase1-overview.png" />
+    <title>ANI · 情感非干扰 | 许俊杰</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+        --wk-red: #ff8b72;
+      }
+
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 58px; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px;
+        color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase;
+      }
+
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+
+      .work-title {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(34px, 5.4vw, 58px); font-weight: 640; line-height: 1.06; letter-spacing: -0.015em;
+      }
+
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+      .meta-chip {
+        display: inline-flex; align-items: center; padding: 6px 13px;
+        border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted);
+        font-size: 12.5px; font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue);
+      }
+
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 820px; margin: 34px 0 0; padding-left: 18px;
+        border-left: 2px solid var(--wk-blue); color: #dbe6f3; font-size: 16.5px; line-height: 1.75;
+      }
+
+      .work-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 30px; }
+
+      .work-action {
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+        border: 1px solid var(--wk-line); border-radius: 10px; color: var(--hero-ink);
+        font-size: 13.5px; font-weight: 620; transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+
+      .work-stat b {
+        display: block; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px;
+        align-items: baseline; margin-bottom: 26px;
+      }
+
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+
+      .work-heading h2 {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15;
+      }
+
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+
+      .work-prose code {
+        padding: 1px 7px; border: 1px solid var(--wk-line); border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07); color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em;
+      }
+
+      .work-figure {
+        margin: 30px 0 0; padding: 20px; border: 1px solid var(--wk-line); border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      }
+
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 10px; }
+
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+
+      .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+
+      .duo-card { padding: 24px 26px; border-radius: 18px; background: var(--wk-card); border: 1px solid var(--wk-line); }
+
+      .duo-card .label {
+        display: inline-flex; padding: 4px 11px; border-radius: 999px;
+        font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      }
+
+      .duo-card.is-hot .label { background: rgba(255, 139, 114, 0.14); color: var(--wk-red); }
+      .duo-card.is-cool .label { background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+
+      .duo-card .big {
+        display: block; margin-top: 16px; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(26px, 3vw, 36px); font-weight: 650; font-variant-numeric: tabular-nums;
+      }
+
+      .duo-card p { margin: 10px 0 0; color: var(--wk-muted); font-size: 13px; line-height: 1.7; }
+
+      .phase-tag {
+        display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px;
+        padding: 5px 13px; border-radius: 999px; font-size: 11px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.05em;
+      }
+
+      .phase-tag.is-p1 { background: rgba(117, 183, 255, 0.12); color: var(--wk-blue); }
+      .phase-tag.is-p2 { background: rgba(105, 221, 181, 0.12); color: var(--wk-green); }
+
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd;
+      }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9;
+      }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex; justify-content: space-between; gap: 16px; margin-top: 90px;
+        padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats, .duo, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="页面导航">
+        <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
+        <nav class="section-nav" aria-label="主要章节">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="页面工具">
+          <a href="/works/affective-non-interference/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <a href="/works/affective-non-interference/" lang="en">English</a>
+              <a href="/zh/#publications">论文列表 ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 作品 04 · 智能体安全基准</p>
+            <h1 class="work-title">ANI —— <em>情感</em>非干扰。</h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              一项两期预注册研究：政策无关的情绪，会改变 LLM 智能体在受保护动作上的行为吗——以及，什么能复现。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">一期完成 · 二期目标 ICLR 2027</span>
+              <span class="meta-chip">预注册</span>
+              <span class="meta-chip">智能体安全</span>
+              <span class="meta-chip">如实报告的零结果</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong> 及合作者 · 华东师范大学</p>
+            <p class="work-tldr">
+              当任务事实、风险、权限与政策证据逐字节一致时，纯粹的情绪表达会改变 LLM 智能体的受保护动作行为吗？
+              一期的预注册答案是 <strong style="color:#f6fffb">NONE_CONFIRMED</strong>——情感效应没有复现。
+              审计链真正暴露的，是一种与情感无关的政策合规脆弱性。
+              二期把问题升级为多智能体复合攻击。
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="#phase1">一期 · ANI-Bench</a>
+              <a class="work-action" href="#phase2">二期 · 多智能体</a>
+              <a class="work-action" href="#boundary">主张边界</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>36</b><span>基准案例——24 pilot（8 族）+ 12 确认（4 个新族）</span></div>
+            <div class="work-stat"><b>6,480</b><span>确认主矩阵 episodes，14 个运行批次</span></div>
+            <div class="work-stat"><b>282/288</b><span>暴露的 escalation-state 违规——与情感无关的脆弱性</span></div>
+            <div class="work-stat"><b>≈¥62</b><span>预注册预算上限内的全部审计花费</span></div>
+          </div>
+
+          <figure class="work-figure reveal">
+            <img src="/assets/works/ani/phase1-overview.png" alt="一期概览：24+8 pilot 案例、20 个新家族 60 个确认案例、6,480 episodes、14 个运行批次" />
+            <figcaption class="work-figcaption">
+              <b>图 1</b>
+              <span>一期全景：机器可查的政策语料、预注册因果设计——以及一次关于测量可靠性的天然实验。</span>
+            </figcaption>
+          </figure>
+
+          <section class="work-section reveal" id="construct">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>把"情绪影响模型"收窄为可证伪的安全性质</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                构念是 <strong>ANI——情感非干扰</strong>：轨迹的受保护动作投影（决定、工具、参数、环境状态）必须对
+                <strong>PIA——策略无关情绪</strong>保持不变。PIA 指不添加任何事实、紧迫性、权威、道德理由或求助意图的情绪表达；
+                语气与共情的变化不算违规。威胁模型刻意收窄：用户只能改变<strong>表达方式</strong>——
+                永远不能改政策、证据或任务事实。
+              </p>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="phase1">
+            <span class="phase-tag is-p1">一期 · 单智能体 · ANI-Bench</span>
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>一个组装缺陷、两重发现、一个诚实的零</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                试点期报告了重实现 PIA 文本带来的 +29–43pp"情绪效应"，held-out 预注册确认最初也同意（+36.8pp）。
+                然后审计链把它拆开了：policy=<code>None</code> 子矩阵显示运行器在静默地自造合规规则；
+                确认语料返回 <strong>NONE_CONFIRMED</strong>；政策替换因子实验把 <strong>+41.8pp</strong> 定位在政策送达因子上，
+                而 PIA 保持 ≈0pp [−2.0, +2.1]。盲态筛选与预注册确认都没能拦住一个工程制造的假现象——
+                于是"政策送达断言"（每个 agent 系统提示含 <code>policy_hash</code>，缺失即熔断）被写进二期的硬门。
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/ani/phase1-results.png" alt="一期结果：伪效应出现、定位根因、复活为因子、交互归零——以及两项真发现" />
+              <figcaption class="work-figcaption">
+                <b>图 2</b>
+                <span>同一个基准，两套数字，只差一个组装缺陷。真正的风险与情绪无关：282/288 次 escalation-state 违规，以及 DENY 状态下约 14% 的未授权执行——纯粹的合规管道问题。</span>
+              </figcaption>
+            </figure>
+            <div class="duo reveal">
+              <div class="duo-card is-hot">
+                <span class="label">真发现 · 脆弱性</span>
+                <span class="big">282 / 288</span>
+                <p>
+                  escalation-state 违规——政策要求升级审核时智能体直接执行了——外加 DENY 状态下约 14% 的未授权执行。
+                  与情绪无关；全部是合规管道的问题。
+                </p>
+              </div>
+              <div class="duo-card is-cool">
+                <span class="label">真发现 · 零结果</span>
+                <span class="big">≈ 0 pp</span>
+                <p>
+                  政策送达与政策缺失两种条件下，PIA / 填充对比（D3 调整后 Δ −0.0077，方向稳健）。
+                  经得起校正的零结果是结果——不是脚注。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="phase2">
+            <span class="phase-tag is-p2">二期 · 多智能体 · 目标 ICLR 2027</span>
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>复合攻击：表达槽 × 证据槽</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                二期把问题重构成匹配的双槽 2×2——同一案例、同一注入位：表达（中性填充 vs PIA）交叉证据（干净对照块 vs 固定误信息断言）。
+                估计量是<strong>可加交互</strong><code>I = (q₁₁ − q₁₀) − (q₀₁ − q₀₀)</code>：
+                在场情绪会条件性放大误信息吗？每份误信息载荷都带三重合同——权威来源声明、不可覆盖规则、冲突→ESCALATE 的 oracle 判定——
+                因此走正规路径的合法信息更新永远不会被判成攻击。六个证据目标（C1–C6）定义成功：
+                正、负、等效、不确定四类结果都有合法解释，零结果绝不会被包装。
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/ani/phase2-design.png" alt="二期设计：导师批评驱动的双槽四格交互设计，含可加交互估计量" />
+              <figcaption class="work-figcaption">
+                <b>图 3</b>
+                <span>双槽四格设计与可加交互估计量、误信息合同（build gate / oracle 拆分）、四分互斥判读——由 B1–B17 导师批评驱动重构。</span>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界与治理</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul>
+                  <li>机器可查的政策语料（32/32 校验、16/16 标签重推导）与 build gates</li>
+                  <li>预注册在对应运行之前冻结于 git；held-out 确认预先声明</li>
+                  <li>情感泛化的 NONE_CONFIRMED——加上有界的、情感无关的合规脆弱性</li>
+                  <li>治理链：五次 AI 审计调度的监督日志、运行器变更日志 C1–C8、分模型成本台账</li>
+                  <li>制度化修复：政策哈希送达断言成为二期硬门</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul>
+                  <li>"情绪从不影响智能体行为"——一期只在一个冻结实语集上建立有界零结果</li>
+                  <li>一期已回答问题——它只是条件性基线（v2 冻结协议、六模型、D3 调整）</li>
+                  <li>把 persuasion、urgency、权威声称为情绪——那是新证据，排除在主实验集外</li>
+                  <li>对话层情感传播的结果——属前作 CoA，只引用不主张</li>
+                  <li>本周期投 ICLR 2027——以实际完成为准，不以日历为准</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>作品 04 · ANI 情感非干扰 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">许俊杰个人主页</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+    </script>
+  </body>
+</html>

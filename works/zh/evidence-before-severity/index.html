@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="Evidence Before Severity：一项关于抑郁相关对话中安全证据保真度与元数据敏感性的受控审计。" />
+    <meta property="og:title" content="Evidence Before Severity | 许俊杰" />
+    <meta property="og:description" content="21,628 次评估的受控审计：LLM 的安全判断跟随证据，还是严重度线索。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/healbench/teaser-overview.png" />
+    <title>Evidence Before Severity | 许俊杰</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+      }
+
+      .work-page {
+        padding: 84px 0 40px;
+        font-family: var(--hero-font-body);
+      }
+
+      .work-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 58px;
+      }
+
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 26px;
+        color: var(--wk-muted);
+        font-size: 11px;
+        font-weight: 650;
+        text-transform: uppercase;
+      }
+
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+
+      .work-title {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(34px, 5.4vw, 58px);
+        font-weight: 640;
+        line-height: 1.06;
+        letter-spacing: -0.015em;
+        max-width: 24ch;
+      }
+
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+      .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 13px;
+        border: 1px solid var(--wk-line);
+        border-radius: 999px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4);
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 780px;
+        margin: 34px 0 0;
+        padding-left: 18px;
+        border-left: 2px solid var(--wk-blue);
+        color: #dbe6f3;
+        font-size: 16.5px;
+        line-height: 1.75;
+      }
+
+      .work-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 30px; }
+
+      .work-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: 1px solid var(--wk-line);
+        border-radius: 10px;
+        color: var(--hero-ink);
+        font-size: 13.5px;
+        font-weight: 620;
+        transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover {
+        border-color: rgba(117, 183, 255, 0.5);
+        background: rgba(117, 183, 255, 0.08);
+      }
+
+      .work-action.is-primary {
+        border-color: rgba(117, 183, 255, 0.45);
+        background: rgba(117, 183, 255, 0.12);
+      }
+
+      .work-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 64px;
+      }
+
+      .work-stat {
+        padding: 22px 22px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 16px;
+        background: var(--wk-card);
+      }
+
+      .work-stat b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(24px, 2.6vw, 32px);
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span {
+        display: block;
+        margin-top: 7px;
+        color: var(--wk-muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 28px;
+        align-items: baseline;
+        margin-bottom: 26px;
+      }
+
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+
+      .work-heading h2 {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px);
+        font-weight: 630;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+      }
+
+      .work-prose { max-width: 800px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+
+      .work-prose code {
+        padding: 1px 7px;
+        border: 1px solid var(--wk-line);
+        border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07);
+        color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.88em;
+      }
+
+      .work-figure {
+        margin: 30px 0 0;
+        padding: 26px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      }
+
+      .work-figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .work-figcaption {
+        display: flex;
+        gap: 14px;
+        margin-top: 18px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+
+      .workflow-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .workflow-card {
+        padding: 26px 26px 24px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: var(--wk-card);
+      }
+
+      .workflow-card.is-evidence { border-color: rgba(105, 221, 181, 0.35); }
+
+      .workflow-tag {
+        display: inline-flex;
+        padding: 4px 11px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .workflow-card.is-direct .workflow-tag { background: rgba(117, 183, 255, 0.12); color: var(--wk-blue); }
+      .workflow-card.is-evidence .workflow-tag { background: rgba(105, 221, 181, 0.12); color: var(--wk-green); }
+
+      .workflow-card h3 {
+        margin: 15px 0 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: 21px;
+        font-weight: 630;
+      }
+
+      .workflow-card p { margin: 10px 0 0; color: #c3d1e1; font-size: 13.5px; line-height: 1.75; }
+
+      .workflow-nums {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--wk-line);
+      }
+
+      .workflow-nums div b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: 19px;
+        font-weight: 650;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .workflow-nums div span {
+        display: block;
+        margin-top: 3px;
+        color: var(--wk-muted);
+        font-size: 10.5px;
+        line-height: 1.4;
+      }
+
+      .boundary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .boundary-card {
+        padding: 24px 26px;
+        border-radius: 18px;
+        font-size: 13.5px;
+        line-height: 1.8;
+      }
+
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3);
+        background: rgba(105, 221, 181, 0.05);
+        color: #c9e9dd;
+      }
+
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28);
+        background: rgba(255, 139, 114, 0.045);
+        color: #ecd2c9;
+      }
+
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 90px;
+        padding-top: 24px;
+        border-top: 1px solid var(--wk-line);
+        color: var(--wk-muted);
+        font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .workflow-grid, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 16px; }
+      }
+
+      @media (max-width: 560px) {
+        .work-stats { grid-template-columns: minmax(0, 1fr); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="页面导航">
+        <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
+        <nav class="section-nav" aria-label="主要章节">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="页面工具">
+          <a href="/works/evidence-before-severity/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <a href="/works/evidence-before-severity/" lang="en">English</a>
+              <a href="/zh/#publications">论文列表 ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 作品 01 · 安全评估审计</p>
+            <h1 class="work-title">Evidence <em>before</em> Severity<span style="color: var(--hero-accent)">.</span></h1>
+            <p style="max-width: 640px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              一项关于抑郁相关对话中安全证据保真度与元数据敏感性的受控审计。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">AAAI 2027 · 评审中</span>
+              <span class="meta-chip">安全评估</span>
+              <span class="meta-chip">受控审计</span>
+              <span class="meta-chip">LLM 工作流</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong> 及合作者 · 华东师范大学</p>
+            <p class="work-tldr">
+              LLM 的安全判断究竟跟随<strong style="color:#f0f6ff">明示的安全证据</strong>，还是只跟随抑郁严重度线索？
+              742 段对话的同文本干预、21,628 次评估显示：直接分类几乎不随严重度变化；
+              证据先行工作流的行为变化率高 <strong style="color:#f0f6ff">50 倍</strong>——
+              但这同样不等于保真。
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="/assets/works/healbench/teaser-overview.png" target="_blank" rel="noreferrer noopener">总览图 ↓</a>
+              <a class="work-action" href="#method">方法</a>
+              <a class="work-action" href="#results">结果</a>
+              <a class="work-action" href="#cite">引用</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>742</b><span>段冻结的匹配合成对话（NHANES 锚定）</span></div>
+            <div class="work-stat"><b>21,628</b><span>主审计中的终端评估次数</span></div>
+            <div class="work-stat"><b>869,268</b><span>证据图谱收录的 29 来源记录</span></div>
+            <div class="work-stat"><b>17,280</b><span>R1 扩展中八配置的调用次数</span></div>
+          </div>
+
+          <figure class="work-figure reveal" style="margin-top: 26px;">
+            <img src="/assets/works/healbench/teaser-overview.png" alt="同文本干预审计总览：仅抑郁负担线索 P1 变化，安全证据 P2 保持不变；比较 Direct 与 Evidence-first 两种工作流。" />
+            <figcaption class="work-figcaption">
+              <b>图 1</b>
+              <span>同文本干预审计：只有非安全的抑郁负担线索（P1）从 7 变到 22，安全证据（P2）逐字节不变。Direct 直接输出判断；Evidence-first 先抽取证据跨度，证据不可判定时弃答。</span>
+            </figcaption>
+          </figure>
+
+          <section class="work-section reveal" id="abstract">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>摘要</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                大语言模型可能依赖抑郁严重度，而非明示的安全证据。<strong>Evidence Before Severity</strong> 是一项受控审计，把非安全的抑郁负担、来源自带的安全自述、叙事安全证据与判断本身分离开来。
+              </p>
+              <p>
+                在 <strong>742</strong> 段匹配的 NHANES 锚定合成对话上，只有非安全线索（P1）从 7 变为 22，文本与叙事安全证据（P2）保持不变。<code>Direct</code> 直接输出分类；<code>Evidence-first</code> 先抽取意念、计划、意图、自杀工具可及性、行为与精确的患者角色跨度，再由冻结的本地规则推导判断。<strong>证据图谱</strong>收录 29 个来源的 869,268 条记录以约束上游传输；一个来源待定的 100 叙事参考文件提供有界校准。本次覆盖性审计包含 21,628 次重复评估，配有数值、接地、覆盖率与缺失控制。
+              </p>
+              <p>
+                尽管 P1 能预测选集参考标签，<code>Direct</code> 并未表现出冻结的正响应模式：其高减低被动意念对比为 −0.045 个百分点，配对变化率 0.449%。<code>Evidence-first</code> 的净对比与零相容，尽管其配对变化率达 22.552%、非弃答覆盖率 42.273%。一项独立的后期 P2 因子实验通过了四准则门（效应 0.988；联合正确率 0.957），但不能反过来验证主审计的保真度。<strong>选集上的可预测性并不意味着实际观察到的线索敏感性；小的净效应也不确立工作流保真度。</strong>
+              </p>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="method">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>三层审计设计</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                设计保持<strong>所有文本字段逐字节一致</strong>，只操纵抑郁负担线索——因此任何行为差异只能归因于这一个元数据字段，而非患者实际说了什么。
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/healbench/method-pipeline.png" alt="三层流程：上游测量边界（869,268 条记录）；742 段匹配对话的主审计；独立的后期 P2 响应性控制。" />
+              <figcaption class="work-figcaption">
+                <b>图 2</b>
+                <span>左：上游证据图谱约束传输，但它是清单而非队列。中：主同文本审计——两种评估工作流作用于 P1=7 / P1=22 的配对配置。右：独立的后期 P2 响应性控制，1,920 个计划试验 ID。</span>
+              </figcaption>
+            </figure>
+            <div class="workflow-grid">
+              <div class="workflow-card is-direct reveal">
+                <span class="workflow-tag">工作流 A</span>
+                <h3>直接分类</h3>
+                <p>模型阅读对话加 P1 线索后直接输出终端类别——这也是大多数已部署安全过滤器的形态。</p>
+                <div class="workflow-nums">
+                  <div><b>−0.045<span style="font-size:11px"> pp</span></b><span>高减低对比 [−0.135, 0.000]</span></div>
+                  <div><b>0.449%</b><span>2,226 个配对中的变化率</span></div>
+                  <div><b>99.98%</b><span>非弃答覆盖率</span></div>
+                </div>
+              </div>
+              <div class="workflow-card is-evidence reveal">
+                <span class="workflow-tag">工作流 B</span>
+                <h3>证据先行工作流</h3>
+                <p>先抽取意念、计划、意图、工具可及性与行为，并给出精确的患者角色跨度；由冻结的本地规则——而非模型——推导判断，证据不可判定时弃答。</p>
+                <div class="workflow-nums">
+                  <div><b>−0.539<span style="font-size:11px"> pp</span></b><span>对比 [−1.482, 0.359]——与零相容</span></div>
+                  <div><b>22.55%</b><span>配对变化率——Direct 的 50 倍</span></div>
+                  <div><b>42.27%</b><span>覆盖率——证据不可判定时弃答</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="results">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>结果</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                核心结论是一个<strong>双重否定</strong>：部署风格的 Direct 工作流对被操纵的线索不敏感（选集可预测性没有转化为实际敏感性）；而更"投入"的证据先行工作流在配对重复之间的行为变化率高 50 倍——但净效应仍与零相容。<strong>更多的行为变化不等于更高的保真度。</strong>
+              </p>
+            </div>
+            <figure class="work-figure">
+              <object data="/assets/works/healbench/fig-primary-results.svg" type="image/svg+xml" role="img" aria-label="主结果图"></object>
+              <figcaption class="work-figcaption">
+                <b>图 3</b>
+                <span>主结果：主审计中两种工作流的配对高减低对比及不确定性区间。</span>
+              </figcaption>
+            </figure>
+            <div class="workflow-grid" style="grid-template-columns: none; display: grid;">
+              <figure class="work-figure" style="margin: 18px 0 0;">
+                <object data="/assets/works/healbench/fig-effect-forest.svg" type="image/svg+xml" role="img" aria-label="效应森林图"></object>
+                <figcaption class="work-figcaption"><b>图 4</b><span>各评估路线的效应估计与置信区间。</span></figcaption>
+              </figure>
+              <figure class="work-figure" style="margin: 18px 0 0;">
+                <object data="/assets/works/healbench/fig-multiconfig-churn.svg" type="image/svg+xml" role="img" aria-label="多配置响应翻转构成"></object>
+                <figcaption class="work-figcaption"><b>图 5</b><span>八配置 R1 扩展（17,280 次调用）中的响应翻转构成。</span></figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>这项工作证明了什么、不证明什么</h2>
+            </div>
+            <div class="work-prose">
+              <p>论文对自身主张边界的显式声明，本身就是贡献的一部分。</p>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul>
+                  <li>可复用的同文本干预协议，将严重度线索与安全证据分离</li>
+                  <li>一个冻结合成集上，Direct 过滤器与证据先行工作流的有界阴性结果</li>
+                  <li>29 来源、869,268 条记录的证据图谱，约束上游测量传输</li>
+                  <li>通过自身四准则门的独立 P2 响应性因子实验</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul>
+                  <li>忠实的证据使用、临床医生验证的性能或诊断有效性</li>
+                  <li>临床风险预测或人群患病率</li>
+                  <li>证据图谱是患者队列或评估分母</li>
+                  <li>P2 门通过即验证主审计保真度</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>引用</h2>
+            </div>
+            <div class="work-cite" style="position: relative; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55);">
+              <button class="copy-btn" type="button" data-copy-cite style="position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer;">复制</button>
+              <pre id="cite-text" style="margin: 0; overflow-x: auto; color: #b9cfe8; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7;">@inproceedings{xu2026evidence,
+  title     = {Evidence Before Severity: Auditing Safety-Evidence Fidelity
+               and Metadata Sensitivity in Depression-Related Dialogues},
+  author    = {Xu, Junjie and collaborators},
+  booktitle = {Under review, AAAI 2027},
+  year      = {2026}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>作品 01 · Evidence Before Severity — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">许俊杰个人主页</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "已复制 ✓";
+        } catch {
+          button.textContent = "请按 ⌘C";
+        }
+        setTimeout(() => (button.textContent = "复制"), 1800);
+      });
+    </script>
+  </body>
+</html>
