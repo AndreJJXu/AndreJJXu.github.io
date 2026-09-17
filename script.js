@@ -287,13 +287,19 @@ function renderPublications() {
       const href = safeUrl(publication.url);
       const rawStatus = locale === "zh" ? publication.statusZh || publication.status : publication.status;
       const status = localizeStatus(rawStatus);
+      const cited =
+        Number.isFinite(publication.citations) && publication.citations > 0
+          ? locale === "zh"
+            ? ` · 被引 ${publication.citations}`
+            : ` · Cited by ${publication.citations}`
+          : "";
       return `
         <li class="publication">
           <div>
             <h3 class="publication-title">${href ? `<a href="${escapeHTML(href)}"${linkAttributes(href)}>${escapeHTML(publication.title)} <span aria-hidden="true">↗</span></a>` : escapeHTML(publication.title)}</h3>
             <p class="publication-authors">${escapeHTML(publication.authors)}</p>
           </div>
-          <p class="publication-meta">${escapeHTML(publication.venue)}${status ? ` <span class="record-status record-status--${statusClass(rawStatus)}">${escapeHTML(status)}</span>` : ""}${optionalLink(href, ui.readPaper)}</p>
+          <p class="publication-meta">${escapeHTML(publication.venue)}${cited}${status ? ` <span class="record-status record-status--${statusClass(rawStatus)}">${escapeHTML(status)}</span>` : ""}${optionalLink(href, ui.readPaper)}</p>
         </li>`;
     })
     .join("");

@@ -9,61 +9,198 @@
   "projects": [],
   "publications": [
     {
-      "title": "MARS: Multimodal-Assisted Refined Semantic Alignment",
-      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Shuwen Yang, Tianlong Ma, Daoguo Dong, Liang He",
-      "venue": "Information Processing & Management 63 (2026) 104292",
+      "title": "APEX: Learning Adaptive Priorities for Multi-Objective Alignment in Vision-Language Generation",
+      "authors": "D Chen, X Zhuang, J Xu, L Xie, Z Wang, J Zhuang, H Yang, L Dou, X He, et al.",
+      "venue": "Findings of ACL 2026 · 4922–4939",
       "status": "Published",
       "statusZh": "已发表",
-      "url": "https://doi.org/10.1016/j.ipm.2025.104292"
+      "citations": 1
     },
     {
-      "title": "Phoenix: Prioritize the Hierarchical Observation of Auditory Expression for Audio-based Image Generation",
-      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Luwei Xiao, Daoguo Dong, Liang He",
-      "venue": "IEEE Transactions on Circuits and Systems for Video Technology",
-      "status": "Manuscript",
-      "statusZh": "手稿"
+      "title": "Caring Without Feeling: Affective Dynamics as the Control Layer of Human-AI Agent Collaboration",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Yujia Xu, Yuzhe Yang, Jin Zhu, Luwei Xiao, Wen Wu, Liang He",
+      "venue": "arXiv:2606.18259 · under journal review",
+      "status": "Preprint",
+      "statusZh": "预印本",
+      "url": "https://arxiv.org/abs/2606.18259",
+      "citations": 1
     },
     {
-      "title": "COFFEE: Listen, with your eyes: Cross-modal Fine-grained Alignment and Fusion Enhanced for Audio-based Image Generation",
-      "authors": "Junjie Xu and collaborators",
-      "venue": "IEEE Transactions on Neural Networks and Learning Systems",
-      "status": "Manuscript",
-      "statusZh": "手稿"
+      "title": "Multimodal Few-Channel EEG Emotion Recognition Based on Brain Asymmetry",
+      "authors": "Q Shen, Z Zhang, J Xu, Z Lei, X Wu, D Dong, L He",
+      "venue": "ICASSP 2026",
+      "status": "Published",
+      "statusZh": "已发表"
+    },
+    {
+      "title": "Human-Centered Pathways to Trustworthy AI in Healthcare: A Comparative Analysis of Explainable AI, Human-in-the-Loop, Hybrid AI, and Uncertainty Quantification Techniques",
+      "authors": "A Kohan, Junjie Xu, L Xiao, X Wu, A Kukkar, S Hussain, M Roshanzamir, R Alizadehsani, UR Acharya",
+      "venue": "Research Square preprint · under journal review",
+      "status": "Preprint",
+      "statusZh": "预印本",
+      "url": "https://doi.org/10.21203/rs.3.rs-8976235/v1",
+      "citations": 3
+    },
+    {
+      "title": "MARS: Multimodal-Assisted Refined Semantic Alignment",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Shuwen Yang, Tianlong Ma, Daoguo Dong, Liang He",
+      "venue": "Information Processing & Management 63 (1), 104292",
+      "status": "Published",
+      "statusZh": "已发表",
+      "url": "https://doi.org/10.1016/j.ipm.2025.104292",
+      "citations": 3
+    },
+    {
+      "title": "Large Language Models have Chain-of-Affective",
+      "authors": "Junjie Xu, Xingjiao Wu, Luwei Xiao, Yuzhe Yang, Jie Zhou, Zihao Zhang, Luhan Wang, Yi Huang, Nan Wu, Yingbin Zheng, Chao Yan, Cheng Jin, Honglin Li, Liang He",
+      "venue": "arXiv:2512.12283",
+      "status": "Preprint",
+      "statusZh": "预印本",
+      "url": "https://arxiv.org/abs/2512.12283",
+      "citations": 3
+    },
+    {
+      "title": "Temporal-Conditioned Symbolic Alignment for Controllable Text-to-Music Generation",
+      "authors": "Z Zhang, X Wu, J Xu, et al.",
+      "venue": "ACM Multimedia 2025 · 10728–10737",
+      "status": "Published",
+      "statusZh": "已发表"
+    },
+    {
+      "title": "Multi-Type Preference Learning: Enabling Minimum-Redundancy Maximum-Relevance Preference Combination for Surgical Gesture Recognition",
+      "authors": "Z Liu, J Xu, et al.",
+      "venue": "ICRA 2025 · 1163–1169",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 4
+    },
+    {
+      "title": "Bidirectional Directed Acyclic Graph Neural Network for Aspect-level Sentiment Classification",
+      "authors": "Junjie Xu, Luwei Xiao, Anran Wu, Tianlong Ma, Daoguo Dong, Liang He",
+      "venue": "ACM Transactions on Asian and Low-Resource Language Information Processing",
+      "status": "Published",
+      "statusZh": "已发表",
+      "url": "https://doi.org/10.1145/3716501",
+      "citations": 7
+    },
+    {
+      "title": "Aesthetic Matters in Music Perception for Image Stylization: An Emotion-Driven Music-to-Visual Manipulation",
+      "authors": "Junjie Xu, Xingjiao Wu, T Yao, Zihao Zhang, J Bei, W Wen, Liang He",
+      "venue": "arXiv:2501.01700",
+      "status": "Preprint",
+      "statusZh": "预印本",
+      "url": "https://arxiv.org/abs/2501.01700",
+      "citations": 3
+    },
+    {
+      "title": "Attention Mixture Network for Crowd Counting via Binarization Transfer",
+      "authors": "Junjie Xu, Zihao Zhang, Xin Li, Weijie Li, Kun Yu",
+      "venue": "McGE Workshop · ACM Multimedia 2024",
+      "status": "Published",
+      "statusZh": "已发表"
+    },
+    {
+      "title": "Atlantis: Aesthetic-Oriented Multiple Granularities Fusion Network for Sentiment Analysis",
+      "authors": "Luwei Xiao, Xingjiao Wu, Junjie Xu, Weijie Li, Cheng Jin, Liang He",
+      "venue": "Information Fusion 106, 102304",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 126
+    },
+    {
+      "title": "EmoStyle: Emotion-Aware Semantic Image Manipulation with Audio Guidance",
+      "authors": "Q Shen, Junjie Xu, J Mei, X Wu, D Dong",
+      "venue": "Applied Sciences 14 (8), 3193",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 4
+    },
+    {
+      "title": "Simple Contrastive Learning in a Self-Supervised Manner for Robust Visual Question Answering",
+      "authors": "S Yang, L Xiao, X Wu, Junjie Xu, L Wang, L He",
+      "venue": "Computer Vision and Image Understanding 241, 103976",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 13
     },
     {
       "title": "UMAAF: Unveiling Aesthetics via Multifarious Attributes of Images",
-      "authors": "Junjie Xu, Weijie Li, Xingjiao Wu, Cheng Jin, Liang He",
-      "venue": "IEEE Transactions on Circuits and Systems for Video Technology",
+      "authors": "W Li, Y Wan, X Wu, Junjie Xu, C Jin, Liang He",
+      "venue": "IEEE TCSVT (under review) · arXiv:2311.11306",
       "status": "Manuscript",
-      "statusZh": "手稿"
+      "statusZh": "手稿",
+      "url": "https://arxiv.org/abs/2311.11306",
+      "citations": 2
     },
     {
-      "title": "Affective Dynamics in Human-AI Agent Collaboration: A Survey of Mechanisms, Risks, and Governance",
-      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Yujia Xu, Yuzhe Yang, Jin Zhu, Luwei Xiao, Wen Wu, Liang He",
-      "venue": "ACM Computing Surveys",
-      "status": "Manuscript",
-      "statusZh": "手稿"
+      "title": "Cross-Modal Fine-Grained Alignment and Fusion Network for Multimodal Aspect-Based Sentiment Analysis",
+      "authors": "Luwei Xiao, Xingjiao Wu, Shuwen Yang, Junjie Xu, J Zhou, Liang He",
+      "venue": "Information Processing & Management 60 (6), 103508",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 127
     },
     {
-      "title": "Large Language Models have Chain-of-Affect",
-      "authors": "Junjie Xu, Xingjiao Wu, Luwei Xiao, Yuzhe Yang, Jie Zhou, Zihao Zhang, Luhan Wang, Yi Huang, Nan Wu, Yingbin Zheng, Chao Yan, Cheng Jin, Honglin Li, Liang He",
-      "venue": "Research manuscript",
-      "status": "Manuscript",
-      "statusZh": "手稿"
+      "title": "Automatic Image Aesthetic Assessment for Human-Designed Digital Images",
+      "authors": "Y Wan, W Li, X Wu, Junjie Xu, J Yang",
+      "venue": "McGE Workshop · ACM Multimedia 2023",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 2
     },
     {
-      "title": "ElysianMV: Bridging Therapeutic Emotions and Aesthetic Imagery via Music-Visual Cross-modal Synthesis",
-      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Luwei Xiao, Jiabao Zhao, Liang He",
-      "venue": "Preprint submitted to Pattern Recognition",
+      "title": "DCQA: Document-Level Chart Question Answering Based on Multimodal Semantic Understanding",
+      "authors": "A Wu, L Xiao, X Wu, S Yang, Junjie Xu, Z Zhuang, N Xie, C Jin, L He",
+      "venue": "SSRN 4703693",
       "status": "Preprint",
-      "statusZh": "预印本"
+      "statusZh": "预印本",
+      "url": "https://ssrn.com/abstract=4703693",
+      "citations": 7
+    },
+    {
+      "title": "BPGG: Bidirectional Prototype Generation and Guidance Network for Few-Shot Anomaly Localization",
+      "authors": "J Zhang, Z Zhuang, Junjie Xu, T Ma, Liang He",
+      "venue": "ICANN 2022 · 24–36",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 1
+    },
+    {
+      "title": "Graph Convolution over the Semantic-Syntactic Hybrid Graph Enhanced by Affective Knowledge for Aspect-Level Sentiment Classification",
+      "authors": "Junjie Xu, Shuwen Yang, Luwei Xiao, Zhichao Fu, Xingjiao Wu, Tianlong Ma, Liang He",
+      "venue": "IJCNN 2022",
+      "status": "Published",
+      "statusZh": "已发表",
+      "citations": 23
+    },
+    {
+      "title": "Phoenix: Prioritize the Hierarchical Observation of Auditory Expression for Audio-Based Image Generation",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Luwei Xiao, Daoguo Dong, Liang He",
+      "venue": "IEEE TCSVT (under review) · SSRN 5343200",
+      "status": "Manuscript",
+      "statusZh": "手稿",
+      "url": "https://ssrn.com/abstract=5343200"
+    },
+    {
+      "title": "COFFEE: Listen, with Your Eyes: Cross-Modal Fine-Grained Alignment and Fusion Enhanced for Audio-Based Image Generation",
+      "authors": "Junjie Xu and collaborators",
+      "venue": "IEEE TNNLS (under review)",
+      "status": "Manuscript",
+      "statusZh": "手稿"
     },
     {
       "title": "Cross-Modal Alignment and Human Preference Learning for Fine-Grained Music-Guided Image Generation",
       "authors": "Junjie Xu and collaborators",
-      "venue": "ICLR 2026",
+      "venue": "Under review · ICLR 2026",
       "status": "Under review",
       "statusZh": "评审中"
+    },
+    {
+      "title": "ElysianMV: Bridging Therapeutic Emotions and Aesthetic Imagery via Music-Visual Cross-Modal Synthesis",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Luwei Xiao, Jiabao Zhao, Liang He",
+      "venue": "Preprint submitted to Pattern Recognition",
+      "status": "Preprint",
+      "statusZh": "预印本"
     },
     {
       "title": "GARBO-T2I: Gradient-Aware Reinforcement-Based Optimization for Text-to-Image Generation",
@@ -86,30 +223,6 @@
       "status": "Under review",
       "statusZh": "评审中",
       "url": "/works/evidence-before-severity/"
-    },
-    {
-      "title": "Bidirectional Directed Acyclic Graph Neural Network for Aspect-level Sentiment Classification",
-      "authors": "Junjie Xu, Luwei Xiao, Anran Wu, Tianlong Ma, Daoguo Dong, Liang He",
-      "venue": "ACM Transactions on Asian and Low-Resource Language Information Processing",
-      "status": "Published",
-      "statusZh": "已发表",
-      "url": "https://doi.org/10.1145/3716501"
-    },
-    {
-      "title": "Attention Mixture Network for Crowd Counting via Binarization Transfer",
-      "authors": "Junjie Xu, Zihao Zhang, Xin Li, Weijie Li, Kun Yu",
-      "venue": "ACM Multimedia Content Generation and Evaluation Workshop",
-      "status": "Published",
-      "statusZh": "已发表",
-      "url": "https://doi.org/10.1145/3688867.3690172"
-    },
-    {
-      "title": "Graph Convolution over the Semantic-syntactic Hybrid Graph Enhanced by Affective Knowledge for Aspect-level Sentiment Classification",
-      "authors": "Junjie Xu, Shuwen Yang, Luwei Xiao, Zhichao Fu, Xingjiao Wu, Tianlong Ma, Liang He",
-      "venue": "2022 International Joint Conference on Neural Networks",
-      "status": "Published",
-      "statusZh": "已发表",
-      "url": "https://doi.org/10.1109/IJCNN55064.2022.9892027"
     }
   ],
   "patents": [
