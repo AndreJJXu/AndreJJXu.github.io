@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="Counterfactual Evidence Fidelity: an observable behavioral property of selective LLM evaluators, audited through a 42,240-condition exploratory program."
+    />
+    <meta property="og:title" content="Counterfactual Evidence Fidelity | Junjie Xu" />
+    <meta
+      property="og:description"
+      content="A theory-first program defining and measuring evidence fidelity in LLM evaluators across 42,240 exploratory conditions."
+    />
+    <meta property="og:type" content="article" />
+    <title>Counterfactual Evidence Fidelity | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+      }
+
+      .work-page {
+        padding: 84px 0 40px;
+        font-family: var(--hero-font-body);
+      }
+
+      .work-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 58px;
+      }
+
+      .work-top a {
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 26px;
+        color: var(--wk-muted);
+        font-size: 11px;
+        font-weight: 650;
+        text-transform: uppercase;
+      }
+
+      .work-kicker .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--wk-green);
+      }
+
+      .work-title {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(32px, 5vw, 54px);
+        font-weight: 640;
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+      }
+
+      .work-title em {
+        font-style: normal;
+        color: var(--wk-blue);
+      }
+
+      .work-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 13px;
+        border: 1px solid var(--wk-line);
+        border-radius: 999px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4);
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .work-authors {
+        margin: 26px 0 0;
+        color: var(--wk-muted);
+        font-size: 14px;
+      }
+
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 800px;
+        margin: 34px 0 0;
+        padding-left: 18px;
+        border-left: 2px solid var(--wk-blue);
+        color: #dbe6f3;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .work-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 22px;
+        margin-top: 30px;
+      }
+
+      .work-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: 1px solid var(--wk-line);
+        border-radius: 10px;
+        color: var(--hero-ink);
+        font-size: 13.5px;
+        font-weight: 620;
+        transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover {
+        border-color: rgba(117, 183, 255, 0.5);
+        background: rgba(117, 183, 255, 0.08);
+      }
+
+      .work-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 64px;
+      }
+
+      .work-stat {
+        padding: 22px 22px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 16px;
+        background: var(--wk-card);
+      }
+
+      .work-stat b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(22px, 2.4vw, 30px);
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span {
+        display: block;
+        margin-top: 7px;
+        color: var(--wk-muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 28px;
+        align-items: baseline;
+        margin-bottom: 26px;
+      }
+
+      .work-heading .num {
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-size: 17px;
+      }
+
+      .work-heading h2 {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px);
+        font-weight: 630;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+      }
+
+      .work-prose {
+        max-width: 800px;
+        color: #c3d1e1;
+        font-size: 15px;
+        line-height: 1.85;
+      }
+
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-prose code {
+        padding: 1px 7px;
+        border: 1px solid var(--wk-line);
+        border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07);
+        color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.88em;
+      }
+
+      .tenet-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .tenet-card {
+        padding: 22px 22px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 16px;
+        background: var(--wk-card);
+      }
+
+      .tenet-card .n {
+        display: block;
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-size: 15px;
+      }
+
+      .tenet-card h3 {
+        margin: 10px 0 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: 17px;
+        font-weight: 630;
+        line-height: 1.3;
+      }
+
+      .tenet-card p {
+        margin: 9px 0 0;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        line-height: 1.65;
+      }
+
+      .pipeline {
+        display: grid;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .pipeline-step {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+        padding: 18px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 14px;
+        background: var(--wk-card);
+      }
+
+      .pipeline-step .idx {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 10px;
+        background: rgba(117, 183, 255, 0.12);
+        color: var(--wk-blue);
+        font-family: var(--hero-font-display);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .pipeline-step b {
+        display: block;
+        color: var(--hero-ink);
+        font-size: 14px;
+        font-weight: 640;
+      }
+
+      .pipeline-step span {
+        display: block;
+        margin-top: 4px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+
+      .result-strip {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .result-card {
+        padding: 24px 26px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: var(--wk-card);
+      }
+
+      .result-card .label {
+        display: inline-flex;
+        padding: 4px 11px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .result-card.is-gain .label {
+        background: rgba(105, 221, 181, 0.12);
+        color: var(--wk-green);
+      }
+
+      .result-card.is-null .label {
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .result-card .big {
+        display: block;
+        margin-top: 16px;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(26px, 3vw, 36px);
+        font-weight: 650;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .result-card p {
+        margin: 10px 0 0;
+        color: var(--wk-muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .boundary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .boundary-card {
+        padding: 24px 26px;
+        border-radius: 18px;
+        font-size: 13.5px;
+        line-height: 1.8;
+      }
+
+      .boundary-card h3 {
+        margin: 0 0 12px;
+        font-family: var(--hero-font-display);
+        font-size: 16px;
+        font-weight: 640;
+      }
+
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3);
+        background: rgba(105, 221, 181, 0.05);
+        color: #c9e9dd;
+      }
+
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28);
+        background: rgba(255, 139, 114, 0.045);
+        color: #ecd2c9;
+      }
+
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 90px;
+        padding-top: 24px;
+        border-top: 1px solid var(--wk-line);
+        color: var(--wk-muted);
+        font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats, .tenet-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .result-strip, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+      }
+
+      @media (max-width: 560px) {
+        .work-stats, .tenet-grid { grid-template-columns: minmax(0, 1fr); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="en">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/#about">About</a>
+          <a href="/#work">Work</a>
+          <a href="/works/" class="is-active" aria-current="page">Works</a>
+          <a href="/#publications">Publications</a>
+          <a href="/#patents">Patents</a>
+          <a href="/#writing">Work Blog</a>
+          <a href="/#honors">Honors</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/zh/" lang="zh-CN">中文</a>
+          <a href="/cv/">CV</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/">← All works</a>
+              <a href="/works/evidence-before-severity/">Related audit: Evidence Before Severity ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> Work 03 · Theory-first research program</p>
+            <h1 class="work-title">Counterfactual <em>Evidence Fidelity.</em></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              CEF — an observable behavioral property of selective LLM evaluators, pursued as a 24-stage exploratory program toward ICLR 2027.
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">Exploratory program · ICLR 2027 target</span>
+              <span class="meta-chip">Behavioral measurement</span>
+              <span class="meta-chip">Information theory</span>
+              <span class="meta-chip">Mechanism search</span>
+            </div>
+            <p class="work-authors"><strong>Junjie Xu</strong> and collaborators · East China Normal University</p>
+            <p class="work-tldr">
+              Fidelity should be measurable from behavior, not vibes: an evaluator has
+              <strong style="color:#f0f6ff">Counterfactual Evidence Fidelity</strong> when it is conditionally stable to
+              non-decisive nuisance cues, responds in the right direction to decision-relevant evidence, and gains
+              nothing through abstention, coverage collapse, or missingness. A 24-stage program tests the construct —
+              and a candidate mechanism that passes a quadruplet audit at 1.0000.
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="#construct">The construct</a>
+              <a class="work-action" href="#mechanism">Mechanism candidate</a>
+              <a class="work-action" href="#results">Exploratory results</a>
+              <a class="work-action" href="#boundary">Claim boundary</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>42,240</b><span>formal experimental conditions across stages 1–15</span></div>
+            <div class="work-stat"><b>20.4M</b><span>API tokens spent in the historical falsification chain</span></div>
+            <div class="work-stat"><b>5 runs</b><span>converge on the identity-conditioned normalized state</span></div>
+            <div class="work-stat"><b>112</b><span>tests kept green, including governance checks</span></div>
+          </div>
+
+          <section class="work-section reveal" id="construct">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>A construct with three tenets</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                "Is the evaluator using the evidence?" is unfalsifiable as asked. CEF decomposes it into three jointly
+                observable behavioral requirements — each individually auditable, and each able to <strong>fail
+                independently</strong>.
+              </p>
+            </div>
+            <div class="tenet-grid reveal">
+              <div class="tenet-card">
+                <span class="n">i</span>
+                <h3>Conditional stability</h3>
+                <p>Stable output when non-decisive nuisance cues (like a severity number) change — the response should track evidence, not metadata.</p>
+              </div>
+              <div class="tenet-card">
+                <span class="n">ii</span>
+                <h3>Directional correctness</h3>
+                <p>A directionally correct response when decision-relevant evidence is intervened on — the counterfactual half of the construct.</p>
+              </div>
+              <div class="tenet-card">
+                <span class="n">iii</span>
+                <h3>No free lunch</h3>
+                <p>No apparent gain obtained through abstention, coverage collapse, contract failure, or technical missingness.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="mechanism">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>A mechanism candidate that survives ablation</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                Five positive full-matrix runs (v13 / v17 / v19.1 / v22 / v24) independently converge on the same
+                minimal mechanism: an <strong>identity-conditioned normalized evidence state</strong>. A v23 necessity
+                ablation supports the normalized-state channel; negative audits (v20 / v21) bound where the design
+                does <strong>not</strong> help. The working method name is
+                <strong>Fidelity-aware Evidence Bottleneck</strong> — provisional until a novelty review is done.
+              </p>
+            </div>
+            <div class="pipeline reveal">
+              <div class="pipeline-step">
+                <span class="idx">1</span>
+                <div>
+                  <b>Selector — the identity lock</b>
+                  <span>From the full packet, emit exactly one named record, a verbatim content quote, a verbatim binding quote proving ownership, and a normalized target signal.</span>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <span class="idx">2</span>
+                <div>
+                  <b>Normalization — the hard cut</b>
+                  <span>Same-source content only, projected to a finite {PRESENT, ABSENT, UNRESOLVED} state; all raw context and nuisance text severed.</span>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <span class="idx">3</span>
+                <div>
+                  <b>Reader isolation — the deterministic contract</b>
+                  <span>The reader sees only the selected identity and target signal under a deterministic decision rule, with per-channel failure attribution.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="results">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>Exploratory results, reported as exploratory</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                On the quadruplet audit — each item crossed with a nuisance intervention and an evidence intervention,
+                three repeats per cell — the candidate mechanism moved error to zero on both task families. What the
+                numbers <strong>do not</strong> establish matters as much: these are synthetic, prompt-based discovery
+                results, not a finished training method.
+              </p>
+            </div>
+            <div class="result-strip reveal">
+              <div class="result-card is-gain">
+                <span class="label">GPT-5.4 · candidate vs baseline</span>
+                <span class="big">0.8333 → 1.0000</span>
+                <p>
+                  Quadruplet pass rate on the clinical three-record task, and 0.8299 → 1.0000 on a non-clinical
+                  operational task — without abstention or coverage loss. A provenance challenge also separated
+                  correct UNRESOLVED behavior from selective masking.
+                </p>
+              </div>
+              <div class="result-card is-null">
+                <span class="label">GPT-5.5 · honest null</span>
+                <span class="big">1.0000 = 1.0000</span>
+                <p>
+                  On GPT-5.5, both the repaired Evidence-first baseline and the candidate scored perfectly, so the
+                  cross-model relative advantage remains unconfirmed — reported as a null, not buried.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>Claim boundary</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ Established</h3>
+                <ul>
+                  <li>The CEF construct: three jointly observable behavioral tenets with failing modes</li>
+                  <li>A quadruplet audit design with cluster-bootstrapped uncertainty (10,000 resamples)</li>
+                  <li>Five convergent runs + a necessity ablation supporting the normalized-state channel</li>
+                  <li>A theory chapter — measurement, statistics, information-theoretic frontier, channel decomposition — with automated claim verification</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ Explicitly not claimed</h3>
+                <ul>
+                  <li>That any evaluator is generally invariant, faithful, safe, or clinically valid</li>
+                  <li>That exploratory gains establish a general improvement across independent tasks</li>
+                  <li>That CEF reveals a model's private reasoning or causal mechanism</li>
+                  <li>That the sibling AAAI audit's sealed evidence confirms anything here — it is external motivation, read-only</li>
+                  <li>Preregistration or confirmatory reproducibility — Phase 0 v2 engineering is deferred</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>Work 03 · Counterfactual Evidence Fidelity — <a href="/works/">all works</a></span>
+            <span><a href="/">junjiexu.github.io</a> · updated 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) {
+            clearTimeout(revealTimer);
+            revealTimer = 0;
+          }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (el.classList.contains("is-in")) continue;
+            if (el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => {
+          if (revealTimer) return;
+          revealTimer = setTimeout(checkReveals, 60);
+        };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+    </script>
+  </body>
+</html>

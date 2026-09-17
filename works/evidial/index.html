@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="EviDial: a panel-assessability benchmark and measurement framework for evaluating LLM judges on depression-related dialogues."
+    />
+    <meta property="og:title" content="EviDial | Junjie Xu" />
+    <meta
+      property="og:description"
+      content="1,910 panel adjudications, 26,415 dimension-level judgments: measuring what makes depression-dialogue evidence assessable."
+    />
+    <meta property="og:type" content="article" />
+    <title>EviDial | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+      }
+
+      .work-page {
+        padding: 84px 0 40px;
+        font-family: var(--hero-font-body);
+      }
+
+      .work-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 58px;
+      }
+
+      .work-top a {
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+
+      .work-top a:hover { color: var(--wk-blue); }
+
+      .work-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 26px;
+        color: var(--wk-muted);
+        font-size: 11px;
+        font-weight: 650;
+        text-transform: uppercase;
+      }
+
+      .work-kicker .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--wk-green);
+      }
+
+      .work-title {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(34px, 5.4vw, 58px);
+        font-weight: 640;
+        line-height: 1.06;
+        letter-spacing: -0.015em;
+      }
+
+      .work-title em {
+        font-style: normal;
+        color: var(--wk-blue);
+      }
+
+      .work-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      .meta-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 13px;
+        border: 1px solid var(--wk-line);
+        border-radius: 999px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        font-weight: 570;
+      }
+
+      .meta-chip.is-accent {
+        border-color: rgba(117, 183, 255, 0.4);
+        background: rgba(117, 183, 255, 0.1);
+        color: var(--wk-blue);
+      }
+
+      .work-authors {
+        margin: 26px 0 0;
+        color: var(--wk-muted);
+        font-size: 14px;
+      }
+
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+
+      .work-tldr {
+        max-width: 780px;
+        margin: 34px 0 0;
+        padding-left: 18px;
+        border-left: 2px solid var(--wk-blue);
+        color: #dbe6f3;
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .work-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 22px;
+        margin-top: 30px;
+      }
+
+      .work-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: 1px solid var(--wk-line);
+        border-radius: 10px;
+        color: var(--hero-ink);
+        font-size: 13.5px;
+        font-weight: 620;
+        transition: border-color 170ms ease, background 170ms ease;
+      }
+
+      .work-action:hover {
+        border-color: rgba(117, 183, 255, 0.5);
+        background: rgba(117, 183, 255, 0.08);
+      }
+
+      .work-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 64px;
+      }
+
+      .work-stat {
+        padding: 22px 22px 20px;
+        border: 1px solid var(--wk-line);
+        border-radius: 16px;
+        background: var(--wk-card);
+      }
+
+      .work-stat b {
+        display: block;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(24px, 2.6vw, 32px);
+        font-weight: 650;
+        letter-spacing: -0.01em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .work-stat span {
+        display: block;
+        margin-top: 7px;
+        color: var(--wk-muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .work-section { margin-top: 88px; }
+
+      .work-heading {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 28px;
+        align-items: baseline;
+        margin-bottom: 26px;
+      }
+
+      .work-heading .num {
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-size: 17px;
+      }
+
+      .work-heading h2 {
+        margin: 0;
+        color: var(--hero-ink);
+        font-family: var(--hero-font-display);
+        font-size: clamp(25px, 3vw, 33px);
+        font-weight: 630;
+        letter-spacing: -0.01em;
+        line-height: 1.15;
+      }
+
+      .work-prose {
+        max-width: 800px;
+        color: #c3d1e1;
+        font-size: 15px;
+        line-height: 1.85;
+      }
+
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-prose code {
+        padding: 1px 7px;
+        border: 1px solid var(--wk-line);
+        border-radius: 6px;
+        background: rgba(117, 183, 255, 0.07);
+        color: #dff0ff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.88em;
+      }
+
+      .work-figure {
+        margin: 30px 0 0;
+        padding: 26px;
+        border: 1px solid var(--wk-line);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+      }
+
+      .work-figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .work-figcaption {
+        display: flex;
+        gap: 14px;
+        margin-top: 18px;
+        color: var(--wk-muted);
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+
+      .work-figcaption b {
+        flex: 0 0 auto;
+        color: var(--wk-blue);
+        font-family: var(--font-serif);
+        font-weight: 500;
+      }
+
+      .protocol-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .protocol-card {
+        padding: 16px 18px;
+        border: 1px solid var(--wk-line);
+        border-radius: 14px;
+        background: var(--wk-card);
+      }
+
+      .protocol-card b {
+        display: block;
+        color: var(--hero-ink);
+        font-size: 13.5px;
+        font-weight: 640;
+      }
+
+      .protocol-card span {
+        display: block;
+        margin-top: 6px;
+        color: var(--wk-muted);
+        font-size: 11.5px;
+        line-height: 1.55;
+      }
+
+      .boundary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .boundary-card {
+        padding: 24px 26px;
+        border-radius: 18px;
+        font-size: 13.5px;
+        line-height: 1.8;
+      }
+
+      .boundary-card h3 {
+        margin: 0 0 12px;
+        font-family: var(--hero-font-display);
+        font-size: 16px;
+        font-weight: 640;
+      }
+
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+
+      .boundary-card.is-yes {
+        border: 1px solid rgba(105, 221, 181, 0.3);
+        background: rgba(105, 221, 181, 0.05);
+        color: #c9e9dd;
+      }
+
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+
+      .boundary-card.is-no {
+        border: 1px solid rgba(255, 139, 114, 0.28);
+        background: rgba(255, 139, 114, 0.045);
+        color: #ecd2c9;
+      }
+
+      .boundary-card.is-no h3 { color: #ff8b72; }
+
+      .work-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 90px;
+        padding-top: 24px;
+        border-top: 1px solid var(--wk-line);
+        color: var(--wk-muted);
+        font-size: 12.5px;
+      }
+
+      .work-footer a { color: var(--wk-blue); }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .work-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 16px; }
+      }
+
+      @media (max-width: 560px) {
+        .work-stats { grid-template-columns: minmax(0, 1fr); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="en">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/#about">About</a>
+          <a href="/#work">Work</a>
+          <a href="/works/" class="is-active" aria-current="page">Works</a>
+          <a href="/#publications">Publications</a>
+          <a href="/#patents">Patents</a>
+          <a href="/#writing">Work Blog</a>
+          <a href="/#honors">Honors</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/zh/" lang="zh-CN">中文</a>
+          <a href="/cv/">CV</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/">← All works</a>
+              <a href="/works/evidence-before-severity/">Related audit: Evidence Before Severity ↗</a>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> Work 02 · Benchmark &amp; measurement</p>
+            <h1 class="work-title">EviDial<span style="color: var(--hero-accent)">.</span></h1>
+            <p style="max-width: 680px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              Evidence + Dialogue — a panel-assessability framework for judging LLM evaluators on depression-related dialogues.
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">In preparation · ICLR 2027</span>
+              <span class="meta-chip">Evaluation benchmark</span>
+              <span class="meta-chip">LLM judge panels</span>
+              <span class="meta-chip">Clinical dialogue</span>
+            </div>
+            <p class="work-authors"><strong>Junjie Xu</strong> and collaborators · East China Normal University</p>
+            <p class="work-tldr">
+              What makes a depression-dialogue utterance <strong style="color:#f0f6ff">assessable</strong> in the first
+              place? EviDial replaces an unaffordable human gold standard with a
+              <strong style="color:#f0f6ff">five-protocol LLM judge panel</strong> — 1,910 adjudications at 100%
+              coverage and zero cash cost — and shows that <strong style="color:#f0f6ff">protocol diversity rivals
+              model-family diversity</strong> (effective judge count 1.59 vs 1.56).
+            </p>
+            <div class="work-actions">
+              <a class="work-action is-primary" href="#design">Design</a>
+              <a class="work-action" href="#findings">Findings</a>
+              <a class="work-action" href="#boundary">Claim boundary</a>
+            </div>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>1,910</b><span>panel adjudications at 100% coverage in the M1 full run</span></div>
+            <div class="work-stat"><b>17,190</b><span>dimension-level judgments across 382 utterances × 5 protocols</span></div>
+            <div class="work-stat"><b>26,415</b><span>dimension judgments in the DEPTH-PA ledger (587 utterances)</span></div>
+            <div class="work-stat"><b>¥0</b><span>cash cost of the full panel — protocol diversity replaces paid judges</span></div>
+          </div>
+
+          <section class="work-section reveal" id="design">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>Panel-assessability, not borrowed ground truth</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                Clinical dialogue evaluation usually assumes a human gold standard. At ~¥175k and 4–6 months for 3,200
+                anchored adjudications, that assumption prices out most labs. EviDial takes a different route: the
+                construct under measurement is <strong>panel-assessability</strong> — whether a five-protocol judge panel,
+                after intervention-based calibration, can render a stable, auditable verdict on an utterance — and the
+                paper explicitly does <strong>not</strong> claim clinical equivalence for the panel consensus.
+              </p>
+              <p>
+                The frozen <code>suffneg_pass</code> fix shows why the machinery matters: an always-positive system
+                scored a perfect 72/72 = 1.0 under the legacy metric, and exactly 0/72 = 0.0 under the joint metric.
+                Eight of eight captures held under frozen tolerance.
+              </p>
+            </div>
+            <div class="protocol-grid reveal">
+              <div class="protocol-card"><b>Sentence sweep</b><span>utterance-by-utterance scan for explicit evidence</span></div>
+              <div class="protocol-card"><b>Holistic clinical</b><span>whole-dialogue clinical reading</span></div>
+              <div class="protocol-card"><b>Skeptic</b><span>challenges every positive claim</span></div>
+              <div class="protocol-card"><b>Behavioral evidence</b><span>weights observable behavior over self-report</span></div>
+              <div class="protocol-card"><b>Pragmatic inference</b><span>reads implicature and indirect speech</span></div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>Findings from 3,000+ blind adjudications</h2>
+            </div>
+            <div class="work-prose">
+              <p>
+                The M1 full-panel run delivered <strong>1,910/1,910 adjudications at 100% coverage with zero cash
+                cost</strong>; the M2 stratified extension added 205 utterances × 5 protocols = 1,025 more. The
+                pilot line established the quantitative core: a same-base-model protocol panel reaches an effective
+                judge count of <strong>1.59 vs 1.56 for a five-family model panel</strong> — protocol diversity is a
+                viable substitute for model diversity.
+              </p>
+            </div>
+            <figure class="work-figure">
+              <img src="/assets/works/evidial/fig-mechanism.png" alt="Mechanism experiment: error rate by evidence and distractor presence across four systems, with a difference-in-differences analysis specific to binding failure." />
+              <figcaption class="work-figcaption">
+                <b>Fig. 1</b>
+                <span>The T08 2×2 mechanism experiment (64 scenarios / 256 views, four systems + two ablations): the full mechanism absorbs distractor interference; the no-binding ablation does not — a difference-in-differences analysis isolates binding-specific failure.</span>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>Claim boundary</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ Established so far</h3>
+                <ul>
+                  <li>A frozen task contract, evidence-state schema, and metric spec with automated checkers</li>
+                  <li>1,910 + 1,025 blind panel adjudications at full coverage, frozen protocols, blinded dialogue text</li>
+                  <li>A mechanism experiment isolating binding-specific distractor interference</li>
+                  <li>A unified results manifest (84 rows) with conflict reporting, three gates green</li>
+                  <li>An independent human-annotation harness, handbook, and cost model, ready to run</li>
+                </ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ Not claimed (yet)</h3>
+                <ul>
+                  <li>Human-anchored gold standard — the 2–3-annotator study (~196 hours) is specified but pending</li>
+                  <li>A real five-method judge comparison — blocked on API credentials</li>
+                  <li>Clinical equivalence of panel consensus to expert judgment</li>
+                  <li>Conference acceptance — internal simulated review scores are engineering feedback, not results</li>
+                  <li>An early construct-validity finding was retracted when the monotonic rise proved to be symptom burden, not assessability</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>Work 02 · EviDial — <a href="/works/">all works</a></span>
+            <span><a href="/">junjiexu.github.io</a> · updated 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) {
+            clearTimeout(revealTimer);
+            revealTimer = 0;
+          }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (el.classList.contains("is-in")) continue;
+            if (el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => {
+          if (revealTimer) return;
+          revealTimer = setTimeout(checkReveals, 60);
+        };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals, { passive: true });
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+    </script>
+  </body>
+</html>
