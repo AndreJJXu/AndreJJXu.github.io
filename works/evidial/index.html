@@ -113,38 +113,8 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 780px;
-        margin: 34px 0 0;
-        padding-left: 18px;
-        border-left: 2px solid var(--wk-blue);
-        color: #dbe6f3;
-        font-size: 17px;
-        line-height: 1.7;
-      }
-
-      .work-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px 22px;
-        margin-top: 30px;
-      }
-
-      .work-action {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 18px;
-        border: 1px solid var(--wk-line);
-        border-radius: 10px;
-        color: var(--hero-ink);
-        font-size: 13.5px;
-        font-weight: 620;
-        transition: border-color 170ms ease, background 170ms ease;
-      }
-
-      .work-action:hover {
-        border-color: rgba(117, 183, 255, 0.5);
-        background: rgba(117, 183, 255, 0.08);
+        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        font-size: 19px; line-height: 1.8; letter-spacing: 0.002em;
       }
 
       .work-stats {
@@ -387,8 +357,7 @@
           <header>
             <div class="work-top">
               <a href="/works/">← All works</a>
-              <a href="/works/zh/evidial/">中文</a>
-              <a href="/works/evidence-before-severity/">Related audit: Evidence Before Severity ↗</a>
+              <span class="work-hero-right"><a href="works/zh/evidial/" lang="zh-CN">中文</a></span>
             </div>
             <p class="work-kicker"><span class="dot"></span> Work 02 · Benchmark &amp; measurement</p>
             <h1 class="work-title">EviDial<span style="color: var(--hero-accent)">.</span></h1>
@@ -409,11 +378,6 @@
               coverage and zero cash cost — and shows that <strong style="color:#f0f6ff">protocol diversity rivals
               model-family diversity</strong> (effective judge count 1.59 vs 1.56).
             </p>
-            <div class="work-actions">
-              <a class="work-action is-primary" href="#design">Design</a>
-              <a class="work-action" href="#findings">Findings</a>
-              <a class="work-action" href="#boundary">Claim boundary</a>
-            </div>
           </header>
 
           <div class="work-stats reveal">
@@ -504,7 +468,7 @@
           </section>
 
           <footer class="work-footer">
-            <span>Work 02 · EviDial — <a href="/works/">all works</a></span>
+            <span>Work 02 · EviDial — <a href="/works/">all works</a> · Related · <a href="/works/evidence-before-severity/">Related audit: Evidence Before Severity ↗</a></span>
             <span><a href="/">junjiexu.github.io</a> · updated 2026.09</span>
           </footer>
         </article>

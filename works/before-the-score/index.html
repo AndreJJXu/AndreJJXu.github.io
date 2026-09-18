@@ -30,7 +30,8 @@
 
       .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
 
-      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 58px; }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
       .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
       .work-top a:hover { color: var(--wk-blue); }
 
@@ -64,19 +65,9 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 820px; margin: 34px 0 0; padding-left: 18px;
-        border-left: 2px solid var(--wk-blue); color: #dbe6f3; font-size: 17px; line-height: 1.7;
+        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        font-size: 19.5px; line-height: 1.8; letter-spacing: 0.002em;
       }
-
-      .work-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 30px; }
-
-      .work-action {
-        display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
-        border: 1px solid var(--wk-line); border-radius: 10px; color: var(--hero-ink);
-        font-size: 13.5px; font-weight: 620; transition: border-color 170ms ease, background 170ms ease;
-      }
-
-      .work-action:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
 
       .work-stats {
         display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px;
@@ -245,8 +236,7 @@
           <header>
             <div class="work-top">
               <a href="/works/">← All works</a>
-              <a href="/works/zh/before-the-score/" lang="zh-CN">中文</a>
-              <a href="/#publications">Publication list ↗</a>
+              <span class="work-hero-right"><a href="/works/zh/before-the-score/" lang="zh-CN">中文</a></span>
             </div>
             <p class="work-kicker"><span class="dot"></span> Work 05 · Evaluation integrity audit</p>
             <h1 class="work-title">Before <em>the</em> Score<span style="color: var(--hero-accent)">.</span></h1>
@@ -268,12 +258,6 @@
               target text never changed, and shows <strong style="color:#f6fffb">79/85 runs</strong> repeating a
               rise-then-fall score pattern — without one new model call.
             </p>
-            <div class="work-actions">
-              <a class="work-action is-primary" href="#question">The question</a>
-              <a class="work-action" href="#protocol">Audit protocol</a>
-              <a class="work-action" href="#findings">Findings</a>
-              <a class="work-action" href="#boundary">Claim boundary</a>
-            </div>
           </header>
 
           <div class="work-stats reveal">

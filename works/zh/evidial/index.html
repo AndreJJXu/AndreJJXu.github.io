@@ -54,20 +54,9 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 800px; margin: 34px 0 0; padding-left: 18px;
-        border-left: 2px solid var(--wk-blue); color: #dbe6f3; font-size: 16.5px; line-height: 1.75;
+        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        font-size: 19px; line-height: 1.8; letter-spacing: 0.002em;
       }
-
-      .work-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 30px; }
-
-      .work-action {
-        display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
-        border: 1px solid var(--wk-line); border-radius: 10px; color: var(--hero-ink);
-        font-size: 13.5px; font-weight: 620;
-        transition: border-color 170ms ease, background 170ms ease;
-      }
-
-      .work-action:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
 
       .work-stats {
         display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px;
@@ -194,8 +183,7 @@
           <header>
             <div class="work-top">
               <a href="/works/zh/">← 全部作品</a>
-              <a href="/works/evidial/" lang="en">English</a>
-              <a href="/works/zh/evidence-before-severity/">相关审计：Evidence Before Severity ↗</a>
+              <span class="work-hero-right"><a href="/works/evidial/" lang="en">English</a></span>
             </div>
             <p class="work-kicker"><span class="dot"></span> 作品 02 · 基准与测量</p>
             <h1 class="work-title">EviDial<span style="color: var(--hero-accent)">.</span></h1>
@@ -215,11 +203,6 @@
               1,910 次裁定、100% 覆盖、零现金成本——并给出关键证据：
               <strong style="color:#f0f6ff">协议多样性堪比模型族多样性</strong>（有效裁判数 1.59 vs 1.56）。
             </p>
-            <div class="work-actions">
-              <a class="work-action is-primary" href="#design">设计</a>
-              <a class="work-action" href="#findings">发现</a>
-              <a class="work-action" href="#boundary">主张边界</a>
-            </div>
           </header>
 
           <div class="work-stats reveal">
@@ -300,7 +283,7 @@
           </section>
 
           <footer class="work-footer">
-            <span>作品 02 · EviDial — <a href="/works/zh/">全部作品</a></span>
+            <span>作品 02 · EviDial — <a href="/works/zh/">全部作品</a> · 相关作品 · <a href="/works/zh/evidence-before-severity/">相关审计：Evidence Before Severity ↗</a></span>
             <span><a href="/zh/">许俊杰个人主页</a> · 更新于 2026.09</span>
           </footer>
         </article>
