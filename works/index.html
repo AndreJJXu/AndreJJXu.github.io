@@ -9,6 +9,11 @@
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
     <style>
+      :root {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+      }
+
       .works-page { padding: 84px 0 60px; font-family: var(--hero-font-body); }
 
       .works-kicker {
@@ -32,6 +37,7 @@
         font-weight: 640;
         line-height: 1.02;
         letter-spacing: -0.015em;
+        text-wrap: balance;
       }
 
       .works-intro {
@@ -42,118 +48,190 @@
         line-height: 1.7;
       }
 
-      .works-grid {
+      /* ---------- scenes: one study, one expression ---------- */
+      .scenes { margin-top: 30px; }
+
+      .scene {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 20px;
-        margin-top: 54px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(36px, 5vw, 76px);
+        align-items: center;
+        padding: clamp(48px, 8vh, 86px) 0;
+        text-decoration: none;
       }
 
-      .work-card {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border: 1px solid var(--wk-line);
-        border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
-        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms ease;
-      }
+      .scene + .scene { border-top: 1px solid rgba(170, 199, 230, 0.09); }
 
-      .work-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(117, 183, 255, 0.45);
-      }
+      .scene--flip .scene-art { order: -1; }
 
-      .work-card-visual {
+      .scene-art {
         position: relative;
-        aspect-ratio: 16 / 9;
+        display: block;
         overflow: hidden;
-        background: #0c1a2c;
+        aspect-ratio: 16 / 10.4;
+        border-radius: 24px;
+        border: 1px solid var(--acc-line);
+        background:
+          radial-gradient(120% 130% at 18% 0%, var(--acc-glow), transparent 58%),
+          radial-gradient(110% 120% at 100% 100%, var(--acc-glow2), transparent 52%),
+          #0a1626;
+        transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), border-color 260ms ease, box-shadow 420ms ease;
       }
 
-      .work-card-visual img {
+      .scene:hover .scene-art {
+        transform: translateY(-6px);
+        border-color: var(--acc-line-h);
+        box-shadow: 0 34px 80px -46px var(--acc-shadow);
+      }
+
+      .scene-art svg {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        object-position: top center;
-        filter: saturate(0.9);
-        transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+        transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
       }
 
-      .work-card:hover .work-card-visual img { transform: scale(1.035); }
+      .scene:hover .scene-art svg { transform: scale(1.03); }
 
-      .work-card-index {
+      .scene-cap {
         position: absolute;
-        top: 14px;
-        left: 16px;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: rgba(7, 17, 31, 0.78);
-        backdrop-filter: blur(8px);
-        color: var(--hero-signal);
-        font-size: 10.5px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-      }
-
-      .work-card-body {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        padding: 20px 22px 22px;
-      }
-
-      .work-card-status {
-        display: inline-flex;
-        width: fit-content;
-        padding: 3px 10px;
-        border: 1px solid rgba(117, 183, 255, 0.4);
-        border-radius: 999px;
-        color: var(--hero-accent);
-        font-size: 10.5px;
-        font-weight: 700;
+        left: 20px;
+        bottom: 15px;
+        color: rgba(214, 227, 242, 0.55);
+        font-size: 10px;
+        font-weight: 650;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        letter-spacing: 0.04em;
       }
 
-      .work-card-body h2 {
-        margin: 13px 0 0;
+      .scene-body { max-width: 560px; }
+
+      .scene-kicker {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin: 0;
+        color: var(--wk-muted);
+        font-size: 11px;
+        font-weight: 650;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .scene-kicker .no {
+        color: var(--acc);
+        font-family: var(--hero-font-display);
+        font-size: 13px;
+        letter-spacing: 0.06em;
+      }
+
+      .scene-title {
+        margin: 16px 0 0;
         color: var(--hero-ink);
         font-family: var(--hero-font-display);
-        font-size: 21px;
-        font-weight: 630;
-        line-height: 1.22;
-        letter-spacing: -0.01em;
+        font-size: clamp(27px, 3.1vw, 42px);
+        font-weight: 640;
+        line-height: 1.06;
+        letter-spacing: -0.015em;
       }
 
-      .work-card-body p {
-        flex: 1;
-        margin: 10px 0 0;
-        color: var(--wk-muted);
-        font-size: 13px;
-        line-height: 1.65;
-      }
-
-      .work-card-link {
+      .scene-status {
         display: inline-flex;
         align-items: center;
-        gap: 7px;
-        margin-top: 18px;
-        color: var(--hero-accent);
-        font-size: 12.5px;
+        gap: 8px;
+        margin: 20px 0 0;
+        padding: 6px 13px;
+        border: 1px solid var(--acc-line);
+        border-radius: 999px;
+        color: var(--acc);
+        font-size: 11.5px;
         font-weight: 650;
+        letter-spacing: 0.02em;
+        transition: background 240ms ease;
       }
 
-      .work-card:hover .work-card-link { color: var(--ink); }
-
-      :root {
-        --wk-line: rgba(170, 199, 230, 0.18);
-        --wk-muted: #9eafc4;
+      .scene-status::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--acc);
       }
 
+      .scene:hover .scene-status { background: var(--acc-bg); }
 
+      .scene-desc {
+        margin: 18px 0 0;
+        color: #c3d1e1;
+        font-size: 15.5px;
+        line-height: 1.75;
+      }
+
+      .scene-link {
+        display: inline-block;
+        margin-top: 22px;
+        color: var(--acc);
+        font-size: 13.5px;
+        font-weight: 650;
+        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .scene:hover .scene-link { transform: translateX(5px); }
+
+      /* centered statement scene (03) */
+      .scene--center { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+      .scene--center .scene-art { width: min(860px, 100%); aspect-ratio: 16 / 8; }
+      .scene--center .scene-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 640px;
+        margin-top: 36px;
+        text-align: center;
+      }
+      .scene--center .scene-kicker { justify-content: center; }
+
+      .scene-mark {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: rgba(240, 250, 255, 0.96);
+        font-family: var(--hero-font-display);
+        font-size: clamp(52px, 7vw, 84px);
+        font-weight: 680;
+        letter-spacing: 0.02em;
+        text-shadow: 0 6px 40px rgba(105, 221, 181, 0.35);
+        pointer-events: none;
+      }
+
+      .scene-mark i { font-style: normal; color: var(--acc); }
+
+      /* idle drift inside artworks */
+      .drift-a { animation: scene-drift 7s ease-in-out infinite alternate; }
+      .drift-b { animation: scene-drift 9s ease-in-out infinite alternate-reverse; }
+      @keyframes scene-drift {
+        from { transform: translateY(-3px); }
+        to { transform: translateY(4px); }
+      }
+
+      /* reveal */
+      .scene.will-anim { opacity: 0; transform: translateY(28px); }
+      .scene.will-anim.is-in {
+        opacity: 1;
+        transform: none;
+        transition: opacity 0.7s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @media (max-width: 880px) {
+        .scene, .scene--flip { grid-template-columns: minmax(0, 1fr); gap: 26px; padding: 46px 0; }
+        .scene .scene-art, .scene--flip .scene-art { order: -1; }
+        .scene--center .scene-body { margin-top: 26px; }
+        .scene-body { max-width: none; }
+      }
+
+      /* ---------- first-author publications ---------- */
       .pub-section { margin-top: 80px; }
 
       .pub-section-head {
@@ -214,7 +292,9 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .work-card, .work-card-visual img { transition: none; }
+        .scene, .scene-art, .scene-art svg, .scene-link { transition: none; }
+        .scene.will-anim { opacity: 1; transform: none; }
+        .drift-a, .drift-b { animation: none; }
       }
     </style>
   </head>
@@ -243,83 +323,267 @@
           <p class="works-kicker"><span class="dot"></span> Works · dedicated project pages</p>
           <h1 class="works-title">Selected works,<br />each given room <span style="color: var(--hero-accent)">to breathe.</span></h1>
           <p class="works-intro">
-            Longer-form pages for individual research works — the design, the numbers, and the honest claim boundaries, beyond what a paper list row can hold.
+            Longer-form pages for individual research works — the design, the numbers, and the honest claim boundaries, beyond what a paper list row can hold. One study, one visual language: five scenes, five expressions.
           </p>
 
-          <div class="works-grid">
-            <a class="work-card" href="/works/evidence-before-severity/">
-              <div class="work-card-visual">
-                <img src="/assets/works/healbench/teaser-overview.png" alt="Evidence Before Severity overview figure" loading="lazy" />
-                <span class="work-card-index">01</span>
-              </div>
-              <div class="work-card-body">
-                <span class="work-card-status">Under review · AAAI 2027</span>
-                <h2>Evidence Before Severity</h2>
-                <p>
+          <div class="scenes">
+            <!-- 01 · EBS -->
+            <a class="scene" href="/works/evidence-before-severity/" style="--acc:#75b7ff; --acc-glow:rgba(117,183,255,.15); --acc-glow2:rgba(117,183,255,.06); --acc-line:rgba(117,183,255,.22); --acc-line-h:rgba(117,183,255,.5); --acc-shadow:rgba(20,60,120,.55); --acc-bg:rgba(117,183,255,.1);">
+              <div class="scene-body">
+                <p class="scene-kicker"><span class="no">01</span> Benchmark &amp; audit</p>
+                <h2 class="scene-title">Evidence Before Severity</h2>
+                <span class="scene-status">Under review · AAAI 2027</span>
+                <p class="scene-desc">
                   A 21,628-evaluation same-text audit of whether LLM safety judgments in depression-related dialogues follow expressed evidence — or just severity cues. Includes a 29-source, 869,268-record Evidence Atlas and an eight-configuration robustness extension.
                 </p>
-                <span class="work-card-link">Open project page →</span>
+                <span class="scene-link">Open project page →</span>
+              </div>
+              <div class="scene-art">
+                <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="ebs-beam" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#75b7ff" stop-opacity="0" />
+                      <stop offset="0.55" stop-color="#75b7ff" stop-opacity="0.5" />
+                      <stop offset="1" stop-color="#dcecfd" stop-opacity="0.85" />
+                    </linearGradient>
+                    <linearGradient id="ebs-hl" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#75b7ff" stop-opacity="0.06" />
+                      <stop offset="1" stop-color="#75b7ff" stop-opacity="0.55" />
+                    </linearGradient>
+                  </defs>
+                  <g class="drift-a">
+                    <line x1="72" y1="60" x2="72" y2="340" stroke="#75b7ff" stroke-opacity="0.22" />
+                    <g stroke="#75b7ff" stroke-width="3" stroke-linecap="round">
+                      <line x1="72" y1="84"  x2="280" y2="84"  stroke-opacity="0.14" />
+                      <line x1="72" y1="112" x2="390" y2="112" stroke-opacity="0.22" />
+                      <line x1="72" y1="140" x2="334" y2="140" stroke-opacity="0.12" />
+                      <line x1="72" y1="168" x2="438" y2="168" stroke-opacity="0.3" />
+                      <line x1="72" y1="196" x2="484" y2="196" stroke-opacity="0.2" />
+                      <line x1="72" y1="224" x2="524" y2="224" stroke-opacity="0.42" />
+                      <line x1="72" y1="252" x2="568" y2="252" stroke="url(#ebs-hl)" />
+                      <line x1="72" y1="280" x2="468" y2="280" stroke-opacity="0.24" />
+                      <line x1="72" y1="308" x2="410" y2="308" stroke-opacity="0.16" />
+                      <line x1="72" y1="336" x2="354" y2="336" stroke-opacity="0.12" />
+                    </g>
+                    <g fill="#75b7ff">
+                      <circle cx="280" cy="84"  r="3" fill-opacity="0.35" />
+                      <circle cx="390" cy="112" r="3" fill-opacity="0.5" />
+                      <circle cx="438" cy="168" r="3" fill-opacity="0.55" />
+                      <circle cx="524" cy="224" r="3.5" fill-opacity="0.7" />
+                      <circle cx="568" cy="252" r="4" fill-opacity="0.9" />
+                      <circle cx="468" cy="280" r="3" fill-opacity="0.45" />
+                      <circle cx="410" cy="308" r="3" fill-opacity="0.3" />
+                    </g>
+                  </g>
+                  <g class="drift-b">
+                    <rect x="-60" y="178" width="780" height="30" fill="url(#ebs-beam)" transform="rotate(-13 320 200)" />
+                  </g>
+                  <g fill="#9ec9ff">
+                    <circle cx="560" cy="84" r="1.6" fill-opacity="0.4" />
+                    <circle cx="596" cy="140" r="1.6" fill-opacity="0.3" />
+                    <circle cx="548" cy="180" r="1.6" fill-opacity="0.35" />
+                    <circle cx="600" cy="96" r="1.2" fill-opacity="0.3" />
+                  </g>
+                </svg>
+                <span class="scene-cap">21,628 evaluations · 29 sources · 869K records</span>
               </div>
             </a>
 
-            <a class="work-card" href="/works/evidial/">
-              <div class="work-card-visual">
-                <img src="/assets/works/evidial/fig-mechanism.png" alt="EviDial mechanism experiment figure" loading="lazy" />
-                <span class="work-card-index">02</span>
-              </div>
-              <div class="work-card-body">
-                <span class="work-card-status">In preparation · ICLR 2027</span>
-                <h2>EviDial</h2>
-                <p>
+            <!-- 02 · EviDial -->
+            <a class="scene scene--flip" href="/works/evidial/" style="--acc:#b48cff; --acc-glow:rgba(180,140,255,.15); --acc-glow2:rgba(180,140,255,.06); --acc-line:rgba(180,140,255,.22); --acc-line-h:rgba(180,140,255,.5); --acc-shadow:rgba(70,40,130,.5); --acc-bg:rgba(180,140,255,.1);">
+              <div class="scene-body">
+                <p class="scene-kicker"><span class="no">02</span> Evaluation framework</p>
+                <h2 class="scene-title">EviDial</h2>
+                <span class="scene-status">In preparation · ICLR 2027</span>
+                <p class="scene-desc">
                   A panel-assessability framework for judging LLM evaluators on depression-related dialogues: 1,910 blind adjudications at 100% coverage, five-protocol judge panels, and evidence that protocol diversity rivals model-family diversity.
                 </p>
-                <span class="work-card-link">Open project page →</span>
+                <span class="scene-link">Open project page →</span>
+              </div>
+              <div class="scene-art">
+                <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="ev-arc" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#b48cff" stop-opacity="0.25" />
+                      <stop offset="0.5" stop-color="#d3baff" stop-opacity="0.9" />
+                      <stop offset="1" stop-color="#b48cff" stop-opacity="0.25" />
+                    </linearGradient>
+                  </defs>
+                  <g class="drift-a">
+                    <path d="M128 158 Q 336 30 544 158" fill="none" stroke="url(#ev-arc)" stroke-width="1.6" />
+                    <circle cx="336" cy="94" r="11" fill="#d3baff" fill-opacity="0.16" />
+                    <circle cx="336" cy="94" r="4.5" fill="#e4d6ff" />
+                    <g fill="none" stroke="#b48cff" stroke-opacity="0.35">
+                      <rect x="100" y="158" width="56" height="170" rx="12" />
+                      <rect x="204" y="158" width="56" height="170" rx="12" />
+                      <rect x="308" y="158" width="56" height="170" rx="12" />
+                      <rect x="412" y="158" width="56" height="170" rx="12" />
+                      <rect x="516" y="158" width="56" height="170" rx="12" />
+                    </g>
+                    <g>
+                      <circle cx="128" cy="188" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="128" cy="214" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="128" cy="240" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="128" cy="266" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="128" cy="292" r="4" fill="#b48cff" fill-opacity="0.8" />
+                      <circle cx="232" cy="188" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="232" cy="214" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="232" cy="240" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="232" cy="266" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="232" cy="292" r="4" fill="#b48cff" fill-opacity="0.8" />
+                      <circle cx="336" cy="188" r="4" fill="#d3baff" fill-opacity="0.95" /><circle cx="336" cy="214" r="4" fill="#d3baff" fill-opacity="0.95" /><circle cx="336" cy="240" r="4" fill="#d3baff" fill-opacity="0.95" /><circle cx="336" cy="266" r="4" fill="#d3baff" fill-opacity="0.95" /><circle cx="336" cy="292" r="4" fill="#d3baff" fill-opacity="0.95" />
+                      <circle cx="440" cy="188" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="440" cy="214" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="440" cy="240" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="440" cy="266" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="440" cy="292" r="4" fill="#b48cff" fill-opacity="0.16" />
+                      <circle cx="544" cy="188" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="544" cy="214" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="544" cy="240" r="4" fill="#b48cff" fill-opacity="0.16" /><circle cx="544" cy="266" r="4" fill="#b48cff" fill-opacity="0.8" /><circle cx="544" cy="292" r="4" fill="#b48cff" fill-opacity="0.8" />
+                    </g>
+                    <g stroke="#b48cff" stroke-opacity="0.3">
+                      <line x1="100" y1="352" x2="156" y2="352" />
+                      <line x1="204" y1="352" x2="260" y2="352" />
+                      <line x1="308" y1="352" x2="364" y2="352" stroke-opacity="0.7" />
+                      <line x1="412" y1="352" x2="468" y2="352" />
+                      <line x1="516" y1="352" x2="572" y2="352" />
+                    </g>
+                  </g>
+                  <g class="drift-b" fill="#cdb4ff">
+                    <circle cx="86" cy="120" r="1.6" fill-opacity="0.4" />
+                    <circle cx="590" cy="110" r="1.6" fill-opacity="0.35" />
+                    <circle cx="60" cy="220" r="1.4" fill-opacity="0.3" />
+                    <circle cx="604" cy="240" r="1.4" fill-opacity="0.3" />
+                  </g>
+                </svg>
+                <span class="scene-cap">1,910 adjudications · 5 protocol panels</span>
               </div>
             </a>
 
-            <a class="work-card" href="/works/counterfactual-evidence-fidelity/">
-              <div class="work-card-visual" style="background: radial-gradient(120% 140% at 20% 0%, rgba(117, 183, 255, 0.22), transparent 55%), radial-gradient(100% 120% at 100% 100%, rgba(105, 221, 181, 0.14), transparent 50%), #0a1830; display: grid; place-items: center;">
-                <span style="font-family: var(--hero-font-display); font-size: 64px; font-weight: 680; letter-spacing: 0.02em; color: rgba(240, 246, 255, 0.92);">CEF<span style="color: var(--hero-accent)">.</span></span>
-                <span style="position: absolute; bottom: 14px; right: 16px; color: rgba(158, 175, 196, 0.75); font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em;">STABILITY · DIRECTION · NO FREE LUNCH</span>
-                <span class="work-card-index">03</span>
+            <!-- 03 · CEF (centered statement scene) -->
+            <a class="scene scene--center" href="/works/counterfactual-evidence-fidelity/" style="--acc:#69ddb5; --acc-glow:rgba(105,221,181,.14); --acc-glow2:rgba(105,221,181,.05); --acc-line:rgba(105,221,181,.22); --acc-line-h:rgba(105,221,181,.5); --acc-shadow:rgba(20,100,80,.45); --acc-bg:rgba(105,221,181,.1);">
+              <div class="scene-art">
+                <svg viewBox="0 0 640 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="cef-line" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#69ddb5" stop-opacity="0.1" />
+                      <stop offset="1" stop-color="#a9f2d9" stop-opacity="0.9" />
+                    </linearGradient>
+                  </defs>
+                  <g class="drift-a" fill="none">
+                    <rect x="128" y="70" width="250" height="150" rx="18" transform="rotate(-16 253 145)" stroke="#69ddb5" stroke-opacity="0.2" fill="#69ddb5" fill-opacity="0.05" />
+                    <rect x="196" y="102" width="250" height="150" rx="18" transform="rotate(-16 321 177)" stroke="#69ddb5" stroke-opacity="0.3" fill="#69ddb5" fill-opacity="0.08" />
+                    <rect x="264" y="134" width="250" height="150" rx="18" transform="rotate(-16 389 209)" stroke="#69ddb5" stroke-opacity="0.42" fill="#69ddb5" fill-opacity="0.11" />
+                  </g>
+                  <g class="drift-b">
+                    <line x1="96" y1="286" x2="546" y2="66" stroke="url(#cef-line)" stroke-width="2" />
+                    <path d="M546 66 l-16 -1.5 M546 66 l-5 15" stroke="#a9f2d9" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <circle cx="248" cy="212" r="4" fill="#69ddb5" fill-opacity="0.7" />
+                    <circle cx="330" cy="172" r="4" fill="#69ddb5" fill-opacity="0.8" />
+                    <circle cx="416" cy="130" r="4" fill="#69ddb5" fill-opacity="0.9" />
+                  </g>
+                </svg>
+                <span class="scene-mark">CEF<i>.</i></span>
+                <span class="scene-cap">stability · direction · no free lunch</span>
               </div>
-              <div class="work-card-body">
-                <span class="work-card-status">Exploratory program · ICLR 2027 target</span>
-                <h2>Counterfactual Evidence Fidelity</h2>
-                <p>
+              <div class="scene-body">
+                <p class="scene-kicker"><span class="no">03</span> Theory program</p>
+                <h2 class="scene-title">Counterfactual Evidence Fidelity</h2>
+                <span class="scene-status">Exploratory program · ICLR 2027 target</span>
+                <p class="scene-desc">
                   A theory-first program defining evidence fidelity as three observable behavioral tenets, audited across 42,240 exploratory conditions — with a mechanism candidate that moves quadruplet pass from 0.83 to 1.0000, and an honest cross-model null.
                 </p>
-                <span class="work-card-link">Open project page →</span>
+                <span class="scene-link">Open project page →</span>
               </div>
             </a>
 
-            <a class="work-card" href="/works/affective-non-interference/">
-              <div class="work-card-visual">
-                <img src="/assets/works/ani/phase1-overview.png" alt="ANI Phase 1 overview slide" loading="lazy" />
-                <span class="work-card-index">04</span>
-              </div>
-              <div class="work-card-body">
-                <span class="work-card-status">Phase 2 in progress · ICLR 2027 target</span>
-                <h2>ANI — Affective Non-Interference</h2>
-                <p>
+            <!-- 04 · ANI -->
+            <a class="scene scene--flip" href="/works/affective-non-interference/" style="--acc:#f2c14e; --acc-glow:rgba(242,193,78,.13); --acc-glow2:rgba(242,193,78,.05); --acc-line:rgba(242,193,78,.22); --acc-line-h:rgba(242,193,78,.5); --acc-shadow:rgba(120,85,20,.45); --acc-bg:rgba(242,193,78,.1);">
+              <div class="scene-body">
+                <p class="scene-kicker"><span class="no">04</span> Agent safety</p>
+                <h2 class="scene-title">ANI — Affective Non-Interference</h2>
+                <span class="scene-status">Phase 2 in progress · ICLR 2027 target</span>
+                <p class="scene-desc">
                   A preregistered, two-phase agent-safety study: 6,480 confirmatory episodes returned an honest NONE_CONFIRMED for affect generalization — and exposed an affect-independent policy-compliance fragility (282/288 violations). Phase 2 scales to multi-agent composite attacks.
                 </p>
-                <span class="work-card-link">Open project page →</span>
+                <span class="scene-link">Open project page →</span>
+              </div>
+              <div class="scene-art">
+                <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="ani-wave" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#f2c14e" stop-opacity="0.25" />
+                      <stop offset="0.5" stop-color="#f6cd6f" stop-opacity="0.95" />
+                      <stop offset="1" stop-color="#f2c14e" stop-opacity="0.25" />
+                    </linearGradient>
+                  </defs>
+                  <g class="drift-a">
+                    <line x1="52" y1="212" x2="588" y2="212" stroke="#9ec9ff" stroke-opacity="0.3" />
+                    <line x1="52" y1="258" x2="588" y2="258" stroke="#9ec9ff" stroke-opacity="0.3" />
+                    <line x1="52" y1="235" x2="588" y2="235" stroke="#9ec9ff" stroke-opacity="0.35" stroke-dasharray="1 7" stroke-linecap="round" />
+                    <g fill="#9ec9ff" fill-opacity="0.55">
+                      <rect x="596" y="206" width="10" height="12" rx="3" />
+                      <rect x="596" y="229" width="10" height="12" rx="3" />
+                      <rect x="596" y="252" width="10" height="12" rx="3" />
+                    </g>
+                  </g>
+                  <g class="drift-b">
+                    <path d="M40 236 C 110 96, 190 96, 260 236 S 410 376, 480 236 S 560 130, 604 168" fill="none" stroke="#f2c14e" stroke-opacity="0.14" stroke-width="9" />
+                    <path d="M40 236 C 110 96, 190 96, 260 236 S 410 376, 480 236 S 560 130, 604 168" fill="none" stroke="url(#ani-wave)" stroke-width="2.4" />
+                    <line x1="320" y1="86" x2="320" y2="384" stroke="#f2c14e" stroke-opacity="0.25" stroke-dasharray="3 6" />
+                    <circle cx="320" cy="235" r="7" fill="none" stroke="#ffe3a1" stroke-opacity="0.85" stroke-width="1.6" />
+                    <circle cx="320" cy="235" r="2.4" fill="#ffe3a1" />
+                  </g>
+                  <g fill="#f2c14e">
+                    <circle cx="70" cy="120" r="1.6" fill-opacity="0.35" />
+                    <circle cx="580" cy="330" r="1.6" fill-opacity="0.3" />
+                    <circle cx="90" cy="330" r="1.3" fill-opacity="0.25" />
+                  </g>
+                </svg>
+                <span class="scene-cap">6,480 episodes · preregistered · two phases</span>
               </div>
             </a>
 
-            <a class="work-card" href="/works/before-the-score/">
-              <div class="work-card-visual">
-                <img src="/assets/works/before-the-score/fig2-equal-messages.png" alt="Before the Score: equal evaluator messages, different target-labelled scores" loading="lazy" />
-                <span class="work-card-index">05</span>
-              </div>
-              <div class="work-card-body">
-                <span class="work-card-status">Under review · ICLR 2027</span>
-                <h2>Before the Score</h2>
-                <p>
+            <!-- 05 · Before the Score -->
+            <a class="scene" href="/works/before-the-score/" style="--acc:#ff8fa3; --acc-glow:rgba(255,143,163,.13); --acc-glow2:rgba(255,143,163,.05); --acc-line:rgba(255,143,163,.22); --acc-line-h:rgba(255,143,163,.5); --acc-shadow:rgba(120,35,55,.5); --acc-bg:rgba(255,143,163,.1);">
+              <div class="scene-body">
+                <p class="scene-kicker"><span class="no">05</span> Provenance audit</p>
+                <h2 class="scene-title">Before the Score</h2>
+                <span class="scene-status">Under review · ICLR 2027</span>
+                <p class="scene-desc">
                   A provenance-based audit across 129 news-interaction runs: identical evaluator messages under different target labels, 313 temporal contrasts with unchanged target text, and 79/85 runs repeating a rise-then-fall score pattern — with zero new model calls.
                 </p>
-                <span class="work-card-link">Open project page →</span>
+                <span class="scene-link">Open project page →</span>
+              </div>
+              <div class="scene-art">
+                <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="bts-strip" x1="0" y1="1" x2="0" y2="1">
+                      <stop offset="0" stop-color="#ffb3c2" />
+                      <stop offset="1" stop-color="#ff8fa3" stop-opacity="0.06" />
+                    </linearGradient>
+                  </defs>
+                  <g class="drift-a">
+                    <line x1="60" y1="312" x2="600" y2="312" stroke="#ff8fa3" stroke-opacity="0.3" />
+                    <g>
+                      <rect x="76"  y="256" width="12" height="56"  rx="5" fill="url(#bts-strip)" fill-opacity="0.3" />
+                      <rect x="98"  y="240" width="12" height="72"  rx="5" fill="url(#bts-strip)" fill-opacity="0.35" />
+                      <rect x="120" y="224" width="12" height="88"  rx="5" fill="url(#bts-strip)" fill-opacity="0.4" />
+                      <rect x="142" y="210" width="12" height="102" rx="5" fill="url(#bts-strip)" fill-opacity="0.44" />
+                      <rect x="164" y="194" width="12" height="118" rx="5" fill="url(#bts-strip)" fill-opacity="0.48" />
+                      <rect x="186" y="176" width="12" height="136" rx="5" fill="url(#bts-strip)" fill-opacity="0.52" />
+                      <rect x="208" y="160" width="12" height="152" rx="5" fill="url(#bts-strip)" fill-opacity="0.56" />
+                      <rect x="230" y="142" width="12" height="170" rx="5" fill="url(#bts-strip)" fill-opacity="0.6" />
+                      <rect x="252" y="126" width="12" height="186" rx="5" fill="url(#bts-strip)" fill-opacity="0.64" />
+                      <rect x="274" y="108" width="12" height="204" rx="5" fill="url(#bts-strip)" fill-opacity="0.68" />
+                      <rect x="296" y="92"  width="12" height="220" rx="5" fill="url(#bts-strip)" fill-opacity="0.72" />
+                      <rect x="318" y="74"  width="12" height="238" rx="5" fill="url(#bts-strip)" fill-opacity="0.78" />
+                      <rect x="340" y="60"  width="12" height="252" rx="5" fill="url(#bts-strip)" fill-opacity="0.85" />
+                      <rect x="362" y="72"  width="12" height="240" rx="5" fill="url(#bts-strip)" fill-opacity="0.78" />
+                      <rect x="384" y="94"  width="12" height="218" rx="5" fill="url(#bts-strip)" fill-opacity="0.72" />
+                      <rect x="406" y="116" width="12" height="196" rx="5" fill="url(#bts-strip)" fill-opacity="0.66" />
+                      <rect x="428" y="140" width="12" height="172" rx="5" fill="url(#bts-strip)" fill-opacity="0.6" />
+                      <rect x="450" y="162" width="12" height="150" rx="5" fill="url(#bts-strip)" fill-opacity="0.54" />
+                      <rect x="472" y="184" width="12" height="128" rx="5" fill="url(#bts-strip)" fill-opacity="0.48" />
+                      <rect x="494" y="204" width="12" height="108" rx="5" fill="url(#bts-strip)" fill-opacity="0.42" />
+                      <rect x="516" y="222" width="12" height="90"  rx="5" fill="url(#bts-strip)" fill-opacity="0.36" />
+                      <rect x="538" y="236" width="12" height="76"  rx="5" fill="url(#bts-strip)" fill-opacity="0.32" />
+                      <rect x="560" y="248" width="12" height="64"  rx="5" fill="url(#bts-strip)" fill-opacity="0.28" />
+                    </g>
+                    <circle cx="346" cy="50" r="12" fill="#ffb3c2" fill-opacity="0.14" />
+                    <circle cx="346" cy="50" r="4.5" fill="#ffd3dc" />
+                  </g>
+                  <g class="drift-b">
+                    <line x1="60" y1="140" x2="580" y2="140" stroke="#ff8fa3" stroke-opacity="0.2" stroke-dasharray="2 8" stroke-linecap="round" />
+                  </g>
+                </svg>
+                <span class="scene-cap">129 runs · 313 contrasts · 0 new model calls</span>
               </div>
             </a>
           </div>
@@ -440,5 +704,32 @@
         </div>
       </main>
     </div>
+
+    <script>
+      (function () {
+        var scenes = [].slice.call(document.querySelectorAll('.scene'));
+        if (!scenes.length) return;
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        scenes.forEach(function (s) { s.classList.add('will-anim'); });
+        var timer;
+        function check() {
+          var vh = window.innerHeight, pending = false;
+          scenes.forEach(function (s) {
+            if (s.classList.contains('is-in')) return;
+            var top = s.getBoundingClientRect().top;
+            if (top < vh * 0.92) {
+              var delay = Math.min(Math.max(0, (vh * 0.92 - top)) * 0.5, 160);
+              setTimeout(function () { s.classList.add('is-in'); }, delay);
+            } else { pending = true; }
+          });
+          if (pending) schedule();
+        }
+        function schedule() { clearTimeout(timer); timer = setTimeout(check, 60); }
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule);
+        check();
+        setTimeout(check, 300);
+      })();
+    </script>
   </body>
 </html>
