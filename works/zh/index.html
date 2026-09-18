@@ -152,6 +152,66 @@
         --wk-muted: #9eafc4;
       }
 
+
+      .pub-section { margin-top: 80px; }
+
+      .pub-section-head {
+        display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+        gap: 10px 16px; margin-bottom: 6px;
+      }
+
+      .pub-section-head h2 {
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: clamp(24px, 3vw, 32px); font-weight: 630; letter-spacing: -0.01em;
+      }
+
+      .pub-section-head p { margin: 0; color: var(--wk-muted); font-size: 13px; }
+
+      .pub-note { margin: 0 0 22px; color: var(--wk-muted); font-size: 12.5px; }
+
+      .papers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+
+      .paper-card {
+        display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; align-items: start;
+        padding: 16px 18px; border: 1px solid var(--wk-line); border-radius: 14px; background: var(--wk-card);
+        transition: border-color 200ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .paper-card:hover {
+        border-color: rgba(117, 183, 255, 0.45); transform: translateY(-2px);
+      }
+
+      .paper-tile {
+        display: grid; width: 76px; height: 76px; place-items: center; padding: 6px;
+        border-radius: 10px; text-align: center; line-height: 1.15;
+        background: linear-gradient(145deg, rgba(117, 183, 255, 0.18), rgba(105, 221, 181, 0.1));
+        color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
+      }
+
+      .paper-card-body { min-width: 0; }
+
+      .paper-card-body h3 {
+        margin: 7px 0 0; color: var(--hero-ink); font-size: 14.5px; font-weight: 620; line-height: 1.42;
+      }
+
+      .paper-card-body .venue { margin: 6px 0 0; color: var(--wk-muted); font-size: 12px; line-height: 1.5; }
+
+      .paper-card-body .meta {
+        display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center;
+        margin-top: 9px; color: var(--wk-muted); font-size: 11px;
+      }
+
+      .paper-card-body .meta .st { font-weight: 650; }
+      .paper-card-body .meta .st.is-pub { color: var(--wk-green); }
+      .paper-card-body .meta .st.is-pre { color: var(--wk-blue); }
+      .paper-card-body .meta .st.is-rev { color: #c8d4e4; }
+      .paper-card:hover h3 { color: var(--wk-blue); }
+
+      @media (max-width: 560px) {
+        .papers-grid { grid-template-columns: minmax(0, 1fr); }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .work-card, .work-card-visual img { transition: none; }
       }
@@ -261,6 +321,120 @@
                 <span class="work-card-link">打开项目页 →</span>
               </div>
             </a>
+          </div>
+
+          <div class="pub-section">
+            <div class="pub-section-head">
+              <h2>第一作者论文</h2>
+              <p>完整一作列表 · 全部记录见 <a href="/zh/#publications" style="color: var(--wk-blue);">论文</a></p>
+            </div>
+            <p class="pub-note">上方五个作品另有深度项目页；其余第一作者论文均在下方列出。</p>
+            <div class="papers-grid">
+            <a class="paper-card" href="https://doi.org/10.1016/j.ipm.2025.104292" target="_blank" rel="noreferrer noopener">
+              <span class="paper-tile">MARS</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pub">已发表</span><span>被引 3</span></span>
+                <h3>MARS：多模态辅助的精细化语义对齐</h3>
+                <span class="venue">Information Processing &amp; Management 63 (1), 104292 · 2026</span>
+              </span>
+            </a>
+            <a class="paper-card" href="https://doi.org/10.1145/3716501" target="_blank" rel="noreferrer noopener">
+              <span class="paper-tile">BDANN</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pub">已发表</span><span>被引 7</span></span>
+                <h3>面向方面级情感分类的双向有向无环图神经网络</h3>
+                <span class="venue">ACM TALLIP · 2025</span>
+              </span>
+            </a>
+            <a class="paper-card" href="https://arxiv.org/abs/2501.01700" target="_blank" rel="noreferrer noopener">
+              <span class="paper-tile">AiM</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pre">预印本</span><span>被引 3</span></span>
+                <h3>音乐感知中的审美要素：情绪驱动的音乐到图像风格操控</h3>
+                <span class="venue">arXiv:2501.01700 · 2025</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">AMN</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pub">已发表</span></span>
+                <h3>基于二值化迁移的注意力混合网络人群计数</h3>
+                <span class="venue">McGE Workshop · ACM Multimedia 2024</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">GC</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pub">已发表</span><span>被引 23</span></span>
+                <h3>情感知识增强的语义-句法混合图卷积方面级情感分类</h3>
+                <span class="venue">IJCNN 2022</span>
+              </span>
+            </a>
+            <a class="paper-card" href="https://arxiv.org/abs/2606.18259" target="_blank" rel="noreferrer noopener">
+              <span class="paper-tile">CWF</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pre">预印本</span><span>被引 1</span></span>
+                <h3>Caring Without Feeling：作为人机智能体协作控制层的情感动力学</h3>
+                <span class="venue">arXiv:2606.18259 · 期刊评审中 · 2026</span>
+              </span>
+            </a>
+            <a class="paper-card" href="https://arxiv.org/abs/2512.12283" target="_blank" rel="noreferrer noopener">
+              <span class="paper-tile">CoA</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pre">预印本</span><span>被引 3</span></span>
+                <h3>大语言模型拥有情感链（Chain-of-Affective）</h3>
+                <span class="venue">arXiv:2512.12283 · 2025</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">EMV</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-pre">预印本</span></span>
+                <h3>ElysianMV：经由音乐-视觉跨模态合成连接疗愈情绪与审美意象</h3>
+                <span class="venue">预印本投稿 Pattern Recognition</span>
+              </span>
+            </a>
+            <a class="paper-card" href="https://ssrn.com/abstract=5343200" target="_blank" rel="noreferrer noopener">
+              <span class="paper-tile">PHX</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-rev">评审中</span></span>
+                <h3>Phoenix：面向音频驱动图像生成的听觉表达层级观测</h3>
+                <span class="venue">IEEE TCSVT（评审中）· SSRN 5343200</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">COFFEE</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-rev">评审中</span></span>
+                <h3>COFFEE：跨模态细粒度对齐与融合增强的音频驱动图像生成</h3>
+                <span class="venue">IEEE TNNLS（评审中）</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">CM-Align</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-rev">评审中</span></span>
+                <h3>细粒度音乐引导图像生成的跨模态对齐与人类偏好学习</h3>
+                <span class="venue">ICLR 2026 · 评审中</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">GARBO</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-rev">手稿</span></span>
+                <h3>GARBO-T2I：文本到图像生成的梯度感知强化优化</h3>
+                <span class="venue">研究手稿</span>
+              </span>
+            </a>
+            <a class="paper-card" href="/zh/#publications">
+              <span class="paper-tile">HB</span>
+              <span class="paper-card-body">
+                <span class="meta"><span class="st is-rev">手稿</span></span>
+                <h3>HealBench：文本到图像生成心理舒适度的细粒度评测基准</h3>
+                <span class="venue">研究手稿</span>
+              </span>
+            </a>
+            </div>
           </div>
         </div>
       </main>
