@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="MusePainter 将结构化音乐理论描述子与多轴偏好学习结合，实现细粒度的音乐引导图像生成。" />
+    <meta property="og:title" content="MusePainter | Junjie Xu" />
+    <meta property="og:description" content="MusePainter 将结构化音乐理论描述子与多轴偏好学习结合，实现细粒度的音乐引导图像生成。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/musepainter/cmalign-arch.jpg" />
+    <title>MusePainter | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+        --wk-red: #ff8b72;
+      }
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+      .work-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px; color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; }
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+      .work-title { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(34px, 5.4vw, 58px); font-weight: 640; line-height: 1.06; letter-spacing: -0.015em; }
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .meta-chip { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted); font-size: 12.5px; font-weight: 570; }
+      .meta-chip.is-accent { border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; line-height: 1.7; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+      .work-tldr { max-width: 760px; margin: 48px 0 0; color: #e6effa; font-size: 19.5px; line-height: 1.8; letter-spacing: 0.002em; }
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .work-stat b { display: block; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+      .work-section { margin-top: 88px; }
+      .work-heading { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: baseline; margin-bottom: 26px; }
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+      .work-heading h2 { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15; }
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-figure { margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)); }
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+      .boundary-card.is-yes { border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd; }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+      .boundary-card.is-no { border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9; }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+      .work-cite { position: relative; margin-top: 30px; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55); }
+      .work-cite pre { margin: 0; overflow-x: auto; color: #b9cfe8; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; }
+      .copy-btn { position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer; transition: color 160ms ease, border-color 160ms ease; }
+      .copy-btn:hover { color: var(--wk-blue); border-color: rgba(117, 183, 255, 0.5); }
+      .work-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .work-links a { display: inline-flex; padding: 8px 15px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-blue); font-size: 12.5px; font-weight: 620; text-decoration: none; transition: border-color 160ms ease, background 160ms ease; }
+      .work-links a:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+      .work-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px; }
+      .work-footer a { color: var(--wk-blue); }
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .work-stats, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/works/musepainter/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <span class="work-hero-right"><a href="/works/musepainter/" lang="en">English</a></span>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 论文 11 · 音乐引导生成</p>
+            <h1 class="work-title">MusePainter：<br><em>跨模态对齐</em><br>与人类偏好学习<span style="color: var(--hero-accent)">。</span></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              音乐抽象、分层且主观——对齐必须结构化、偏好必须解耦。这条 CM-Align 线以 MusePainter 之名推进。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">手稿 · MusePainter</span>
+              <span class="meta-chip">音乐生图</span>
+              <span class="meta-chip">多轴 RLHF</span>
+              <span class="meta-chip">用户研究</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong>、吴兴蛟 等 · 华东师范大学</p>
+            <p class="work-tldr">
+              把流动的音乐情绪映射成连贯意象，同时打破两个假设：存在标准答案（听者各异），单一奖励能概括质量（他们在多个方向上各异）。<strong style="color:#f6fffb">MusePainter</strong> 先抽取音乐的结构化描述子——结构、风格、情感三轴——再<strong style="color:#f6fffb">独立优化三条偏好轴</strong>：情绪一致性、语义对齐、创意吸引力。在语义保真、风格一致与情感共鸣上超过音频生图与音频→文本→图像基线。
+            </p>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>3</b><span>条描述子轴：结构、风格、情感</span></div>
+            <div class="work-stat"><b>3</b><span>条解耦并独立优化的偏好目标</span></div>
+            <div class="work-stat"><b>36,000</b><span>策展评估数据集中的音乐-文本对</span></div>
+            <div class="work-stat"><b>用户研究</b><span>自动指标之外的人类评分</span></div>
+          </div>
+
+          
+          <section class="work-section reveal" id="question">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>问题</h2>
+            </div>
+            <div class="work-prose"><p>环境声有具体声源；音乐有随旋律、节奏、和声流动的情绪。把它映进一张静态图像，需要结构化表征——而且不可能存在通用真值：同一段旋律在不同听者心中唤起不同画面。CLIP、FAD 等客观指标无法完全反映情感共鸣。</p>
+<p>要问的是：当目标本身是主观的，如何让生成可控——又不把主观性压成一个标量奖励。</p></div>
+          </section>
+
+          <section class="work-section reveal" id="approach">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>方法</h2>
+            </div>
+            <div class="work-prose"><p>MusePainter 先把音乐拆解为细粒度属性——旋律、节奏、和声、配器、整体结构——形成结构、风格、情感三个维度的结构化描述子。生成随后由<strong>多轴偏好方案</strong>优化：解耦情绪一致性、语义对齐与创意吸引力，各自独立优化。音乐理解侧是两阶段微调的音频大模型（MuseAes-LLM），描述子长度按 20/50/70 token 平衡，在幻觉与细节之间取舍。</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/musepainter/cmalign-arch.jpg" alt="MusePainter 从音乐分析到偏好引导图像生成的总体流水线" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 1</b><span>MusePainter 流水线——结构化描述子供给生成，多轴偏好优化塑造输出。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>结果</h2>
+            </div>
+            <div class="work-prose"><p>在策展基准上，MusePainter 在<strong>语义保真、风格一致与情感共鸣</strong>上超过强音频生图与音频→文本→图像基线。定性对比显示三条轴可以干净地分离：同一段音乐可以分别被导向准确、风格或情绪，而无需重新训练。</p>
+<p>用户研究与自动指标相互印证——参与者在优化所针对的轴上更偏好 MusePainter 的输出。</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/musepainter/cmalign-qual.jpg" alt="音乐生图的定性对比，按场景、流派、风格、情绪、材质标注" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 2</b><span>音乐生图对比——每个样本标注场景、流派、风格、情绪与材质，以分离方法所控制的轴。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul><li>结构化音乐理论描述子作为可控引导</li><li>多轴偏好优化：情绪一致性、语义对齐、创意吸引力</li><li>相对强基线的语义保真、风格一致与情感共鸣优势</li><li>组件设计上可推广到音乐生图之外</li></ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul><li>已从 ICLR 2026 撤稿；修订中——非已评审结论</li><li>偏好标注反映受邀评分者，不代表普遍受众</li><li>不主张实时生成或部署</li><li>组件的跨模态推广是设想，尚未证明</li></ul>
+              </div>
+            </div>
+          </section>
+          
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>引用</h2>
+            </div>
+            <div class="work-cite">
+              <button class="copy-btn" type="button" data-copy-cite>复制</button>
+              <pre id="cite-text">@article{xu2025musepainter,
+  title   = {Cross-modal Alignment and Human Preference Learning for
+             Fine-grained Music-guided Image Generation (MusePainter)},
+  author  = {Xu, Junjie and Wu, Xingjiao and others},
+  journal = {Manuscript in revision (former ICLR 2026 submission)},
+  year    = {2025}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>论文 11 · 音乐引导生成 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">junjiexu.github.io</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals);
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "Copied ✓";
+        } catch {
+          button.textContent = "Press ⌘C";
+        }
+        setTimeout(() => (button.textContent = "Copy"), 1800);
+      });
+</script>
+  </body>
+</html>

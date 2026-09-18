@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="Phoenix 以本质片段感知的音频块、多维字幕与互信息审美引导，直接从音频生成图像。" />
+    <meta property="og:title" content="Phoenix | Junjie Xu" />
+    <meta property="og:description" content="Phoenix 以本质片段感知的音频块、多维字幕与互信息审美引导，直接从音频生成图像。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/phoenix/phx-overview.jpg" />
+    <title>Phoenix | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+        --wk-red: #ff8b72;
+      }
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+      .work-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px; color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; }
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+      .work-title { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(34px, 5.4vw, 58px); font-weight: 640; line-height: 1.06; letter-spacing: -0.015em; }
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .meta-chip { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted); font-size: 12.5px; font-weight: 570; }
+      .meta-chip.is-accent { border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; line-height: 1.7; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+      .work-tldr { max-width: 760px; margin: 48px 0 0; color: #e6effa; font-size: 19.5px; line-height: 1.8; letter-spacing: 0.002em; }
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .work-stat b { display: block; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+      .work-section { margin-top: 88px; }
+      .work-heading { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: baseline; margin-bottom: 26px; }
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+      .work-heading h2 { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15; }
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-figure { margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)); }
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+      .boundary-card.is-yes { border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd; }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+      .boundary-card.is-no { border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9; }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+      .work-cite { position: relative; margin-top: 30px; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55); }
+      .work-cite pre { margin: 0; overflow-x: auto; color: #b9cfe8; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; }
+      .copy-btn { position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer; transition: color 160ms ease, border-color 160ms ease; }
+      .copy-btn:hover { color: var(--wk-blue); border-color: rgba(117, 183, 255, 0.5); }
+      .work-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .work-links a { display: inline-flex; padding: 8px 15px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-blue); font-size: 12.5px; font-weight: 620; text-decoration: none; transition: border-color 160ms ease, background 160ms ease; }
+      .work-links a:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+      .work-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px; }
+      .work-footer a { color: var(--wk-blue); }
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .work-stats, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/works/phoenix/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <span class="work-hero-right"><a href="/works/phoenix/" lang="en">English</a></span>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 论文 09 · 音频驱动图像生成</p>
+            <h1 class="work-title">Phoenix：优先<em>分层观测</em>听觉表达<span style="color: var(--hero-accent)">。</span></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              音频→文本→图像的捷径会丢掉文字没承载的信息。Phoenix 让听觉表达留在链路里。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">评审中 · IEEE TCSVT</span>
+              <span class="meta-chip">音频驱动图像生成</span>
+              <span class="meta-chip">两阶段设计</span>
+              <span class="meta-chip">审美引导</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong>、吴兴蛟*、张子豪、肖璐伟、董道国、贺樑 · 华东师范大学</p>
+            <p class="work-tldr">
+              给音频配字幕再喂给文生图模型看似免费的午餐——直到跨阶段误差累积、<strong style="color:#f6fffb">文本瓶颈处的信息丢失</strong>表现为语义错位。<strong style="color:#f6fffb">Phoenix</strong> 是一种两阶段设计，但从不把音频压成一句话：本质片段感知的音频块保留有价值的片段，多维字幕保住分层内容，互信息引导叠加<strong style="color:#f6fffb">印象与审美视角</strong>来约束生成。
+            </p>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>2</b><span>个基准：VGGSound 与 VEGAS</span></div>
+            <div class="work-stat"><b>2</b><span>个阶段——但绝无单句瓶颈</span></div>
+            <div class="work-stat"><b>多维</b><span>字幕保留分层听觉内容</span></div>
+            <div class="work-stat"><b>互信息+审美</b><span>让生成对齐听觉表达</span></div>
+          </div>
+
+          
+          <section class="work-section reveal" id="question">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>问题</h2>
+            </div>
+            <div class="work-prose"><p>文生图模型已经这么强，为什么还要直接从音频生成？因为流行的捷径——先给音频写字幕、再从字幕生成——要付两次代价：误差跨阶段累积，而文本这个中介会系统性丢掉字幕本就不曾承载的听觉信息。端到端方案保住了语义，却在成本、稳定性与泛化上挣扎。</p>
+<p>要问的是：两阶段设计能否既借到预训练生成器的力，又拒绝那个有损瓶颈。</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/phoenix/phx-teaser.jpg" alt="端到端与两阶段音频生图方法、对齐失配，以及 Phoenix 连接音频片段与生成的方式" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 1</b><span>捷径为何失败——端到端 vs 两阶段链路、语义相关性差距，以及 Phoenix 的片段感知替代方案。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="approach">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>方法</h2>
+            </div>
+            <div class="work-prose"><p>Phoenix 的两个阶段都按失败模式来设计。第一阶段，<strong>本质片段感知的音频块</strong>识别并保留音频中有信息量的片段，而不是将其平均掉；<strong>多维字幕</strong>沿多个层次描述音频，而非一句话。第二阶段在<strong>互信息引导</strong>下、叠加印象与审美视角生成图像，使输出忠实于听觉表达。</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/phoenix/phx-overview.jpg" alt="Phoenix 总览：分层音频编码器、音频描述、互信息图像生成与审美精炼" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 2</b><span>Phoenix 流水线——对音频的分层观测、多维描述，以及互信息引导、带审美精炼的生成。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>结果</h2>
+            </div>
+            <div class="work-prose"><p>在 VGGSound 与 VEGAS 上，Phoenix 保持<strong>与输入音频很强的语义对齐</strong>，同时产出高质量图像——恰好在文本瓶颈基线失效之处超过它们：那些身份藏在时间结构里、而非可字幕化内容中的类别。</p>
+<p>定性结果显示教堂钟声、麋鹿鸣叫等声音类别被渲染出正确的视觉身份——而单句字幕常常漂移到泛化场景。</p></div>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul><li>保留有价值片段的本质片段感知音频块</li><li>多维字幕取代单句瓶颈</li><li>叠加印象与审美视角的互信息引导</li><li>VGGSound 与 VEGAS 上更强的语义对齐与图像质量</li></ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul><li>评审中——录用前结果属初步结论</li><li>基准范围：环境声数据集，不含音乐</li><li>不主张实时生成</li><li>审美引导塑造风格，不决定真值外观</li></ul>
+              </div>
+            </div>
+          </section>
+          
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>引用</h2>
+            </div>
+            <div class="work-cite">
+              <button class="copy-btn" type="button" data-copy-cite>复制</button>
+              <pre id="cite-text">@article{xu2025phoenix,
+  title   = {Phoenix: Prioritize the Hierarchical Observation of Auditory
+             Expression for Audio-based Image Generation},
+  author  = {Xu, Junjie and Wu, Xingjiao and Zhang, Zihao and Xiao, Luwei
+             and Dong, Daoguo and He, Liang},
+  journal = {IEEE Transactions on Circuits and Systems for Video Technology
+             (under review) · SSRN 5343200},
+  year    = {2025}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>论文 09 · 音频驱动图像生成 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">junjiexu.github.io</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals);
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "Copied ✓";
+        } catch {
+          button.textContent = "Press ⌘C";
+        }
+        setTimeout(() => (button.textContent = "Copy"), 1800);
+      });
+</script>
+  </body>
+</html>

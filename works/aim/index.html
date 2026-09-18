@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="EmoMV manipulates images with musical emotion: bottom-up from pitch and rhythm to emotion, top-down from emotion to color and lighting." />
+    <meta property="og:title" content="EmoMV | Junjie Xu" />
+    <meta property="og:description" content="EmoMV manipulates images with musical emotion: bottom-up from pitch and rhythm to emotion, top-down from emotion to color and lighting." />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/aim/aim-framework.jpg" />
+    <title>EmoMV | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+        --wk-red: #ff8b72;
+      }
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+      .work-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px; color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; }
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+      .work-title { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(34px, 5.4vw, 58px); font-weight: 640; line-height: 1.06; letter-spacing: -0.015em; }
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .meta-chip { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted); font-size: 12.5px; font-weight: 570; }
+      .meta-chip.is-accent { border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; line-height: 1.7; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+      .work-tldr { max-width: 760px; margin: 48px 0 0; color: #e6effa; font-size: 19.5px; line-height: 1.8; letter-spacing: 0.002em; }
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .work-stat b { display: block; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+      .work-section { margin-top: 88px; }
+      .work-heading { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: baseline; margin-bottom: 26px; }
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+      .work-heading h2 { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15; }
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-figure { margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)); }
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+      .boundary-card.is-yes { border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd; }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+      .boundary-card.is-no { border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9; }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+      .work-cite { position: relative; margin-top: 30px; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55); }
+      .work-cite pre { margin: 0; overflow-x: auto; color: #b9cfe8; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; }
+      .copy-btn { position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer; transition: color 160ms ease, border-color 160ms ease; }
+      .copy-btn:hover { color: var(--wk-blue); border-color: rgba(117, 183, 255, 0.5); }
+      .work-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .work-links a { display: inline-flex; padding: 8px 15px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-blue); font-size: 12.5px; font-weight: 620; text-decoration: none; transition: border-color 160ms ease, background 160ms ease; }
+      .work-links a:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+      .work-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px; }
+      .work-footer a { color: var(--wk-blue); }
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .work-stats, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="en">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/#about">About</a>
+          <a href="/#work">Work</a>
+          <a href="/works/" class="is-active" aria-current="page">Works</a>
+          <a href="/#publications">Publications</a>
+          <a href="/#patents">Patents</a>
+          <a href="/#writing">Work Blog</a>
+          <a href="/#honors">Honors</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/works/zh/aim/" lang="zh-CN">中文</a>
+          <a href="/cv/">CV</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/">← All works</a>
+              <span class="work-hero-right"><a href="/works/zh/aim/" lang="zh-CN">中文</a></span>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> Publication 03 · Music-to-visual emotion</p>
+            <h1 class="work-title">Aesthetic Matters in Music Perception <em>for Image Stylization</em><span style="color: var(--hero-accent)">.</span></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              An emotion-driven music-to-visual manipulation method — musical elements become emotional image edits, evaluated down to EEG responses.
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">Preprint · arXiv 2025</span>
+              <span class="meta-chip">Music-to-visual</span>
+              <span class="meta-chip">Emotion-driven</span>
+              <span class="meta-chip">EEG evaluation</span>
+            </div>
+            <p class="work-authors"><strong>Junjie Xu</strong>, Xingjiao Wu, Tanren Yao, Zihao Zhang, Jiayang Bei, Wu Wen, Liang He · East China Normal University</p>
+            <p class="work-tldr">
+              Music carries emotion that text captions flatten. <strong style="color:#f6fffb">EmoMV</strong> treats musical emotion as a control signal for image stylization: a bottom-up stage reads pitch, rhythm, and harmony into emotion, and a top-down stage writes that emotion into visual attributes like <strong style="color:#f6fffb">color and lighting</strong>. A multi-scale evaluation — image quality, aesthetic judgment, and <strong style="color:#f6fffb">real-time EEG</strong> — checks that what changed in the music is what viewers feel in the image.
+            </p>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>2</b><span>cognitive stages — bottom-up music→emotion, top-down emotion→image</span></div>
+            <div class="work-stat"><b>3</b><span>evaluation scales: quality metrics, aesthetic assessment, EEG</span></div>
+            <div class="work-stat"><b>Pitch · rhythm</b><span>structural music elements read bottom-up</span></div>
+            <div class="work-stat"><b>Color · lighting</b><span>aesthetic dimensions written top-down</span></div>
+          </div>
+
+          
+          <section class="work-section reveal" id="question">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>The question</h2>
+            </div>
+            <div class="work-prose"><p>Cross-modal systems map environmental sound to concrete sources — traffic, footsteps. Music is different: abstract, layered, and emotionally dynamic, with no ground-truth image to recover. Existing audio-visual work largely skips this emotional dimension.</p>
+<p>The question: can the emotional content of music be extracted from its structural elements, and applied to an image in a way viewers actually feel?</p></div>
+          </section>
+
+          <section class="work-section reveal" id="approach">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>The approach</h2>
+            </div>
+            <div class="work-prose"><p>EmoMV mirrors human cognition in two directions. <strong>Bottom-up</strong>: fundamental structural elements of music — pitch, rhythm, chord changes — are composed into an emotional representation. <strong>Top-down</strong>: that emotion is embodied into aesthetic low-level dimensions — light, exposure, color — as image manipulation. A <strong>Mus-Vis Textual Alignment</strong> module harmonizes musical and visual descriptions; an <strong>Emotion-aware Aesthetic Image Refinement</strong> module applies the edit.</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/aim/aim-framework.jpg" alt="EmoMV framework: Mus-Vis Textual Alignment and Emotion-aware Aesthetic Description Generation" loading="lazy" />
+              <figcaption class="work-figcaption"><b>Fig. 1</b><span>The EmoMV framework — musical and visual descriptions are aligned, then emotion-aware aesthetic descriptions drive image refinement.</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>What it shows</h2>
+            </div>
+            <div class="work-prose"><p>Qualitative results show the same image stylized differently under different musical emotions — harmony shifts read as color and lighting shifts, not arbitrary filters.</p>
+<p>The multi-scale evaluation combines image quality metrics, aesthetic assessment, and <strong>EEG measurements</strong> that track real-time emotional responses — giving the subjective side of the claim an objective instrument.</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/aim/aim-qual.jpg" alt="EmoMV qualitative results: image manipulations driven by different musical emotions" loading="lazy" />
+              <figcaption class="work-figcaption"><b>Fig. 2</b><span>Image manipulations driven by different musical emotions — the visual edits track the emotional content of the input music.</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>Claim boundary</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ Established</h3>
+                <ul><li>A two-stage, cognitively-motivated music-to-visual manipulation design</li><li>Alignment of musical and visual emotional descriptions before editing</li><li>A multi-scale evaluation including real-time EEG, beyond automatic metrics</li><li>An honest scope: image stylization driven by musical emotion</li></ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ Explicitly not claimed</h3>
+                <ul><li>EEG supports group-level response, not per-image mind reading</li><li>No claim of universal emotional ground truth across listeners</li><li>Preprint — results are preliminary until peer review</li><li>No therapeutic-efficacy claim (see ElysianMV for the therapeutic line)</li></ul>
+              </div>
+            </div>
+          </section>
+          
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>Citation</h2>
+            </div>
+            <div class="work-cite">
+              <button class="copy-btn" type="button" data-copy-cite>Copy</button>
+              <pre id="cite-text">@article{xu2025emomv,
+  title   = {Aesthetic Matters in Music Perception for Image Stylization:
+             An Emotion-Driven Music-to-Visual Manipulation},
+  author  = {Xu, Junjie and Wu, Xingjiao and Yao, Tanren and Zhang, Zihao
+             and Bei, Jiayang and Wen, Wu and He, Liang},
+  journal = {arXiv preprint arXiv:2501.01700},
+  year    = {2025}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>Publication 03 · Music-to-visual emotion — <a href="/works/">all works</a></span>
+            <span><a href="/">junjiexu.github.io</a> · updated 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals);
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "Copied ✓";
+        } catch {
+          button.textContent = "Press ⌘C";
+        }
+        setTimeout(() => (button.textContent = "Copy"), 1800);
+      });
+</script>
+  </body>
+</html>

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="AMNet 通过二值化迁移模块同时利用二值与非二值注意力图，应对嘈杂拥挤场景的人群计数。" />
+    <meta property="og:title" content="AMNet | Junjie Xu" />
+    <meta property="og:description" content="AMNet 通过二值化迁移模块同时利用二值与非二值注意力图，应对嘈杂拥挤场景的人群计数。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/amn/amn-density.jpg" />
+    <title>AMNet | Junjie Xu</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page {
+        --wk-line: rgba(170, 199, 230, 0.18);
+        --wk-muted: #9eafc4;
+        --wk-card: rgba(255, 255, 255, 0.03);
+        --wk-blue: #75b7ff;
+        --wk-green: #69ddb5;
+        --wk-red: #ff8b72;
+      }
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+      .work-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px; color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; }
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+      .work-title { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(34px, 5.4vw, 58px); font-weight: 640; line-height: 1.06; letter-spacing: -0.015em; }
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .meta-chip { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted); font-size: 12.5px; font-weight: 570; }
+      .meta-chip.is-accent { border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; line-height: 1.7; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+      .work-tldr { max-width: 760px; margin: 48px 0 0; color: #e6effa; font-size: 19.5px; line-height: 1.8; letter-spacing: 0.002em; }
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .work-stat b { display: block; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+      .work-section { margin-top: 88px; }
+      .work-heading { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: baseline; margin-bottom: 26px; }
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+      .work-heading h2 { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15; }
+      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-figure { margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)); }
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.8; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+      .boundary-card.is-yes { border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd; }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+      .boundary-card.is-no { border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9; }
+      .boundary-card.is-no h3 { color: #ff8b72; }
+      .work-cite { position: relative; margin-top: 30px; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55); }
+      .work-cite pre { margin: 0; overflow-x: auto; color: #b9cfe8; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; }
+      .copy-btn { position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer; transition: color 160ms ease, border-color 160ms ease; }
+      .copy-btn:hover { color: var(--wk-blue); border-color: rgba(117, 183, 255, 0.5); }
+      .work-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .work-links a { display: inline-flex; padding: 8px 15px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-blue); font-size: 12.5px; font-weight: 620; text-decoration: none; transition: border-color 160ms ease, background 160ms ease; }
+      .work-links a:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+      .work-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px; }
+      .work-footer a { color: var(--wk-blue); }
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .work-stats, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="Site navigation">
+        <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
+        <nav class="section-nav" aria-label="Sections">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="Page tools">
+          <a href="/works/amn/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main>
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <span class="work-hero-right"><a href="/works/amn/" lang="en">English</a></span>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 论文 04 · 人群计数</p>
+            <h1 class="work-title">经<em>二值化迁移</em>的注意力混合网络<span style="color: var(--hero-accent)">。</span></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+              两种注意力回答两个问题——人在哪里，密度如何。AMNet 拒绝二选一。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">已发表 · ACM MM 2024 (McGE)</span>
+              <span class="meta-chip">人群计数</span>
+              <span class="meta-chip">双重注意力</span>
+              <span class="meta-chip">二值化迁移</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong>*、张子豪*、李鑫、李蔚杰、于锟 · 华东师范大学（* 共同一作，† 通讯）</p>
+            <p class="work-tldr">
+              二值注意力图告诉计数器<strong style="color:#f6fffb">人群在哪里</strong>；非二值图刻画<strong style="color:#f6fffb">人群内部的密度梯度</strong>。以往工作二者取一。<strong style="color:#f6fffb">AMNet</strong> 把共享特征同时供给注意力图生成器与密度图生成器，再用<strong style="color:#f6fffb">二值化迁移模块（BTM）</strong>把二值化过程变成训练中联合优化的可微环节——滤除杂乱背景的同时保住密度结构。
+            </p>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>4</b><span>个数据集：ShanghaiTech A/B、UCF_CC_50、WorldExpo'10、UCF-QNRF</span></div>
+            <div class="work-stat"><b>2</b><span>类被同时利用的注意力图</span></div>
+            <div class="work-stat"><b>1</b><span>个耦合两者的二值化迁移模块</span></div>
+            <div class="work-stat"><b>多尺度</b><span>对抗背景噪声的特征融合</span></div>
+          </div>
+
+          
+          <section class="work-section reveal" id="question">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>问题</h2>
+            </div>
+            <div class="work-prose"><p>人群计数的成败在注意力。二值注意力区分人群区域与复杂背景；非二值注意力刻画区域内部的拥挤梯度。以往方法只取其一——要么输给背景噪声，要么丢掉密度结构。</p>
+<p>要问的是：能否两种图同时利用，并且让二值化本身可学习、而非手工设定阈值。</p></div>
+          </section>
+
+          <section class="work-section reveal" id="approach">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>方法</h2>
+            </div>
+            <div class="work-prose"><p>AMNet 的共享特征 extractor 同时供给<strong>注意力图生成器</strong>（二值，候选人群区域）与<strong>密度图生成器</strong>（非二值，拥挤梯度）。<strong>二值化迁移模块</strong>把二值化变成可微的联合优化环节——把二值图里干净的区域选择迁移进密度估计，同时保留多尺度细节。</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/amn/amn-concept.jpg" alt="传统注意力人群计数流水线与 AMN 的二值+密度注意力协同流水线" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 1</b><span>传统注意力流水线（蓝、黄流）vs AMN 流水线（红流）——二值与密度注意力图由竞争转为协作。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>结果</h2>
+            </div>
+            <div class="work-prose"><p>在 ShanghaiTech PartA/B、UCF_CC_50、WorldExpo'10、UCF-QNRF 上，AMNet 取得<strong>显著的计数精度提升并超过当时的最优方法</strong>——增益最大的正是单用二值注意力失效的场景：密集、杂乱。</p>
+<p>定性密度图显示机制按设计工作：二值化注意力压制背景，人群内部的密度梯度保持完整。</p></div>
+            <figure class="work-figure">
+              <img src="/assets/works/amn/amn-density.jpg" alt="AMNet 架构：共享特征供给注意力图生成器与密度图生成器，多尺度融合" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 2</b><span>AMNet 架构——特征流向注意力图生成器（AMG）与密度图生成器（DMG），多尺度融合得到最终密度估计。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul><li>二值与非二值注意力图的同时利用</li><li>可微的二值化迁移模块实现联合训练</li><li>四个标准人群计数基准上的一致提升</li><li>背景抑制且密度保留的定性证据</li></ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul><li>基准范围限于所测的五个人群计数数据集</li><li>无部署或实时性主张</li><li>承认人群图像的隐私语境，但未展开研究</li><li>无跨领域（非人群）迁移主张</li></ul>
+              </div>
+            </div>
+          </section>
+          
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>引用</h2>
+            </div>
+            <div class="work-cite">
+              <button class="copy-btn" type="button" data-copy-cite>复制</button>
+              <pre id="cite-text">@inproceedings{xu2024amnet,
+  title     = {Attention Mixture Network for Crowd Counting
+               via Binarization Transfer},
+  author    = {Xu, Junjie and Zhang, Zihao and Li, Xin and Li, Weijie
+               and Yu, Kun},
+  booktitle = {Proceedings of the 2nd International Workshop on Multimedia
+               Content Generation and Evaluation (McGE)}, 
+  series    = {ACM Multimedia 2024},
+  year      = {2024},
+  doi       = {10.1145/3688867.3690172}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>论文 04 · 人群计数 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">junjiexu.github.io</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals);
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "Copied ✓";
+        } catch {
+          button.textContent = "Press ⌘C";
+        }
+        setTimeout(() => (button.textContent = "Copy"), 1800);
+      });
+</script>
+  </body>
+</html>
