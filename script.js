@@ -1293,6 +1293,286 @@ function setupPortraitReveal() {
   });
 }
 
+// "Mesh Flow" hero background: a dot grid that sits almost invisible until
+// the pointer draws it into a traveling sine wave. One canvas inside .hero,
+// independent from the entrance choreography (which is CSS-only on
+// .hero-copy > * / .portrait and never targets the canvas).
+function setupMeshFlow() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  // Tuning, CSS px.
+  const SPACING = 26; // grid pitch
+  const DOT_RADIUS = 1;
+  const INFLUENCE = 170; // pointer reach
+  const WAVE_LENGTH = 28; // sine wavelength along the radius
+  const WAVE_SPEED = 2.6; // radians per second (wave travels outward)
+  const WAVE_AMPLITUDE = 5;
+  const BASE_ALPHA = 0.05;
+  const BOOST_ALPHA = 0.45;
+  const LERP = 0.12;
+  const DPR_CAP = 2;
+  const MIN_VIEWPORT = 700;
+  const TAU = Math.PI * 2;
+
+  let canvas = null;
+  let context = null;
+  let baseLayer = null; // offscreen pre-render of the resting grid
+  let resizeObserver = null;
+  let intersectionObserver = null;
+  let rafId = 0;
+  let running = false;
+  let inViewport = true;
+  let width = 0;
+  let height = 0;
+  let pixelRatio = 0;
+  let columns = 0;
+  let rows = 0;
+  let originX = 0;
+  let originY = 0;
+  let pointerX = 0; // smoothed pointer, hero-local CSS px
+  let pointerY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let pointerInside = false;
+  let influence = 0; // smoothed 0..1, scales the reach radius
+  let needsRepaint = true; // canvas bitmap starts transparent
+
+  const isEligible = () =>
+    !reducedMotion.matches && finePointer.matches && window.innerWidth >= MIN_VIEWPORT;
+
+  // Rendering is skipped entirely when the hero is off-screen, the tab is
+  // hidden, or there is nothing animating (no pointer influence, no pending
+  // repaint). The rAF loop stops instead of idling.
+  const shouldRun = () =>
+    Boolean(canvas) && inViewport && !document.hidden && (influence > 0 || needsRepaint);
+
+  function start() {
+    if (running || !shouldRun()) return;
+    running = true;
+    rafId = window.requestAnimationFrame(frame);
+  }
+
+  function frame(now) {
+    rafId = 0;
+    if (!canvas) {
+      running = false;
+      return;
+    }
+
+    if (pointerInside) {
+      influence += (1 - influence) * LERP;
+      pointerX += (targetX - pointerX) * LERP;
+      pointerY += (targetY - pointerY) * LERP;
+    } else if (influence > 0) {
+      influence -= influence * LERP; // pointer left: reach collapses to 0
+      if (influence < 0.001) influence = 0;
+    }
+
+    render(now / 1000);
+
+    if (influence <= 0.002) needsRepaint = false; // base state is on canvas
+    if (shouldRun()) {
+      rafId = window.requestAnimationFrame(frame);
+    } else {
+      running = false;
+    }
+  }
+
+  function render(seconds) {
+    if (!baseLayer) return;
+    context.clearRect(0, 0, width, height);
+
+    // Resting grid: pre-rendered at full alpha once per resize; one
+    // globalAlpha'd drawImage composites it.
+    context.globalAlpha = BASE_ALPHA;
+    context.drawImage(baseLayer, 0, 0, width, height);
+    context.globalAlpha = 1;
+
+    if (influence <= 0.002) return;
+
+    // Only dots inside the reach square get touched; the grid is regular, so
+    // neighbors come straight from index math — no per-frame allocations.
+    const reach = INFLUENCE * influence;
+    const reachSq = reach * reach;
+    const firstColumn = Math.max(0, Math.ceil((pointerX - reach - originX) / SPACING));
+    const lastColumn = Math.min(columns - 1, Math.floor((pointerX + reach - originX) / SPACING));
+    const firstRow = Math.max(0, Math.ceil((pointerY - reach - originY) / SPACING));
+    const lastRow = Math.min(rows - 1, Math.floor((pointerY + reach - originY) / SPACING));
+    if (lastColumn < firstColumn || lastRow < firstRow) return;
+
+    context.fillStyle = "rgb(117, 183, 255)";
+    for (let row = firstRow; row <= lastRow; row += 1) {
+      const gridY = originY + row * SPACING;
+      const offsetY = gridY - pointerY;
+      for (let column = firstColumn; column <= lastColumn; column += 1) {
+        const gridX = originX + column * SPACING;
+        const offsetX = gridX - pointerX;
+        const distSq = offsetX * offsetX + offsetY * offsetY;
+        if (distSq >= reachSq) continue;
+        const dist = Math.sqrt(distSq);
+        const falloff = (1 - dist / reach) * (1 - dist / reach);
+        const wave = Math.sin(dist / WAVE_LENGTH - seconds * WAVE_SPEED);
+        context.globalAlpha = BASE_ALPHA + BOOST_ALPHA * falloff * (0.6 + 0.4 * wave);
+        context.beginPath();
+        context.arc(gridX, gridY + wave * WAVE_AMPLITUDE * falloff, DOT_RADIUS, 0, TAU);
+        context.fill();
+      }
+    }
+    context.globalAlpha = 1;
+  }
+
+  function resize() {
+    if (!canvas) return;
+    const nextWidth = hero.clientWidth;
+    const nextHeight = hero.clientHeight;
+    const nextRatio = Math.min(DPR_CAP, window.devicePixelRatio || 1);
+    if (nextWidth === width && nextHeight === height && nextRatio === pixelRatio) return;
+
+    width = nextWidth;
+    height = nextHeight;
+    pixelRatio = nextRatio;
+    canvas.width = Math.max(1, Math.round(width * pixelRatio));
+    canvas.height = Math.max(1, Math.round(height * pixelRatio));
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    needsRepaint = true; // bitmap resize clears the canvas
+
+    columns = Math.max(1, Math.ceil(width / SPACING));
+    rows = Math.max(1, Math.ceil(height / SPACING));
+    originX = (width - (columns - 1) * SPACING) / 2;
+    originY = (height - (rows - 1) * SPACING) / 2;
+
+    baseLayer = document.createElement("canvas");
+    baseLayer.width = canvas.width;
+    baseLayer.height = canvas.height;
+    const baseContext = baseLayer.getContext("2d");
+    baseContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    baseContext.fillStyle = "rgb(117, 183, 255)";
+    baseContext.beginPath();
+    for (let row = 0; row < rows; row += 1) {
+      const y = originY + row * SPACING;
+      for (let column = 0; column < columns; column += 1) {
+        const x = originX + column * SPACING;
+        baseContext.moveTo(x + DOT_RADIUS, y);
+        baseContext.arc(x, y, DOT_RADIUS, 0, TAU);
+      }
+    }
+    baseContext.fill();
+
+    // The loop may be quiescent (no influence, repaint already settled);
+    // the bitmap rebuild just cleared it, so kick one repaint frame.
+    start();
+  }
+
+  function trackPointer(event) {
+    if (event.pointerType === "touch") return;
+    const bounds = hero.getBoundingClientRect();
+    targetX = event.clientX - bounds.left;
+    targetY = event.clientY - bounds.top;
+    if (!pointerInside) {
+      pointerInside = true;
+      pointerX = targetX; // snap: no wave sweeping in from a stale position
+      pointerY = targetY;
+      needsRepaint = true; // wake the quiescent loop
+    }
+    start();
+  }
+
+  function releasePointer() {
+    pointerInside = false;
+  }
+
+  function handleVisibility() {
+    if (!document.hidden) start();
+  }
+
+  function handleIntersection(entries) {
+    inViewport = entries.some((entry) => entry.isIntersecting);
+    if (inViewport) start();
+  }
+
+  function init() {
+    canvas = document.createElement("canvas");
+    canvas.className = "mesh-flow";
+    canvas.setAttribute("aria-hidden", "true");
+    hero.append(canvas);
+    context = canvas.getContext("2d");
+    if (!context) {
+      canvas.remove();
+      canvas = null;
+      return;
+    }
+
+    width = 0;
+    height = 0;
+    pixelRatio = 0;
+    inViewport = true;
+    needsRepaint = true;
+    resize();
+
+    hero.addEventListener("pointermove", trackPointer, { passive: true });
+    hero.addEventListener("pointerenter", trackPointer, { passive: true });
+    hero.addEventListener("pointerleave", releasePointer, { passive: true });
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    if ("ResizeObserver" in window) {
+      resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(hero);
+    }
+    if ("IntersectionObserver" in window) {
+      intersectionObserver = new IntersectionObserver(handleIntersection);
+      intersectionObserver.observe(hero);
+    }
+    start();
+  }
+
+  function teardown() {
+    if (rafId) window.cancelAnimationFrame(rafId);
+    rafId = 0;
+    running = false;
+    inViewport = true;
+    influence = 0;
+    pointerInside = false;
+    hero.removeEventListener("pointermove", trackPointer);
+    hero.removeEventListener("pointerenter", trackPointer);
+    hero.removeEventListener("pointerleave", releasePointer);
+    document.removeEventListener("visibilitychange", handleVisibility);
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    }
+    if (intersectionObserver) {
+      intersectionObserver.disconnect();
+      intersectionObserver = null;
+    }
+    if (canvas) {
+      canvas.remove();
+      canvas = null;
+      context = null;
+      baseLayer = null;
+    }
+  }
+
+  function handleEligibility() {
+    if (isEligible()) {
+      if (!canvas) init();
+    } else if (canvas) {
+      teardown();
+    }
+  }
+
+  // Reduced motion, coarse pointer, or a viewport narrower than 700px: the
+  // canvas is never created — the static page texture stays as-is.
+  if (!isEligible()) return;
+  init();
+  reducedMotion.addEventListener("change", handleEligibility);
+  finePointer.addEventListener("change", handleEligibility);
+  window.addEventListener("resize", handleEligibility);
+}
+
 function setupHeroAtmosphere() {
   const hero = document.querySelector(".hero");
   const shell = document.querySelector(".page-shell");
@@ -1400,6 +1680,7 @@ setupFocusReveal();
 setupSectionReveal();
 setupPublicBuildAdjustments();
 setupHeroAtmosphere();
+setupMeshFlow();
 setupBlogImport();
 setupResearchEditor();
 setupStudioPublishing();
