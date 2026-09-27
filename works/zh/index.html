@@ -132,6 +132,7 @@
         font-weight: 640;
         line-height: 1.06;
         letter-spacing: -0.01em;
+        text-wrap: balance;
       }
 
       .scene-status {
@@ -222,6 +223,18 @@
         transition: opacity 0.7s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
+      /* 主视觉描边起笔 + 柱体升起，与 .is-in 入场同源触发 */
+      .scene .draw,
+      .scene .bts-bars {
+        transition: stroke-dashoffset 1100ms cubic-bezier(0.22, 1, 0.36, 1), transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .scene.will-anim .draw { stroke-dasharray: 1 2; stroke-dashoffset: 1; }
+      .scene.will-anim.is-in .draw { stroke-dashoffset: 0; }
+      .scene.will-anim .bts-bars { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); }
+      .scene.will-anim.is-in .bts-bars { transform: scaleY(1); }
+      .scene:nth-of-type(2) .draw, .scene:nth-of-type(4) .draw, .scene:nth-of-type(5) .bts-bars { transition-delay: 140ms; }
+      .scene:nth-of-type(3) .draw { transition-delay: 220ms; }
+
       @media (max-width: 880px) {
         .scene, .scene--flip { grid-template-columns: minmax(0, 1fr); gap: 26px; padding: 46px 0; }
         .scene .scene-art, .scene--flip .scene-art { order: -1; }
@@ -240,6 +253,7 @@
       .pub-section-head h2 {
         margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
         font-size: clamp(24px, 3vw, 32px); font-weight: 630; letter-spacing: -0.01em;
+        text-wrap: balance;
       }
 
       .pub-section-head p { margin: 0; color: var(--wk-muted); font-size: 13px; }
@@ -249,16 +263,19 @@
       .papers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
 
       .paper-card {
-        display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; align-items: start;
-        padding: 16px 18px; border: 1px solid var(--wk-line); border-radius: 14px; background: var(--wk-card);
-        transition: border-color 200ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+        position: relative; display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px;
+        min-height: 188px; padding: 18px 20px;
+        border: 1px solid rgba(170, 199, 230, 0.28); border-radius: 14px; background: rgba(255, 255, 255, 0.025);
+        transition: border-color 180ms ease-out, transform 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms ease-out;
       }
 
-      .paper-card:hover {
-        border-color: rgba(117, 183, 255, 0.45); transform: translateY(-2px);
+      .paper-card:hover, .paper-card:focus-within {
+        border-color: rgba(117, 183, 255, 0.5); transform: translateY(-3px);
+        box-shadow: 0 22px 44px -32px rgba(3, 10, 24, 0.9);
       }
 
       .paper-tile {
+        align-self: start;
         display: grid; width: 76px; height: 76px; place-items: center; padding: 6px;
         border-radius: 10px; text-align: center; line-height: 1.15;
         background: linear-gradient(145deg, rgba(117, 183, 255, 0.18), rgba(105, 221, 181, 0.1));
@@ -266,10 +283,13 @@
         font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em;
       }
 
-      .paper-card-body { min-width: 0; }
+      .paper-card-body {
+        display: grid; grid-template-rows: auto 1fr auto; align-items: start; min-width: 0;
+      }
 
       .paper-card-body h3 {
-        margin: 7px 0 0; color: var(--hero-ink); font-size: 14.5px; font-weight: 620; line-height: 1.42;
+        margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display);
+        font-size: 15px; font-weight: 620; line-height: 1.42; text-wrap: balance;
       }
 
       .paper-card-body .venue { margin: 6px 0 0; color: var(--wk-muted); font-size: 12px; line-height: 1.5; }
@@ -283,9 +303,10 @@
       .paper-card-body .meta .st.is-pub { color: var(--wk-green); }
       .paper-card-body .meta .st.is-pre { color: var(--wk-blue); }
       .paper-card-body .meta .st.is-rev { color: #c8d4e4; }
-      .paper-card:hover h3 { color: var(--wk-blue); }
+      .paper-card:hover h3, .paper-card:focus-within h3 { color: var(--wk-blue); }
 
-      .paper-card .meta .ext { color: var(--wk-blue); font-weight: 650; }
+      .paper-card .card-open { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+      .paper-card .meta .ext { position: relative; z-index: 2; color: var(--wk-blue); font-weight: 650; }
       .paper-card .meta .ext:hover { text-decoration: underline; }
 
       @media (max-width: 560px) {
@@ -296,6 +317,9 @@
         .scene, .scene-art, .scene-art svg, .scene-link { transition: none; }
         .scene.will-anim { opacity: 1; transform: none; }
         .drift-a, .drift-b { animation: none; }
+        .scene .draw { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; }
+        .scene .bts-bars { transform: none; transition: none; }
+        .paper-card, .paper-card:hover, .paper-card:focus-within { transition: none; }
       }
     </style>
   </head>
@@ -361,7 +385,7 @@
                       <line x1="72" y1="168" x2="438" y2="168" stroke-opacity="0.3" />
                       <line x1="72" y1="196" x2="484" y2="196" stroke-opacity="0.2" />
                       <line x1="72" y1="224" x2="524" y2="224" stroke-opacity="0.42" />
-                      <line x1="72" y1="252" x2="568" y2="252" stroke="url(#ebs-hl)" />
+                      <line x1="72" y1="252" x2="568" y2="252" stroke="url(#ebs-hl)" pathLength="1" class="draw" />
                       <line x1="72" y1="280" x2="468" y2="280" stroke-opacity="0.24" />
                       <line x1="72" y1="308" x2="410" y2="308" stroke-opacity="0.16" />
                       <line x1="72" y1="336" x2="354" y2="336" stroke-opacity="0.12" />
@@ -411,7 +435,7 @@
                     </linearGradient>
                   </defs>
                   <g class="drift-a">
-                    <path d="M128 158 Q 336 30 544 158" fill="none" stroke="url(#ev-arc)" stroke-width="1.6" />
+                    <path d="M128 158 Q 336 30 544 158" fill="none" stroke="url(#ev-arc)" stroke-width="1.6" pathLength="1" class="draw" />
                     <circle cx="336" cy="94" r="11" fill="#d3baff" fill-opacity="0.16" />
                     <circle cx="336" cy="94" r="4.5" fill="#e4d6ff" />
                     <g fill="none" stroke="#b48cff" stroke-opacity="0.35">
@@ -463,7 +487,7 @@
                     <rect x="264" y="134" width="250" height="150" rx="18" transform="rotate(-16 389 209)" stroke="#69ddb5" stroke-opacity="0.42" fill="#69ddb5" fill-opacity="0.11" />
                   </g>
                   <g class="drift-b">
-                    <line x1="96" y1="286" x2="546" y2="66" stroke="url(#cef-line)" stroke-width="2" />
+                    <line x1="96" y1="286" x2="546" y2="66" stroke="url(#cef-line)" stroke-width="2" pathLength="1" class="draw" />
                     <path d="M546 66 l-16 -1.5 M546 66 l-5 15" stroke="#a9f2d9" stroke-width="2" fill="none" stroke-linecap="round" />
                     <circle cx="248" cy="212" r="4" fill="#69ddb5" fill-opacity="0.7" />
                     <circle cx="330" cy="172" r="4" fill="#69ddb5" fill-opacity="0.8" />
@@ -516,7 +540,7 @@
                   </g>
                   <g class="drift-b">
                     <path d="M40 236 C 110 96, 190 96, 260 236 S 410 376, 480 236 S 560 130, 604 168" fill="none" stroke="#f2c14e" stroke-opacity="0.14" stroke-width="9" />
-                    <path d="M40 236 C 110 96, 190 96, 260 236 S 410 376, 480 236 S 560 130, 604 168" fill="none" stroke="url(#ani-wave)" stroke-width="2.4" />
+                    <path d="M40 236 C 110 96, 190 96, 260 236 S 410 376, 480 236 S 560 130, 604 168" fill="none" stroke="url(#ani-wave)" stroke-width="2.4" pathLength="1" class="draw" />
                     <line x1="320" y1="86" x2="320" y2="384" stroke="#f2c14e" stroke-opacity="0.25" stroke-dasharray="3 6" />
                     <circle cx="320" cy="235" r="7" fill="none" stroke="#ffe3a1" stroke-opacity="0.85" stroke-width="1.6" />
                     <circle cx="320" cy="235" r="2.4" fill="#ffe3a1" />
@@ -552,7 +576,7 @@
                   </defs>
                   <g class="drift-a">
                     <line x1="60" y1="312" x2="600" y2="312" stroke="#ff8fa3" stroke-opacity="0.3" />
-                    <g>
+                    <g class="bts-bars">
                       <rect x="76"  y="256" width="12" height="56"  rx="5" fill="url(#bts-strip)" fill-opacity="0.3" />
                       <rect x="98"  y="240" width="12" height="72"  rx="5" fill="url(#bts-strip)" fill-opacity="0.35" />
                       <rect x="120" y="224" width="12" height="88"  rx="5" fill="url(#bts-strip)" fill-opacity="0.4" />
@@ -596,113 +620,132 @@
             </div>
             <p class="pub-note">上方五个作品与下方每篇论文都各有独立项目页——点击任意卡片即可打开。</p>
             <div class="papers-grid">
-            <a class="paper-card" href="/works/zh/mars/">
+            <article class="paper-card">
               <span class="paper-tile">MARS</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pub">已发表</span><span>被引 3</span><a class="ext" href="https://doi.org/10.1016/j.ipm.2025.104292" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              <div class="paper-card-body">
                 <h3>MARS：多模态辅助的精细化语义对齐</h3>
                 <span class="venue">Information Processing &amp; Management 63 (1), 104292 · 2026</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/bdann/">
+                <span class="meta"><span class="st is-pub">已发表</span><span>被引 3</span><a class="ext" href="https://doi.org/10.1016/j.ipm.2025.104292" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/mars/" aria-label="MARS — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">BDANN</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pub">已发表</span><span>被引 7</span><a class="ext" href="https://doi.org/10.1145/3716501" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              <div class="paper-card-body">
                 <h3>面向方面级情感分类的双向有向无环图神经网络</h3>
                 <span class="venue">ACM TALLIP · 2025</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/aim/">
+                <span class="meta"><span class="st is-pub">已发表</span><span>被引 7</span><a class="ext" href="https://doi.org/10.1145/3716501" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/bdann/" aria-label="BDANN — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">AiM</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pre">预印本</span><span>被引 3</span><a class="ext" href="https://arxiv.org/abs/2501.01700" target="_blank" rel="noreferrer noopener">arXiv ↗</a></span>
+              <div class="paper-card-body">
                 <h3>音乐感知中的审美要素：情绪驱动的音乐到图像风格操控</h3>
                 <span class="venue">arXiv:2501.01700 · 2025</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/amn/">
+                <span class="meta"><span class="st is-pre">预印本</span><span>被引 3</span><a class="ext" href="https://arxiv.org/abs/2501.01700" target="_blank" rel="noreferrer noopener">arXiv ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/aim/" aria-label="AiM — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">AMN</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pub">已发表</span><a class="ext" href="https://doi.org/10.1145/3688867.3690172" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              <div class="paper-card-body">
                 <h3>基于二值化迁移的注意力混合网络人群计数</h3>
                 <span class="venue">McGE Workshop · ACM Multimedia 2024</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/gc/">
+                <span class="meta"><span class="st is-pub">已发表</span><a class="ext" href="https://doi.org/10.1145/3688867.3690172" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/amn/" aria-label="AMN — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">GC</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pub">已发表</span><span>被引 23</span><a class="ext" href="https://doi.org/10.1109/IJCNN55064.2022.9892027" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              <div class="paper-card-body">
                 <h3>情感知识增强的语义-句法混合图卷积方面级情感分类</h3>
                 <span class="venue">IJCNN 2022</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/cwf/">
+                <span class="meta"><span class="st is-pub">已发表</span><span>被引 23</span><a class="ext" href="https://doi.org/10.1109/IJCNN55064.2022.9892027" target="_blank" rel="noreferrer noopener">DOI ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/gc/" aria-label="GC — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">CWF</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pre">预印本</span><span>被引 1</span><a class="ext" href="https://arxiv.org/abs/2606.18259" target="_blank" rel="noreferrer noopener">arXiv ↗</a></span>
+              <div class="paper-card-body">
                 <h3>Caring Without Feeling：作为人机智能体协作控制层的情感动力学</h3>
                 <span class="venue">arXiv:2606.18259 · 期刊评审中 · 2026</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/coa/">
+                <span class="meta"><span class="st is-pre">预印本</span><span>被引 1</span><a class="ext" href="https://arxiv.org/abs/2606.18259" target="_blank" rel="noreferrer noopener">arXiv ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/cwf/" aria-label="CWF — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">CoA</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pre">预印本</span><span>被引 3</span><a class="ext" href="https://arxiv.org/abs/2512.12283" target="_blank" rel="noreferrer noopener">arXiv ↗</a></span>
+              <div class="paper-card-body">
                 <h3>大语言模型拥有情感链（Chain-of-Affective）</h3>
                 <span class="venue">arXiv:2512.12283 · 2025</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/elysianmv/">
+                <span class="meta"><span class="st is-pre">预印本</span><span>被引 3</span><a class="ext" href="https://arxiv.org/abs/2512.12283" target="_blank" rel="noreferrer noopener">arXiv ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/coa/" aria-label="CoA — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">EMV</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-pre">预印本</span></span>
+              <div class="paper-card-body">
                 <h3>ElysianMV：经由音乐-视觉跨模态合成连接疗愈情绪与审美意象</h3>
                 <span class="venue">预印本投稿 Pattern Recognition</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/phoenix/">
+                <span class="meta"><span class="st is-pre">预印本</span></span>
+              </div>
+              <a class="card-open" href="/works/zh/elysianmv/" aria-label="EMV — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">PHX</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-rev">评审中</span><a class="ext" href="https://ssrn.com/abstract=5343200" target="_blank" rel="noreferrer noopener">SSRN ↗</a></span>
+              <div class="paper-card-body">
                 <h3>Phoenix：面向音频驱动图像生成的听觉表达层级观测</h3>
                 <span class="venue">IEEE TCSVT（评审中）· SSRN 5343200</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/coffee/">
+                <span class="meta"><span class="st is-rev">评审中</span><a class="ext" href="https://ssrn.com/abstract=5343200" target="_blank" rel="noreferrer noopener">SSRN ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/phoenix/" aria-label="PHX — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">COFFEE</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-rev">评审中</span></span>
+              <div class="paper-card-body">
                 <h3>COFFEE：跨模态细粒度对齐与融合增强的音频驱动图像生成</h3>
                 <span class="venue">IEEE TNNLS（评审中）</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/musepainter/">
+                <span class="meta"><span class="st is-rev">评审中</span></span>
+              </div>
+              <a class="card-open" href="/works/zh/coffee/" aria-label="COFFEE — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">CM-Align</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-rev">评审中</span><a class="ext" href="https://openreview.net/forum?id=ncobdaVCPB" target="_blank" rel="noreferrer noopener">OpenReview ↗</a></span>
+              <div class="paper-card-body">
                 <h3>细粒度音乐引导图像生成的跨模态对齐与人类偏好学习</h3>
                 <span class="venue">ICLR 2026 · 评审中</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/garbo/">
+                <span class="meta"><span class="st is-rev">评审中</span><a class="ext" href="https://openreview.net/forum?id=ncobdaVCPB" target="_blank" rel="noreferrer noopener">OpenReview ↗</a></span>
+              </div>
+              <a class="card-open" href="/works/zh/musepainter/" aria-label="CM-Align — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
               <span class="paper-tile">GARBO</span>
-              <span class="paper-card-body">
-                <span class="meta"><span class="st is-rev">手稿</span></span>
+              <div class="paper-card-body">
                 <h3>GARBO-T2I：文本到图像生成的梯度感知强化优化</h3>
                 <span class="venue">研究手稿</span>
-              </span>
-            </a>
-            <a class="paper-card" href="/works/zh/healbench/">
-              <span class="paper-tile">HB</span>
-              <span class="paper-card-body">
                 <span class="meta"><span class="st is-rev">手稿</span></span>
+              </div>
+              <a class="card-open" href="/works/zh/garbo/" aria-label="GARBO — 打开项目页"></a>
+            </article>
+            <article class="paper-card">
+              <span class="paper-tile">HB</span>
+              <div class="paper-card-body">
                 <h3>HealBench：文本到图像生成心理舒适度的细粒度评测基准</h3>
                 <span class="venue">研究手稿</span>
-              </span>
-            </a>
+                <span class="meta"><span class="st is-rev">手稿</span></span>
+              </div>
+              <a class="card-open" href="/works/zh/healbench/" aria-label="HB — 打开项目页"></a>
+            </article>
             </div>
           </div>
         </div>
+
+        <footer class="site-footer">
+          <p>Junjie Xu</p>
+          <p>多模态智能 · 情感计算 · 人机协作</p>
+          <button class="back-to-top" type="button" aria-label="返回页面顶部" title="返回顶部">↑</button>
+        </footer>
       </main>
     </div>
 
@@ -730,6 +773,24 @@
         window.addEventListener('resize', schedule);
         check();
         setTimeout(check, 300);
+      })();
+
+      (function () {
+        var btn = document.querySelector('.back-to-top');
+        if (!btn) return;
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var update = function () {
+          btn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.75);
+        };
+        var frame = 0;
+        window.addEventListener('scroll', function () {
+          if (frame) return;
+          frame = requestAnimationFrame(function () { frame = 0; update(); });
+        }, { passive: true });
+        update();
+        btn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+        });
       })();
     </script>
   </body>
