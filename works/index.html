@@ -622,7 +622,7 @@
             </div>
             <p class="pub-note">The five works above and every paper below each have a dedicated project page — open any card.</p>
             <div class="papers-grid">
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 0">
               <span class="paper-tile">MARS</span>
               <div class="paper-card-body">
                 <h3>MARS: Multimodal-Assisted Refined Semantic Alignment</h3>
@@ -631,7 +631,7 @@
               </div>
               <a class="card-open" href="/works/mars/" aria-label="MARS — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 1">
               <span class="paper-tile">BDANN</span>
               <div class="paper-card-body">
                 <h3>Bidirectional Directed Acyclic Graph Neural Network for Aspect-level Sentiment Classification</h3>
@@ -640,7 +640,7 @@
               </div>
               <a class="card-open" href="/works/bdann/" aria-label="BDANN — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 2">
               <span class="paper-tile">AiM</span>
               <div class="paper-card-body">
                 <h3>Aesthetic Matters in Music Perception for Image Stylization: An Emotion-Driven Music-to-Visual Manipulation</h3>
@@ -649,7 +649,7 @@
               </div>
               <a class="card-open" href="/works/aim/" aria-label="AiM — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 3">
               <span class="paper-tile">AMN</span>
               <div class="paper-card-body">
                 <h3>Attention Mixture Network for Crowd Counting via Binarization Transfer</h3>
@@ -658,7 +658,7 @@
               </div>
               <a class="card-open" href="/works/amn/" aria-label="AMN — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 4">
               <span class="paper-tile">GC</span>
               <div class="paper-card-body">
                 <h3>Graph Convolution over the Semantic-Syntactic Hybrid Graph Enhanced by Affective Knowledge</h3>
@@ -667,7 +667,7 @@
               </div>
               <a class="card-open" href="/works/gc/" aria-label="GC — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 5">
               <span class="paper-tile">CWF</span>
               <div class="paper-card-body">
                 <h3>Caring Without Feeling: Affective Dynamics as the Control Layer of Human-AI Agent Collaboration</h3>
@@ -676,7 +676,7 @@
               </div>
               <a class="card-open" href="/works/cwf/" aria-label="CWF — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 6">
               <span class="paper-tile">CoA</span>
               <div class="paper-card-body">
                 <h3>Large Language Models have Chain-of-Affective</h3>
@@ -685,7 +685,7 @@
               </div>
               <a class="card-open" href="/works/coa/" aria-label="CoA — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 7">
               <span class="paper-tile">EMV</span>
               <div class="paper-card-body">
                 <h3>ElysianMV: Bridging Therapeutic Emotions and Aesthetic Imagery via Music-Visual Cross-Modal Synthesis</h3>
@@ -694,7 +694,7 @@
               </div>
               <a class="card-open" href="/works/elysianmv/" aria-label="EMV — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 8">
               <span class="paper-tile">PHX</span>
               <div class="paper-card-body">
                 <h3>Phoenix: Prioritize the Hierarchical Observation of Auditory Expression for Audio-Based Image Generation</h3>
@@ -703,7 +703,7 @@
               </div>
               <a class="card-open" href="/works/phoenix/" aria-label="PHX — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 9">
               <span class="paper-tile">COFFEE</span>
               <div class="paper-card-body">
                 <h3>COFFEE: Listen, with Your Eyes — Cross-Modal Fine-Grained Alignment and Fusion Enhanced for Audio-Based Image Generation</h3>
@@ -712,7 +712,7 @@
               </div>
               <a class="card-open" href="/works/coffee/" aria-label="COFFEE — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 10">
               <span class="paper-tile">CM-Align</span>
               <div class="paper-card-body">
                 <h3>Cross-Modal Alignment and Human Preference Learning for Fine-Grained Music-Guided Image Generation</h3>
@@ -721,7 +721,7 @@
               </div>
               <a class="card-open" href="/works/musepainter/" aria-label="CM-Align — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 11">
               <span class="paper-tile">GARBO</span>
               <div class="paper-card-body">
                 <h3>GARBO-T2I: Gradient-Aware Reinforcement-Based Optimization for Text-to-Image Generation</h3>
@@ -730,7 +730,7 @@
               </div>
               <a class="card-open" href="/works/garbo/" aria-label="GARBO — open project page"></a>
             </article>
-            <article class="paper-card">
+            <article class="paper-card" style="--card-i: 12">
               <span class="paper-tile">HB</span>
               <div class="paper-card-body">
                 <h3>HealBench: A Fine-Grained Benchmark for Evaluating Psychological Comfort in Text-to-Image Generation</h3>
@@ -751,21 +751,96 @@
       </main>
     </div>
 
+    <script defer src="/assets/vendor/lenis.min.js"></script>
+    <script defer src="/assets/scroll-feel.js"></script>
     <script>
       (function () {
+        var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.documentElement.classList.add('js');
+        // Force-settle safety net, mirroring script.js on the homepage.
+        setTimeout(function () { document.documentElement.classList.add('entrance-done'); }, 1500);
+
+        // Word-level heading reveal (vanilla SplitText equivalent). Runs
+        // before the reveal machinery so above-fold words animate on load.
+        function splitRevealWords(el) {
+          if (!el || el.dataset.splitWords) return;
+          var label = (el.textContent || '').replace(/\s+/g, ' ').trim();
+          var seq = 0;
+          function isCJK(ch) {
+            return /[\u1100-\u11ff\u2e80-\u9fff\uac00-\ud7ff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]/.test(ch);
+          }
+          function appendWord(frag, value) {
+            var span = document.createElement('span');
+            span.className = 'word';
+            span.style.setProperty('--w-i', String(seq++));
+            span.textContent = value;
+            frag.appendChild(span);
+          }
+          function wrapUnits(text) {
+            var frag = document.createDocumentFragment();
+            text.split(/(\s+)/).forEach(function (chunk) {
+              if (!chunk) return;
+              if (/^\s+$/.test(chunk)) { frag.appendChild(document.createTextNode(chunk)); return; }
+              var run = '', runCJK = null;
+              function flush() {
+                if (!run) return;
+                if (runCJK) {
+                  for (var i = 0; i < run.length; i++) appendWord(frag, run[i]);
+                } else {
+                  appendWord(frag, run);
+                }
+                run = '';
+              }
+              for (var j = 0; j < chunk.length; j++) {
+                var cjk = isCJK(chunk[j]);
+                if (cjk !== runCJK) { flush(); runCJK = cjk; }
+                run += chunk[j];
+              }
+              flush();
+            });
+            return frag;
+          }
+          (function walk(node) {
+            [].slice.call(node.childNodes).forEach(function (child) {
+              if (child.nodeType === 3) {
+                if (child.textContent.trim()) node.replaceChild(wrapUnits(child.textContent), child);
+              } else if (child.nodeType === 1 && child.tagName !== 'BR') {
+                walk(child);
+              }
+            });
+          })(el);
+          el.setAttribute('aria-label', label);
+          el.dataset.splitWords = '1';
+        }
+
+        if (!reduce) {
+          var worksTitle = document.querySelector('.works-title');
+          if (worksTitle) splitRevealWords(worksTitle);
+          [].slice.call(document.querySelectorAll('.scene-title')).forEach(splitRevealWords);
+        }
+
         var scenes = [].slice.call(document.querySelectorAll('.scene'));
-        if (!scenes.length) return;
-        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        scenes.forEach(function (s) { s.classList.add('will-anim'); });
+        var papersGrid = document.querySelector('.papers-grid');
+        var revealables = papersGrid ? scenes.concat([papersGrid]) : scenes;
+        if (!revealables.length) return;
+        if (reduce) return;
+        revealables.forEach(function (s) { s.classList.add('will-anim'); });
         var timer;
         function check() {
           var vh = window.innerHeight, pending = false;
-          scenes.forEach(function (s) {
+          revealables.forEach(function (s) {
             if (s.classList.contains('is-in')) return;
             var top = s.getBoundingClientRect().top;
             if (top < vh * 0.92) {
               var delay = Math.min(Math.max(0, (vh * 0.92 - top)) * 0.5, 160);
-              setTimeout(function () { s.classList.add('is-in'); }, delay);
+              setTimeout(function () {
+                s.classList.add('is-in');
+                if (s === papersGrid) {
+                  // Card stagger ends ~320ms delay + 650ms in; then hand the
+                  // transitions back to the fast hover ones.
+                  setTimeout(function () { s.classList.add('reveal-done'); }, 1100);
+                }
+              }, delay);
             } else { pending = true; }
           });
           if (pending) schedule();
@@ -791,6 +866,7 @@
         }, { passive: true });
         update();
         btn.addEventListener('click', function () {
+          if (window.__lenis) { window.__lenis.scrollTo(0, { duration: 1.1 }); return; }
           window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
         });
       })();

@@ -934,8 +934,94 @@ function setupBackToTop() {
   updateVisibility();
 
   button.addEventListener("click", () => {
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { duration: 1.1 });
+      return;
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+}
+
+const WORD_SPLIT_SELECTOR =
+  "#work-title, #publication-title, #patent-title, #research-now-title, #writing-title, #honors-title, .statement-copy";
+
+// Vanilla SplitText equivalent: wrap each text unit (one CJK character per
+// unit, space-delimited latin words) in a .word span carrying its sequence
+// index. Existing markup (.title-mark, <strong>, links, <br>) is preserved,
+// and the split root gets an aria-label with the original text for screen
+// readers. Returns the number of units created.
+function splitRevealWords(element) {
+  if (!element) return 0;
+  if (element.dataset.splitWords) return Number(element.dataset.splitWords);
+
+  const originalText = (element.textContent ?? "").replace(/\s+/g, " ").trim();
+  const isCJK = (character) =>
+    /[\u1100-\u11ff\u2e80-\u9fff\uac00-\ud7ff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]/.test(character);
+  let sequence = 0;
+
+  const wrapUnits = (text) => {
+    const fragment = document.createDocumentFragment();
+    const appendWord = (value) => {
+      const span = document.createElement("span");
+      span.className = "word";
+      span.style.setProperty("--w-i", String(sequence++));
+      span.textContent = value;
+      fragment.append(span);
+    };
+    for (const chunk of text.split(/(\s+)/)) {
+      if (!chunk) continue;
+      if (/^\s+$/.test(chunk)) {
+        fragment.append(chunk);
+        continue;
+      }
+      let run = "";
+      let runIsCJK = null;
+      const flushRun = () => {
+        if (!run) return;
+        if (runIsCJK) {
+          for (const character of run) appendWord(character);
+        } else {
+          appendWord(run);
+        }
+        run = "";
+      };
+      for (const character of chunk) {
+        const characterIsCJK = isCJK(character);
+        if (characterIsCJK !== runIsCJK) {
+          flushRun();
+          runIsCJK = characterIsCJK;
+        }
+        run += character;
+      }
+      flushRun();
+    }
+    return fragment;
+  };
+
+  const walk = (node) => {
+    [...node.childNodes].forEach((child) => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        if (!child.textContent.trim()) return;
+        node.replaceChild(wrapUnits(child.textContent), child);
+      } else if (child.nodeType === Node.ELEMENT_NODE && child.tagName !== "BR") {
+        walk(child);
+      }
+    });
+  };
+
+  walk(element);
+  element.setAttribute("aria-label", originalText);
+  element.dataset.splitWords = String(sequence);
+  return sequence;
+}
+
+// Must run before setupSectionReveal(): the .word spans have to exist before
+// the reveal machinery adds .is-revealed, so above-fold headings animate.
+function setupWordReveal() {
+  // Under reduced motion the word CSS never hides anything; skipping the
+  // split keeps the DOM untouched as well.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(WORD_SPLIT_SELECTOR).forEach((element) => splitRevealWords(element));
 }
 
 function setupSectionReveal() {
@@ -952,7 +1038,7 @@ function setupSectionReveal() {
         observer.unobserve(entry.target);
       }
     },
-    { rootMargin: "0px 0px -12% 0px", threshold: 0.05 },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.02 },
   );
 
   sections.forEach((section) => {
@@ -1119,6 +1205,7 @@ renderWriting();
 
 setActiveNavigation();
 setupBackToTop();
+setupWordReveal();
 setupSectionReveal();
 setupPublicBuildAdjustments();
 setupHeroAtmosphere();

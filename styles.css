@@ -59,6 +59,27 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Lenis smooth-scroll support (vendor class contract, see scroll-feel.js).
+   `scroll-feel-active` is our own gate class because older Lenis builds may
+   not add `lenis-smooth`; both force scroll-behavior back to auto so the
+   CSS smooth scroll and Lenis never fight. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+html.scroll-feel-active {
+  scroll-behavior: auto !important;
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -2215,6 +2236,58 @@ main > .section.is-revealed {
   }
 }
 
+/* Works paper cards carry a --card-i index in their markup; resolve it to a
+   capped stagger delay, mirroring the --row-delay pattern of .publication. */
+.papers-grid .paper-card {
+  --card-delay: calc(min(var(--card-i, 0), 8) * 40ms);
+}
+
+/* Word-level heading reveal (vanilla SplitText equivalent). The .word spans
+   only exist after JS splits the heading, and `html.js` is a belt-and-braces
+   gate, so the hidden state never applies without JS or under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.35em);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    /* ~0.2s total stagger on claude.com headings; capped for long
+       (CJK-heavy) copy so the last word never waits too long. */
+    transition-delay: min(calc(var(--w-i, 0) * 26ms), 480ms);
+  }
+
+  /* Homepage: words settle once their section reveal fires. entrance-done
+     only rescues sections that never entered the reveal pipeline (e.g. no
+     IntersectionObserver), so it cannot pre-trigger below-fold reveals. */
+  main > .section.is-revealed .word,
+  html.entrance-done main > .section:not(.will-reveal) .word,
+  /* Works index: scenes carry their own .is-in reveal; the works hero title
+     has none, so its words settle via the entrance-done timer. */
+  .scene.is-in .scene-title .word,
+  html.entrance-done .works-title .word {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Works paper cards: staggered rise keyed to the grid's .is-in reveal
+     (same machinery as the scene rows). The reveal transition is temporary —
+     once .reveal-done lands, the fast hover transitions take over again. */
+  html.js .papers-grid:not(.is-in) .paper-card {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  html.js .papers-grid.is-in:not(.reveal-done) .paper-card {
+    transition:
+      border-color 180ms ease-out,
+      box-shadow 180ms ease-out,
+      opacity 650ms cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay, 0ms),
+      transform 650ms cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay, 0ms);
+  }
+}
+
 .back-to-top:hover,
 .back-to-top:focus-visible {
   background: var(--ink);
@@ -2347,8 +2420,8 @@ main > .section.is-revealed {
     padding-right: 6px;
     overflow-x: auto;
     scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent 100%);
-    mask-image: linear-gradient(90deg, #000 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 98%);
+    mask-image: linear-gradient(90deg, #000 78%, transparent 98%);
   }
 
   .section-nav::-webkit-scrollbar {
