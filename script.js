@@ -2,6 +2,17 @@ import { createBlogStore, renderMarkdown } from "./blog-import.js";
 import { createResearchStore } from "./research-now.js";
 import publishedContent from "./content/published.json";
 
+// Motion gate: entrance animations hide their targets only under `html.js`,
+// so a visit with JS disabled always renders a fully visible page.
+document.documentElement.classList.add("js");
+// Force-settle safety net: if entrance animations never advance (e.g. headless
+// capture or a throttled compositor), flip `entrance-done` so the hero settles
+// fully visible instead of being caught mid-fade forever.
+window.setTimeout(function () {
+  document.documentElement.classList.add("entrance-done");
+}, 1500);
+setupPortraitReveal();
+
 const siteData = {
   contact: {
     email: "jjxu_dr@stu.ecnu.edu.cn",
@@ -283,23 +294,34 @@ function renderPublications() {
   const target = document.querySelector("#publication-list");
   if (!target) return;
   target.innerHTML = siteData.publications
-    .map((publication) => {
+    .map((publication, index) => {
       const href = safeUrl(publication.url);
       const rawStatus = locale === "zh" ? publication.statusZh || publication.status : publication.status;
       const status = localizeStatus(rawStatus);
       const cited =
         Number.isFinite(publication.citations) && publication.citations > 0
           ? locale === "zh"
-            ? ` · 被引 ${publication.citations}`
-            : ` · Cited by ${publication.citations}`
+            ? `<span class="publication-meta-cited"> · 被引 ${publication.citations}</span>`
+            : `<span class="publication-meta-cited"> · Cited by ${publication.citations}</span>`
           : "";
+      const statusPill = status
+        ? `<span class="record-status record-status--${statusClass(rawStatus)}">${escapeHTML(status)}</span>`
+        : "";
+      const readLink = optionalLink(href, ui.readPaper);
+      const metaFoot = statusPill + readLink;
+      const titleMarkup = href
+        ? `<a href="${escapeHTML(href)}"${linkAttributes(href)}>${escapeHTML(publication.title)}<span class="title-arrow" aria-hidden="true">&nbsp;↗</span></a>`
+        : escapeHTML(publication.title);
       return `
-        <li class="publication">
+        <li class="publication" style="--row-i: ${index}">
           <div>
-            <h3 class="publication-title">${href ? `<a href="${escapeHTML(href)}"${linkAttributes(href)}>${escapeHTML(publication.title)} <span aria-hidden="true">↗</span></a>` : escapeHTML(publication.title)}</h3>
+            <h3 class="publication-title">${titleMarkup}</h3>
             <p class="publication-authors">${escapeHTML(publication.authors)}</p>
           </div>
-          <p class="publication-meta">${escapeHTML(publication.venue)}${cited}${status ? ` <span class="record-status record-status--${statusClass(rawStatus)}">${escapeHTML(status)}</span>` : ""}${optionalLink(href, ui.readPaper)}</p>
+          <p class="publication-meta">
+            <span class="publication-meta-venue">${escapeHTML(publication.venue)}${cited}</span>
+            ${metaFoot ? `<span class="publication-meta-foot">${metaFoot}</span>` : ""}
+          </p>
         </li>`;
     })
     .join("");
@@ -311,7 +333,7 @@ function renderPatents() {
   target.innerHTML = siteData.patents
     .map(
       (patent, index) => `
-        <li class="patent">
+        <li class="patent" style="--row-i: ${index}">
           <span class="patent-index">${String(index + 1).padStart(2, "0")}</span>
           <div>
             <h3 class="patent-title">${escapeHTML(patent.title)}</h3>
@@ -846,7 +868,11 @@ function setupResearchEditor() {
 }
 
 function setActiveNavigation() {
-  const links = [...document.querySelectorAll(".section-nav a")];
+  // Only in-page anchors participate; links like `/works/` would make
+  // querySelector throw and abort the rest of the module.
+  const links = [...document.querySelectorAll(".section-nav a")].filter((link) =>
+    (link.getAttribute("href") || "").startsWith("#"),
+  );
   const sections = links
     .map((link) => document.querySelector(link.getAttribute("href")))
     .filter(Boolean);
@@ -970,13 +996,25 @@ function setupPublicBuildAdjustments() {
 
   document.querySelectorAll("[data-studio-link]").forEach((link) => link.remove());
 
-  const note = document.querySelector(".private-studio-note p");
-  if (note) {
-    note.textContent =
+  const focusNote = document.querySelector(".private-studio-note");
+  if (focusNote) {
+    focusNote.classList.add("current-focus-note");
+    focusNote.innerHTML =
       locale === "zh"
-        ? "新的工作记录正在本地整理，准备就绪后会发布在这里。"
-        : "New work notes are prepared locally and will be shared here when ready.";
+        ? `<p>当前聚焦两项进行中的工作：<a class="text-link" href="/works/evidial/">EviDial 对话支持研究<span aria-hidden="true">↗</span></a> 正在筹备，<a class="text-link" href="/works/counterfactual-evidence-fidelity/">反事实证据保真度探索计划<span aria-hidden="true">↗</span></a> 也在持续推进。工作记录会先在本地整理，准备就绪后会在这里分享。</p>`
+        : `<p>Current focus sits with two live efforts: the <a class="text-link" href="/works/evidial/">EviDial dialogue-support study<span aria-hidden="true">↗</span></a>, now in preparation, and the <a class="text-link" href="/works/counterfactual-evidence-fidelity/">counterfactual-evidence fidelity exploratory program<span aria-hidden="true">↗</span></a>, in active exploration. Work notes are prepared locally and will be shared here when ready.</p>`;
   }
+}
+
+function setupPortraitReveal() {
+  document.querySelectorAll(".portrait-photo img").forEach((img) => {
+    const markFailed = () => img.classList.add("img-failed");
+    if (img.complete && img.naturalWidth === 0) {
+      markFailed();
+      return;
+    }
+    img.addEventListener("error", markFailed, { once: true });
+  });
 }
 
 function setupHeroAtmosphere() {
@@ -1078,6 +1116,7 @@ renderPatents();
 renderAwards();
 renderResearchNow();
 renderWriting();
+
 setActiveNavigation();
 setupBackToTop();
 setupSectionReveal();
@@ -1086,3 +1125,4 @@ setupHeroAtmosphere();
 setupBlogImport();
 setupResearchEditor();
 setupStudioPublishing();
+

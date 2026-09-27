@@ -168,6 +168,34 @@ button {
   mask-image: linear-gradient(180deg, transparent, #000 20%, #000 76%, transparent);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .page-shell::after {
+    animation:
+      shell-texture-drift 26s ease-in-out infinite alternate,
+      shell-glow-breathe 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes shell-texture-drift {
+  from {
+    transform: translateX(-51%) scale(1);
+  }
+
+  to {
+    transform: translateX(-49%) scale(1.04);
+  }
+}
+
+@keyframes shell-glow-breathe {
+  from {
+    opacity: 0.557;
+  }
+
+  to {
+    opacity: 0.603;
+  }
+}
+
 .site-rail {
   position: sticky;
   z-index: 1;
@@ -377,6 +405,23 @@ main {
   box-shadow: 0 0 0 4px rgba(105, 221, 181, 0.09);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .status-dot {
+    animation: status-dot-breathe 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes status-dot-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(105, 221, 181, 0.07);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(105, 221, 181, 0.16);
+  }
+}
+
 h1,
 h2,
 h3,
@@ -584,6 +629,7 @@ h1 {
   position: relative;
   min-height: 0;
   overflow: hidden;
+  background: linear-gradient(160deg, #0c1b2f, #07111f);
 }
 
 .portrait-photo img {
@@ -593,6 +639,30 @@ h1 {
   object-fit: cover;
   object-position: center 18%;
   filter: saturate(0.82) contrast(1.04) brightness(0.96);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .portrait-photo img {
+    animation: portrait-fade-in 640ms ease 120ms both;
+  }
+
+  html.entrance-done .portrait-photo img {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+html.js .portrait-photo img.img-failed {
+  opacity: 0;
+}
+
+@keyframes portrait-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .portrait-photo span {
@@ -646,6 +716,72 @@ body.hero-rail-active .site-rail a:focus-visible {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero-copy > *,
+  html.js .hero > .portrait {
+    animation: hero-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--hero-i, 0) * 60ms);
+  }
+
+  html.js .hero-copy > :nth-child(1) {
+    --hero-i: 0;
+  }
+
+  html.js .hero-copy > :nth-child(2) {
+    --hero-i: 1;
+  }
+
+  html.js .hero-copy > :nth-child(3) {
+    --hero-i: 2;
+  }
+
+  html.js .hero-copy > :nth-child(4) {
+    --hero-i: 3;
+  }
+
+  html.js .hero-copy > :nth-child(5) {
+    --hero-i: 4;
+  }
+
+  html.js .hero-copy > :nth-child(6) {
+    --hero-i: 5;
+  }
+
+  html.js .hero-copy > :nth-child(7) {
+    --hero-i: 6;
+  }
+
+  html.js .hero-copy > :nth-child(8) {
+    --hero-i: 7;
+  }
+
+  html.js .hero > .portrait {
+    --hero-i: 8;
+  }
+
+  /* Force-settle safety net: once `entrance-done` lands (1.5s timer in
+     script.js), pin the hero to its final state so environments where
+     compositor animations never advance cannot get stuck mid-fade. */
+  html.entrance-done .hero-copy > *,
+  html.entrance-done .hero > .portrait {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .statement {
   display: grid;
   grid-template-columns: 190px minmax(0, 1fr);
@@ -660,6 +796,7 @@ body.hero-rail-active .site-rail a:focus-visible {
   font-family: var(--font-serif);
   font-size: 35px;
   line-height: 1.33;
+  text-wrap: balance;
 }
 
 .statement-copy strong {
@@ -690,6 +827,7 @@ body.hero-rail-active .site-rail a:focus-visible {
   max-width: 720px;
   margin-top: 15px;
   font-size: 49px;
+  text-wrap: balance;
 }
 
 .section-lead {
@@ -778,11 +916,16 @@ body.hero-rail-active .site-rail a:focus-visible {
 
 .publication {
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr) minmax(132px, 0.22fr);
+  grid-template-columns: 54px minmax(0, 1fr) minmax(200px, 0.26fr);
   gap: 22px;
   padding: 25px 0;
   border-bottom: 1px solid var(--line);
   counter-increment: paper;
+  --row-delay: calc(min(var(--row-i, 0), 8) * 35ms);
+  transition:
+    background-color 180ms ease-out,
+    opacity 560ms ease var(--row-delay, 0ms),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1) var(--row-delay, 0ms);
 }
 
 .publication::before {
@@ -790,12 +933,17 @@ body.hero-rail-active .site-rail a:focus-visible {
   color: var(--blue);
   font-family: var(--font-serif);
   font-size: 17px;
-  content: "0" counter(paper);
+  content: counter(paper, decimal-leading-zero);
+  transition: color 180ms ease-out;
 }
 
 .publication-title {
   font-size: 20px;
   line-height: 1.28;
+}
+
+.title-arrow {
+  white-space: nowrap;
 }
 
 .publication-authors {
@@ -806,10 +954,51 @@ body.hero-rail-active .site-rail a:focus-visible {
 }
 
 .publication-meta {
+  display: grid;
+  justify-items: end;
+  gap: 7px;
   padding-top: 4px;
+  text-align: right;
   color: var(--blue);
   font-size: 10px;
   line-height: 1.4;
+}
+
+.publication-meta-foot {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px 10px;
+}
+
+.publication-meta-cited {
+  white-space: nowrap;
+}
+
+.publication-meta .record-status,
+.publication-meta .record-link {
+  margin-left: 0;
+}
+
+.publication > div,
+.patent > div {
+  transition: transform 180ms ease-out;
+}
+
+.publication:hover,
+.patent:hover {
+  background-color: rgba(117, 183, 255, 0.035);
+}
+
+.publication:hover::before,
+.patent:hover .patent-index {
+  color: var(--ink);
+}
+
+.publication:hover > div,
+.patent:hover > div {
+  transform: translateX(3px);
 }
 
 .record-status {
@@ -856,6 +1045,11 @@ body.hero-rail-active .site-rail a:focus-visible {
   gap: 22px;
   padding: 25px 0;
   border-bottom: 1px solid var(--line);
+  --row-delay: calc(min(var(--row-i, 0), 8) * 35ms);
+  transition:
+    background-color 180ms ease-out,
+    opacity 560ms ease var(--row-delay, 0ms),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1) var(--row-delay, 0ms);
 }
 
 .patent-index {
@@ -863,6 +1057,7 @@ body.hero-rail-active .site-rail a:focus-visible {
   color: var(--green);
   font-family: var(--font-serif);
   font-size: 17px;
+  transition: color 180ms ease-out;
 }
 
 .patent-title {
@@ -2012,6 +2207,14 @@ main > .section.is-revealed {
   transform: none;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  main > .section.will-reveal:not(.is-revealed) .publication,
+  main > .section.will-reveal:not(.is-revealed) .patent {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 .back-to-top:hover,
 .back-to-top:focus-visible {
   background: var(--ink);
@@ -2347,6 +2550,12 @@ main > .section.is-revealed {
 
   .publication-meta {
     grid-column: 2;
+    justify-items: start;
+    text-align: left;
+  }
+
+  .publication-meta-foot {
+    justify-content: flex-start;
   }
 
   .publication-note {
@@ -2511,6 +2720,12 @@ main > .section.is-revealed {
   }
 }
 
+@media (max-width: 700px) and (prefers-reduced-motion: no-preference) {
+  .page-shell::after {
+    animation: shell-texture-drift 26s ease-in-out infinite alternate;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2566,6 +2781,16 @@ main > .section.is-revealed {
     transform: none !important;
     padding: 24px 0;
     break-inside: avoid-page;
+  }
+
+  .hero-copy > *,
+  .hero > .portrait,
+  .portrait-photo img,
+  .publication,
+  .patent {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 
   .hero,
