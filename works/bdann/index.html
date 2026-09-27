@@ -89,7 +89,7 @@
           <a href="/works/" class="is-active" aria-current="page">Works</a>
           <a href="/#publications">Publications</a>
           <a href="/#patents">Patents</a>
-          <a href="/#writing">Work Blog</a>
+          <a href="/#writing">Blog</a>
           <a href="/#honors">Honors</a>
         </nav>
         <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
@@ -215,6 +215,10 @@
     </div>
 
     <script>
+      /* stat-count-up */
+      document.documentElement.classList.add("js");
+      setTimeout(function () { document.documentElement.classList.add("entrance-done"); }, 1500);
+
       const reveals = [...document.querySelectorAll(".reveal")];
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion || !("IntersectionObserver" in window)) {
@@ -245,6 +249,49 @@
         }
         setTimeout(() => (button.textContent = "Copy"), 1800);
       });
+      /* stat-count-up */
+      function setupStatCountUp() {
+        const stats = document.querySelector(".work-stats");
+        if (!stats || stats.dataset.statCountUp) return;
+        stats.dataset.statCountUp = "1";
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const items = [...stats.querySelectorAll("b")].flatMap((b) => {
+          const m = /^(\D*)([0-9][0-9,]*(?:\.[0-9]+)?)(\D*)$/.exec((b.textContent || "").trim());
+          if (!m) return [];
+          const dec = m[2].includes(".") ? m[2].length - m[2].indexOf(".") - 1 : 0;
+          const grouped = m[2].includes(",");
+          const fmt = (v) => m[1] + (grouped
+            ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })
+            : v.toFixed(dec)) + m[3];
+          return [{ el: b, target: parseFloat(m[2].replace(/,/g, "")), fmt }];
+        });
+        if (!items.length) return;
+        let start = 0;
+        let finished = false;
+        const step = (ts) => {
+          if (finished) return;
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / 900, 1);
+          const e = 1 - Math.pow(1 - p, 3);
+          items.forEach((it) => { it.el.textContent = it.fmt(it.target * e); });
+          if (p < 1) requestAnimationFrame(step);
+        };
+        const run = () => {
+          requestAnimationFrame(step);
+          setTimeout(() => {
+            finished = true;
+            items.forEach((it) => { it.el.textContent = it.fmt(it.target); });
+          }, 1000);
+        };
+        if (stats.classList.contains("is-in")) run();
+        else {
+          const obs = new MutationObserver(() => {
+            if (stats.classList.contains("is-in")) { obs.disconnect(); run(); }
+          });
+          obs.observe(stats, { attributes: true, attributeFilter: ["class"] });
+        }
+      }
+      setupStatCountUp();
 </script>
   </body>
 </html>

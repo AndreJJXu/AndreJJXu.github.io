@@ -2831,3 +2831,114 @@ main > .section.is-revealed {
     break-inside: avoid-page;
   }
 }
+
+/* ==========================================================================
+   Work pages — shared motion enhancements (round R3)
+   ========================================================================== */
+
+/* Figure hover micro-zoom: barely perceptible push-in on the white image
+   card. overflow:hidden keeps the scaled raster inside the padded figure;
+   reduced-motion and print never receive the transform or transition. */
+@media (prefers-reduced-motion: no-preference) {
+  .work-figure {
+    overflow: hidden;
+  }
+
+  .work-figure img {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .work-figure:hover img {
+    transform: scale(1.015);
+  }
+}
+
+/* Hero entrance for work pages: stagger the header children (back-link row,
+   kicker, title, subtitle, chips, authors, TLDR). Gated on html.js — added
+   as the first statement of each page's inline script — and on
+   no-preference, so content is never hidden without JS or under
+   reduced-motion. html.entrance-done (1.5s settle timer in the same inline
+   script) force-pins the final state so captures and stalled compositors
+   always land visible. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .work-page > header > * {
+    animation: work-hero-enter 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--work-i, 0) * 60ms);
+  }
+
+  html.js .work-page > header > :nth-child(1) {
+    --work-i: 0;
+  }
+
+  html.js .work-page > header > :nth-child(2) {
+    --work-i: 1;
+  }
+
+  html.js .work-page > header > :nth-child(3) {
+    --work-i: 2;
+  }
+
+  html.js .work-page > header > :nth-child(4) {
+    --work-i: 3;
+  }
+
+  html.js .work-page > header > :nth-child(5) {
+    --work-i: 4;
+  }
+
+  html.js .work-page > header > :nth-child(6) {
+    --work-i: 5;
+  }
+
+  html.js .work-page > header > :nth-child(7) {
+    --work-i: 6;
+  }
+
+  html.js .work-page > header > :nth-child(8) {
+    --work-i: 7;
+  }
+
+  /* Force-settle safety net, mirrors the homepage hero rule above. */
+  html.entrance-done .work-page > header > *,
+  html.entrance-done .work-tldr {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* CJK orphan fix: balance line lengths in the work-page hero title and the
+   subtitle paragraph that immediately follows it. Without this, CJK titles
+   wrap with a single dangling character on the last line ("…精 / 炼。" on the
+   MARS ZH subtitle, "COFFEE：用眼睛去 / 听。" on the COFFEE ZH title).
+   `balance` only equalizes existing line lengths — it never adds lines, so
+   EN pages are unaffected beyond cosmetically evened wraps. */
+.work-title,
+.work-title + p {
+  text-wrap: balance;
+}
+
+@keyframes work-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Mobile citation wrap: each work page's inline stylesheet sets
+   `.work-cite pre { overflow-x: auto }`, which reads as broken clipping on
+   narrow screens (a silently scrollable code block with no affordance).
+   Wrap instead below 700px; inline styles come later in source order, so
+   these need !important to win the cascade. Desktop keeps the scrollbar. */
+@media (max-width: 700px) {
+  .work-cite pre {
+    white-space: pre-wrap !important;
+    overflow-x: hidden !important;
+    overflow-wrap: anywhere;
+  }
+}

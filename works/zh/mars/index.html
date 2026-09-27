@@ -139,8 +139,8 @@
             <div class="work-prose"><p>音频生成图像有两条主流路线。直接投影类模型把音频编码后映射进图像生成器的嵌入空间——高效，但音频信号在对齐发生之前就被压缩了。先配文字再生成的链路借力预训练文生图模型，但文本这个中介会丢掉说明文字本就没有承载的听觉细节。两条路撞上的是同样的两堵墙：<strong>语义错位</strong>与<strong>视觉细节丢失</strong>。</p>
 <p>MARS 想问的是：能否同时拆掉这两堵墙——既保住丰富的音频表征，<em>又</em>控制生成结果的审美质量。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/mars/mars-teaser.jpg" alt="同一音频类别下各系统与 MARS 生成图像的定性对比" loading="lazy" />
-              <figcaption class="work-figcaption"><b>图 1</b><span>相同音频类别（教堂钟声、牛哞、麋鹿鸣叫、潜水、犬吠、消防车警笛）下——参考图像 vs Sound2Scene vs MARS。</span></figcaption>
+              <img src="/assets/works/mars/mars-teaser.jpg" alt="MARS 音频嵌入的 t-SNE 可视化：飞机飞掠声与牛叫声的同类嵌入聚在一起，聚类区域旁展示对应示例图像" loading="lazy" />
+              <figcaption class="work-figcaption"><b>图 1</b><span>MARS 音频嵌入的 t-SNE 可视化——(e) 飞机飞掠声、(f) 牛哞声。同一声学类别的嵌入相互聚集，聚类区域旁展示对应的示例图像。</span></figcaption>
             </figure>
           </section>
 
@@ -215,6 +215,10 @@
     </div>
 
     <script>
+      /* stat-count-up */
+      document.documentElement.classList.add("js");
+      setTimeout(function () { document.documentElement.classList.add("entrance-done"); }, 1500);
+
       const reveals = [...document.querySelectorAll(".reveal")];
       const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reducedMotion || !("IntersectionObserver" in window)) {
@@ -245,6 +249,49 @@
         }
         setTimeout(() => (button.textContent = "Copy"), 1800);
       });
+      /* stat-count-up */
+      function setupStatCountUp() {
+        const stats = document.querySelector(".work-stats");
+        if (!stats || stats.dataset.statCountUp) return;
+        stats.dataset.statCountUp = "1";
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const items = [...stats.querySelectorAll("b")].flatMap((b) => {
+          const m = /^(\D*)([0-9][0-9,]*(?:\.[0-9]+)?)(\D*)$/.exec((b.textContent || "").trim());
+          if (!m) return [];
+          const dec = m[2].includes(".") ? m[2].length - m[2].indexOf(".") - 1 : 0;
+          const grouped = m[2].includes(",");
+          const fmt = (v) => m[1] + (grouped
+            ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })
+            : v.toFixed(dec)) + m[3];
+          return [{ el: b, target: parseFloat(m[2].replace(/,/g, "")), fmt }];
+        });
+        if (!items.length) return;
+        let start = 0;
+        let finished = false;
+        const step = (ts) => {
+          if (finished) return;
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / 900, 1);
+          const e = 1 - Math.pow(1 - p, 3);
+          items.forEach((it) => { it.el.textContent = it.fmt(it.target * e); });
+          if (p < 1) requestAnimationFrame(step);
+        };
+        const run = () => {
+          requestAnimationFrame(step);
+          setTimeout(() => {
+            finished = true;
+            items.forEach((it) => { it.el.textContent = it.fmt(it.target); });
+          }, 1000);
+        };
+        if (stats.classList.contains("is-in")) run();
+        else {
+          const obs = new MutationObserver(() => {
+            if (stats.classList.contains("is-in")) { obs.disconnect(); run(); }
+          });
+          obs.observe(stats, { attributes: true, attributeFilter: ["class"] });
+        }
+      }
+      setupStatCountUp();
 </script>
   </body>
 </html>
