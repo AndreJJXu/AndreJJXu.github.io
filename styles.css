@@ -2288,6 +2288,54 @@ main > .section.is-revealed {
   }
 }
 
+/* Focus reveal (statement copy): words sit blurred until a camera-style
+   focus frame travels to them and sharpens them. The blurred state only
+   applies once JS has split the copy AND armed it (`focus-armed` is added on
+   first scroll intent, and never for above-the-fold copy, which sweeps at
+   once). `.focus-settled` is the settle net — set on a timer after the sweep
+   starts, it guarantees every visitor ends on fully sharp text. Coarse
+   pointers, narrow viewports and reduced motion never arm, so they only ever
+   see plain text. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .focus-armed .fword {
+    opacity: 0.28;
+    filter: blur(5px);
+    transition:
+      opacity 340ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 340ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.js .focus-armed .fword.is-focused {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  html.js .focus-settled .fword,
+  html.js .focus-settled .fword.is-focused {
+    opacity: 1;
+    filter: none;
+  }
+
+  .focus-frame {
+    position: absolute;
+    display: none;
+    border: 1.5px solid rgba(117, 183, 255, 0.85);
+    border-radius: 6px;
+    box-shadow: 0 0 14px rgba(117, 183, 255, 0.22);
+    background: rgba(117, 183, 255, 0.04);
+    pointer-events: none;
+    transition: opacity 300ms ease;
+  }
+
+  .focus-frame.is-active {
+    display: block;
+  }
+
+  .focus-frame.is-fading {
+    opacity: 0;
+  }
+}
+
 .back-to-top:hover,
 .back-to-top:focus-visible {
   background: var(--ink);

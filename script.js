@@ -943,14 +943,17 @@ function setupBackToTop() {
 }
 
 const WORD_SPLIT_SELECTOR =
-  "#work-title, #publication-title, #patent-title, #research-now-title, #writing-title, #honors-title, .statement-copy";
+  "#work-title, #publication-title, #patent-title, #research-now-title, #writing-title, #honors-title";
 
 // Vanilla SplitText equivalent: wrap each text unit (one CJK character per
-// unit, space-delimited latin words) in a .word span carrying its sequence
-// index. Existing markup (.title-mark, <strong>, links, <br>) is preserved,
-// and the split root gets an aria-label with the original text for screen
-// readers. Returns the number of units created.
-function splitRevealWords(element) {
+// unit, space-delimited latin words) in a span carrying its sequence index.
+// `unitClassName` / `indexProperty` parameterize the span class and index
+// variable so the focus-reveal module can reuse the exact same split logic
+// (.word for the heading fades, .fword for the statement focus sweep).
+// Existing markup (.title-mark, <strong>, links, <br>) is preserved, and the
+// split root gets an aria-label with the original text for screen readers.
+// Returns the number of units created.
+function splitRevealWords(element, unitClassName = "word", indexProperty = "--w-i") {
   if (!element) return 0;
   if (element.dataset.splitWords) return Number(element.dataset.splitWords);
 
@@ -963,8 +966,8 @@ function splitRevealWords(element) {
     const fragment = document.createDocumentFragment();
     const appendWord = (value) => {
       const span = document.createElement("span");
-      span.className = "word";
-      span.style.setProperty("--w-i", String(sequence++));
+      span.className = unitClassName;
+      span.style.setProperty(indexProperty, String(sequence++));
       span.textContent = value;
       fragment.append(span);
     };
@@ -1022,6 +1025,193 @@ function setupWordReveal() {
   // split keeps the DOM untouched as well.
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   document.querySelectorAll(WORD_SPLIT_SELECTOR).forEach((element) => splitRevealWords(element));
+}
+
+// ---- Focus reveal (statement copy) ----------------------------------------
+// Camera-style focus effect (scrolltide.co vocabulary): the statement's words
+// sit blurred until a focus frame travels across them and sharpens each one.
+//
+// Arming invariant (claude.com-style — content never hides without real user
+// intent): the blurred armed state only exists when the copy is below the
+// fold at load AND a first scroll-intent event has fired. Above the fold it
+// sweeps immediately (hero moment). Coarse pointers, narrow viewports and
+// reduced motion skip the whole module — they simply get plain text (chosen
+// over a word-fade fallback: one behavior, zero legibility risk). The split
+// only happens under JS, so no-JS visitors always see the plain paragraph.
+const FOCUS_INTENT_EVENTS = ["wheel", "touchstart", "keydown", "pointerdown", "scroll"];
+
+function setupFocusReveal() {
+  const container = document.querySelector(".statement-copy");
+  if (!container) return;
+  if (
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+    window.matchMedia("(max-width: 720px)").matches ||
+    !("IntersectionObserver" in window) ||
+    !("MutationObserver" in window)
+  ) {
+    return;
+  }
+
+  if (!splitRevealWords(container, "fword", "--fi")) return;
+  container.style.position = "relative";
+
+  let armed = false;
+  let sweepStarted = false;
+  let stopWatching = null;
+
+  const startSweep = () => {
+    if (sweepStarted) return;
+    sweepStarted = true;
+    stopWatching?.();
+
+    const units = [...container.querySelectorAll(".fword")];
+    const total = units.length;
+    if (!total) return;
+
+    // Waypoints are recomputed here at sweep start (container-relative), so
+    // a section translateY mid-transition or late font load cannot skew them.
+    const containerRect = container.getBoundingClientRect();
+    const rects = units.map((unit) => {
+      const rect = unit.getBoundingClientRect();
+      return {
+        left: rect.left - containerRect.left,
+        top: rect.top - containerRect.top,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
+
+    const padding = 7;
+    const duration = Math.min(2100, Math.max(900, (total - 1) * 55));
+    const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+    const frame = document.createElement("span");
+    frame.className = "focus-frame";
+    frame.setAttribute("aria-hidden", "true");
+    // top/left anchor on the first word; the tween only varies the transform
+    // plus the frame's per-word size.
+    frame.style.left = `${rects[0].left - padding}px`;
+    frame.style.top = `${rects[0].top - padding}px`;
+    container.append(frame);
+
+    const waypoints = rects.map((rect) => ({
+      dx: rect.left - rects[0].left,
+      dy: rect.top - rects[0].top,
+      width: rect.width + padding * 2,
+      height: rect.height + padding * 2,
+    }));
+
+    // Settle net: even a stalled compositor must land on sharp text.
+    window.setTimeout(() => container.classList.add("focus-settled"), duration + 900);
+
+    const dismissFrame = () => {
+      frame.classList.add("is-fading");
+      window.setTimeout(() => frame.remove(), 340);
+    };
+
+    if (total < 2) {
+      units.forEach((unit) => unit.classList.add("is-focused"));
+      container.classList.add("focus-done");
+      dismissFrame();
+      return;
+    }
+
+    frame.classList.add("is-active");
+    let startTime = 0;
+    let focusedCount = 0;
+
+    const step = (now) => {
+      if (!startTime) startTime = now;
+      const linear = Math.min(1, (now - startTime) / duration);
+      const progress = easeInOutCubic(linear);
+
+      // The frame center crosses unit i's center at eased progress i/(n-1).
+      while (focusedCount < total && focusedCount / (total - 1) <= progress) {
+        units[focusedCount].classList.add("is-focused");
+        focusedCount++;
+      }
+
+      if (linear >= 1) {
+        units.forEach((unit) => unit.classList.add("is-focused"));
+        container.classList.add("focus-done");
+        dismissFrame();
+        return;
+      }
+
+      const travel = progress * (total - 1);
+      const index = Math.min(total - 2, Math.floor(travel));
+      const local = travel - index;
+      const from = waypoints[index];
+      const to = waypoints[index + 1];
+      frame.style.transform = `translate(${from.dx + (to.dx - from.dx) * local}px, ${from.dy + (to.dy - from.dy) * local}px)`;
+      frame.style.width = `${from.width + (to.width - from.width) * local}px`;
+      frame.style.height = `${from.height + (to.height - from.height) * local}px`;
+      window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  // Below the fold: sweep once the section gains .is-revealed (the existing
+  // reveal machinery) or — safety net for e.g. scrollbar-drag scrolls that
+  // slip past every other trigger — once the copy itself enters the viewport.
+  const beginWhenVisible = () => {
+    const section = container.closest("main > .section");
+    if (section?.classList.contains("is-revealed")) {
+      startSweep();
+      return;
+    }
+    const watchers = [];
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      watchers.forEach((off) => off());
+      startSweep();
+    };
+    if (section) {
+      const classObserver = new MutationObserver(() => {
+        if (section.classList.contains("is-revealed")) finish();
+      });
+      classObserver.observe(section, { attributes: true, attributeFilter: ["class"] });
+      watchers.push(() => classObserver.disconnect());
+    }
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) finish();
+      },
+      { threshold: 0.1 },
+    );
+    visibilityObserver.observe(container);
+    watchers.push(() => visibilityObserver.disconnect());
+    stopWatching = () => watchers.forEach((off) => off());
+  };
+
+  const arm = () => {
+    if (armed) return;
+    armed = true;
+    container.classList.add("focus-armed");
+    beginWhenVisible();
+  };
+
+  const bounds = container.getBoundingClientRect();
+  if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+    // Copy already on screen at load: arm now, let the blurred state paint,
+    // then sweep immediately — this is the hero moment.
+    arm();
+    window.requestAnimationFrame(() => window.requestAnimationFrame(startSweep));
+    return;
+  }
+
+  const onIntent = () => {
+    FOCUS_INTENT_EVENTS.forEach((type) =>
+      window.removeEventListener(type, onIntent, { capture: true }),
+    );
+    arm();
+  };
+  FOCUS_INTENT_EVENTS.forEach((type) =>
+    window.addEventListener(type, onIntent, { passive: true, capture: true }),
+  );
 }
 
 function setupSectionReveal() {
@@ -1206,6 +1396,7 @@ renderWriting();
 setActiveNavigation();
 setupBackToTop();
 setupWordReveal();
+setupFocusReveal();
 setupSectionReveal();
 setupPublicBuildAdjustments();
 setupHeroAtmosphere();
