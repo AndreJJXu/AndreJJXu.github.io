@@ -315,7 +315,7 @@ function render(lang) {
 <meta name="robots" content="noindex" />
 <title>${esc(name[lang])} · Curriculum Vitae</title>
 <style>
-  :root { --ink: #10151d; --secondary: #4a5563; --tertiary: #6d7885; --line: #e3e7ec; --accent: #1d5fb4; }
+  :root { --ink: #10151d; --secondary: #4a5563; --tertiary: #6d7885; --line: #e3e7ec; --accent: #1d5fb4; --font-serif: Georgia, "Times New Roman", "Songti SC", "STSong", "Noto Serif CJK SC", "SimSun", serif; }
   * { box-sizing: border-box; }
   body {
     margin: 0;
@@ -337,7 +337,7 @@ function render(lang) {
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  header h1 { margin: 0; font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
+  header h1 { margin: 0; font-family: var(--font-serif); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; }
   header .role { margin: 8px 0 0; color: var(--secondary); font-size: 15px; }
   header .contact { margin: 14px 0 0; color: var(--tertiary); font-size: 12.5px; }
   header .contact .dot { margin: 0 8px; }
@@ -346,9 +346,10 @@ function render(lang) {
     margin: 0 0 14px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--line);
-    font-size: 15px;
+    font-family: var(--font-serif);
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink);
   }
