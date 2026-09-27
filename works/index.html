@@ -352,6 +352,28 @@
       .paper-card .meta .ext { position: relative; z-index: 2; color: var(--wk-blue); font-weight: 650; }
       .paper-card .meta .ext:hover { text-decoration: underline; }
 
+      /* Pointer-follow tilt on paper cards — restrained (±4deg, no scale) so
+         the stretched .card-open overlay and ext links keep their hit targets
+         (transforms do not affect hit-testing) and body text stays readable.
+         Desktop fine pointers only: html.tilt-cards is set from JS after
+         capability checks and this media query re-gates the styles. The card
+         transform reads --card-lift so the existing -3px hover lift composes
+         with the rotation; the entrance stagger in styles.css still owns the
+         transform until .reveal-done (higher specificity), after which these
+         hover transitions take over. */
+      @media (hover: hover) and (pointer: fine) and (min-width: 721px) and (prefers-reduced-motion: no-preference) {
+        html.tilt-cards .papers-grid { perspective: 900px; }
+        html.tilt-cards .papers-grid .paper-card {
+          transform: translateY(var(--card-lift, 0px)) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+          transition: transform 500ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out;
+        }
+        html.tilt-cards .papers-grid .paper-card:hover,
+        html.tilt-cards .papers-grid .paper-card:focus-within { --card-lift: -3px; }
+        html.tilt-cards .papers-grid .paper-card.is-tilting {
+          transition: transform 160ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out;
+        }
+      }
+
       @media (max-width: 560px) {
         .papers-grid { grid-template-columns: minmax(0, 1fr); }
       }
@@ -1077,6 +1099,54 @@
         btn.addEventListener('click', function () {
           if (window.__lenis) { window.__lenis.scrollTo(0, { duration: 1.1 }); return; }
           window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+        });
+      })();
+
+      // ---- Pointer-follow tilt on paper cards (desktop fine pointer only).
+      // Rotates each card within ±4deg toward the pointer via CSS vars
+      // (--card-rx/--card-ry): 160ms ease-out follow while moving, 500ms
+      // ease-out return on leave. Skipped for coarse pointers, reduced motion
+      // and viewports at or below 720px (the tilt CSS is additionally gated
+      // by a matching media query). Rects are measured per move so the tilt
+      // stays correct while Lenis smooth-scrolls.
+      (function () {
+        var grid = document.querySelector('.papers-grid');
+        if (!grid) return;
+        var capable =
+          matchMedia('(hover: hover) and (pointer: fine)').matches &&
+          matchMedia('(min-width: 721px)').matches &&
+          !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!capable) return;
+        document.documentElement.classList.add('tilt-cards');
+        var MAX_DEG = 4;
+        [].slice.call(grid.querySelectorAll('.paper-card')).forEach(function (card) {
+          if (card.dataset.tiltBound) return;
+          card.dataset.tiltBound = '1';
+          var raf = 0, rx = 0, ry = 0;
+          function apply() {
+            raf = 0;
+            card.style.setProperty('--card-rx', rx.toFixed(2) + 'deg');
+            card.style.setProperty('--card-ry', ry.toFixed(2) + 'deg');
+          }
+          card.addEventListener('pointerenter', function (e) {
+            if (e.pointerType === 'touch') return;
+            card.classList.add('is-tilting');
+          });
+          card.addEventListener('pointermove', function (e) {
+            if (e.pointerType === 'touch') return;
+            var rect = card.getBoundingClientRect();
+            var px = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+            var py = Math.min(Math.max((e.clientY - rect.top) / rect.height, 0), 1);
+            rx = (py - 0.5) * 2 * MAX_DEG;
+            ry = (px - 0.5) * -2 * MAX_DEG;
+            if (!raf) raf = requestAnimationFrame(apply);
+          });
+          card.addEventListener('pointerleave', function () {
+            if (raf) { cancelAnimationFrame(raf); raf = 0; }
+            card.classList.remove('is-tilting');
+            card.style.setProperty('--card-rx', '0deg');
+            card.style.setProperty('--card-ry', '0deg');
+          });
         });
       })();
     </script>

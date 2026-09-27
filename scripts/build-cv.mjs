@@ -314,6 +314,7 @@ function render(lang) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex" />
 <title>${esc(name[lang])} · Curriculum Vitae</title>
+<link rel="icon" href="${lang === "zh" ? "../assets/favicon.svg" : "assets/favicon.svg"}" type="image/svg+xml" />
 <style>
   :root { --ink: #10151d; --secondary: #4a5563; --tertiary: #6d7885; --line: #e3e7ec; --accent: #1d5fb4; --font-serif: Georgia, "Times New Roman", "Songti SC", "STSong", "Noto Serif CJK SC", "SimSun", serif; }
   * { box-sizing: border-box; }
