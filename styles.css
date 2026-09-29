@@ -1,3 +1,10 @@
+/* Noto Sans SC Variable + Noto Serif SC Variable (SIL OFL 1.1, vendored from
+   @fontsource-variable/noto-sans-sc and @fontsource-variable/noto-serif-sc):
+   CJK glyphs served as unicode-range-sliced woff2 so browsers fetch only the
+   slices containing glyphs actually rendered on the page. */
+@import "./assets/fonts/noto-sans-sc/index.css";
+@import "./assets/fonts/noto-serif-sc/index.css";
+
 @font-face {
   font-family: "DM Sans";
   font-style: normal;
@@ -39,12 +46,13 @@
   --hero-line: rgba(179, 204, 234, 0.2);
   --hero-accent: #75b7ff;
   --hero-signal: #69ddb5;
-  --hero-font-body: "DM Sans", "PingFang SC", "Noto Sans SC", ui-sans-serif, system-ui,
-    sans-serif;
-  --hero-font-display: "Montserrat", "DM Sans", "PingFang SC", "Noto Sans SC",
-    ui-sans-serif, system-ui, sans-serif;
-  --font-serif: Georgia, "Times New Roman", "Songti SC", "STSong",
-    "Noto Serif CJK SC", "SimSun", serif;
+  --hero-font-body: "DM Sans", "Noto Sans SC Variable", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  --hero-font-display: "Montserrat", "DM Sans", "Noto Sans SC Variable",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-serif: Georgia, "Times New Roman", "Noto Serif SC Variable",
+    "Songti SC", "STSong", "Noto Serif CJK SC", "SimSun", serif;
 }
 
 * {
@@ -92,6 +100,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* CJK glyphs are denser than Latin — OpenAI's zh type uses looser leading.
+   Scoped so EN pages keep their 1.5 rhythm. */
+html[lang="zh-CN"] body {
+  line-height: 1.75;
 }
 
 button,
