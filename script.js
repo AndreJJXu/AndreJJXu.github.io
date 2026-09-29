@@ -1318,6 +1318,18 @@ function setupMeshFlow() {
   const MIN_VIEWPORT = 700;
   const TAU = Math.PI * 2;
 
+  // Dot color comes from CSS so it follows the light/dark theme
+  // (--mesh-dot holds an "r, g, b" triplet; see the :root blocks in
+  // styles.css). Cached here and re-read when theme-toggle.js dispatches
+  // "themechange".
+  const MESH_DOT_FALLBACK = "117, 183, 255";
+  let dotRGB = MESH_DOT_FALLBACK;
+
+  function readDotRGB() {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue("--mesh-dot").trim();
+    return /^\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}$/.test(raw) ? raw : MESH_DOT_FALLBACK;
+  }
+
   let canvas = null;
   let context = null;
   let baseLayer = null; // offscreen pre-render of the resting grid
@@ -1404,7 +1416,7 @@ function setupMeshFlow() {
     const lastRow = Math.min(rows - 1, Math.floor((pointerY + reach - originY) / SPACING));
     if (lastColumn < firstColumn || lastRow < firstRow) return;
 
-    context.fillStyle = "rgb(117, 183, 255)";
+    context.fillStyle = `rgb(${dotRGB})`;
     for (let row = firstRow; row <= lastRow; row += 1) {
       const gridY = originY + row * SPACING;
       const offsetY = gridY - pointerY;
@@ -1448,9 +1460,21 @@ function setupMeshFlow() {
     baseLayer = document.createElement("canvas");
     baseLayer.width = canvas.width;
     baseLayer.height = canvas.height;
+    buildBaseLayer();
+
+    // The loop may be quiescent (no influence, repaint already settled);
+    // the bitmap rebuild just cleared it, so kick one repaint frame.
+    start();
+  }
+
+  // Pre-renders the resting dot grid at full alpha. Called from resize() and
+  // re-run on theme flips so the dots swap color without waiting for a resize.
+  function buildBaseLayer() {
+    if (!baseLayer) return;
     const baseContext = baseLayer.getContext("2d");
     baseContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    baseContext.fillStyle = "rgb(117, 183, 255)";
+    baseContext.clearRect(0, 0, width, height);
+    baseContext.fillStyle = `rgb(${dotRGB})`;
     baseContext.beginPath();
     for (let row = 0; row < rows; row += 1) {
       const y = originY + row * SPACING;
@@ -1461,10 +1485,17 @@ function setupMeshFlow() {
       }
     }
     baseContext.fill();
+    needsRepaint = true;
+  }
 
-    // The loop may be quiescent (no influence, repaint already settled);
-    // the bitmap rebuild just cleared it, so kick one repaint frame.
-    start();
+  // themechange (dispatched by /assets/theme-toggle.js): swap the dot color
+  // and repaint both the resting layer and any live influence field.
+  function handleThemeChange() {
+    dotRGB = readDotRGB();
+    if (canvas) {
+      buildBaseLayer();
+      start();
+    }
   }
 
   function trackPointer(event) {
@@ -1495,6 +1526,7 @@ function setupMeshFlow() {
   }
 
   function init() {
+    dotRGB = readDotRGB();
     canvas = document.createElement("canvas");
     canvas.className = "mesh-flow";
     canvas.setAttribute("aria-hidden", "true");
@@ -1517,6 +1549,7 @@ function setupMeshFlow() {
     hero.addEventListener("pointerenter", trackPointer, { passive: true });
     hero.addEventListener("pointerleave", releasePointer, { passive: true });
     document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("themechange", handleThemeChange);
 
     if ("ResizeObserver" in window) {
       resizeObserver = new ResizeObserver(resize);
@@ -1540,6 +1573,7 @@ function setupMeshFlow() {
     hero.removeEventListener("pointerenter", trackPointer);
     hero.removeEventListener("pointerleave", releasePointer);
     document.removeEventListener("visibilitychange", handleVisibility);
+    document.removeEventListener("themechange", handleThemeChange);
     if (resizeObserver) {
       resizeObserver.disconnect();
       resizeObserver = null;
