@@ -376,7 +376,7 @@ button {
 
 .monogram {
   width: fit-content;
-  font-family: var(--font-serif);
+  font-family: var(--hero-font-display);
   font-size: 30px;
   font-weight: 700;
   line-height: 1;
@@ -641,9 +641,10 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  line-height: 0.97;
+  font-family: var(--hero-font-display);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
 }
 
 h1 {
