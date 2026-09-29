@@ -142,7 +142,7 @@
             </div>
             <div class="work-prose"><p>MusePainter 先把音乐拆解为细粒度属性——旋律、节奏、和声、配器、整体结构——形成结构、风格、情感三个维度的结构化描述子。生成随后由<strong>多轴偏好方案</strong>优化：解耦情绪一致性、语义对齐与创意吸引力，各自独立优化。音乐理解侧是两阶段微调的音频大模型（MuseAes-LLM），描述子长度按 20/50/70 token 平衡，在幻觉与细节之间取舍。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/musepainter/cmalign-arch.jpg" alt="MusePainter 从音乐分析到偏好引导图像生成的总体流水线" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/musepainter/cmalign-arch.webp"><img src="/assets/works/musepainter/cmalign-arch.jpg" alt="MusePainter 从音乐分析到偏好引导图像生成的总体流水线" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 1</b><span>MusePainter 流水线——结构化描述子供给生成，多轴偏好优化塑造输出。</span></figcaption>
             </figure>
           </section>
@@ -155,7 +155,7 @@
             <div class="work-prose"><p>在策展基准上，MusePainter 在<strong>语义保真、风格一致与情感共鸣</strong>上超过强音频生图与音频→文本→图像基线。定性对比显示三条轴可以干净地分离：同一段音乐可以分别被导向准确、风格或情绪，而无需重新训练。</p>
 <p>用户研究与自动指标相互印证——参与者在优化所针对的轴上更偏好 MusePainter 的输出。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/musepainter/cmalign-qual.jpg" alt="音乐生图的定性对比，按场景、流派、风格、情绪、材质标注" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/musepainter/cmalign-qual.webp"><img src="/assets/works/musepainter/cmalign-qual.jpg" alt="音乐生图的定性对比，按场景、流派、风格、情绪、材质标注" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 2</b><span>音乐生图对比——每个样本标注场景、流派、风格、情绪与材质，以分离方法所控制的轴。</span></figcaption>
             </figure>
           </section>

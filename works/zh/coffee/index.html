@@ -134,7 +134,7 @@
             <div class="work-prose"><p>音频生图在两处同时失败。语义上，抽象声音与具体图像的表征鸿沟让对齐训练数据稀缺且嘈杂——还包括假阴性：看似不匹配实则匹配的样本对。视觉上，把音频压向图像往往剥掉高分辨率细节，伤害审美。</p>
 <p>要问的是：语义保真与视觉细节能否作为两条显式路径分别推进——并在一张输出里调和。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/coffee/coffee-demo.jpg" alt="音频驱动合成中的语义错位案例 vs 文本驱动生成" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/coffee/coffee-demo.webp"><img src="/assets/works/coffee/coffee-demo.jpg" alt="音频驱动合成中的语义错位案例 vs 文本驱动生成" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 1</b><span>两个失败面——(a) 音频驱动合成的语义漂移；(b) 文本驱动保住了细节却丢了音频真正包含的内容。</span></figcaption>
             </figure>
           </section>
@@ -146,7 +146,7 @@
             </div>
             <div class="work-prose"><p>COFFEE 的三个模块分工。<strong>语义对齐（SA）</strong>模块以检索式数据选择策略和<strong>假阴性抑制损失</strong>学习音频-视觉对齐——先修正训练信号本身。<strong>音频字幕导向生成（AIG）</strong>模块用文本描述构建视觉细节。<strong>多尺度融合（MFA）</strong>模块跨尺度整合两条路径，得到最终图像。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/coffee/coffee-framework.jpg" alt="COFFEE 框架：带检索选择的 PNS 对比学习、音频字幕生成与多尺度融合对齐" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/coffee/coffee-framework.webp"><img src="/assets/works/coffee/coffee-framework.jpg" alt="COFFEE 框架：带检索选择的 PNS 对比学习、音频字幕生成与多尺度融合对齐" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 2</b><span>COFFEE 框架——带假阴性抑制的 SA、负责细节的 AIG，以及把语义流与视觉流融合的 MFA。</span></figcaption>
             </figure>
           </section>

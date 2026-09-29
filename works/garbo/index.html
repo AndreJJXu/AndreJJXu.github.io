@@ -142,7 +142,7 @@
             </div>
             <div class="work-prose"><p>Two components, one principle. <strong>Gradient-Aware Advantage (GA)</strong> augments the standard advantage with a direction score: the alignment between the reward gradient at the reference image and the direction from reference to candidate — a first-order approximation of local reward improvement. Because gradient-aware updates are heavy-tailed and direction-dependent, the <strong>Gradient-Shaping Stabilizer (GSS)</strong> normalizes them for stable training. SDE-window sampling keeps the whole thing efficient.</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/garbo/garbo-schedule.jpg" alt="GARBO overview: gradient-aware advantage with directional alignment score and gradient shaping, plus example visualizations" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/garbo/garbo-schedule.webp"><img src="/assets/works/garbo/garbo-schedule.jpg" alt="GARBO overview: gradient-aware advantage with directional alignment score and gradient shaping, plus example visualizations" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>Fig. 1</b><span>The GARBO schedule — directional alignment score, gradient-aware advantage shaping, and the stabilized training objective, with example images.</span></figcaption>
             </figure>
           </section>
@@ -155,7 +155,7 @@
             <div class="work-prose"><p>On T2I-CompBench and WISE with multiple reward models, GARBO <strong>consistently improves both automatic metrics and human preference</strong> over strong baselines — and specifically mitigates the high-score–low-quality mode that motivated it.</p>
 <p>The analysis isolates the two components: GA supplies the direction signal; GSS is what makes the signal trainable. Ablating either reproduces the instability the design set out to remove.</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/garbo/garbo-denoise.jpg" alt="GARBO components: directional alignment score, gradient-aware advantage shaping, and the diffusion-based generator" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/garbo/garbo-denoise.webp"><img src="/assets/works/garbo/garbo-denoise.jpg" alt="GARBO components: directional alignment score, gradient-aware advantage shaping, and the diffusion-based generator" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>Fig. 2</b><span>Inside the method — directional alignment scoring and gradient shaping wrapped around the diffusion generator.</span></figcaption>
             </figure>
           </section>

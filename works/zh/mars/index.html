@@ -134,7 +134,7 @@
             <div class="work-prose"><p>音频生成图像有两条主流路线。直接投影类模型把音频编码后映射进图像生成器的嵌入空间——高效，但音频信号在对齐发生之前就被压缩了。先配文字再生成的链路借力预训练文生图模型，但文本这个中介会丢掉说明文字本就没有承载的听觉细节。两条路撞上的是同样的两堵墙：<strong>语义错位</strong>与<strong>视觉细节丢失</strong>。</p>
 <p>MARS 想问的是：能否同时拆掉这两堵墙——既保住丰富的音频表征，<em>又</em>控制生成结果的审美质量。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/mars/mars-teaser.jpg" alt="MARS 音频嵌入的 t-SNE 可视化：飞机飞掠声与牛叫声的同类嵌入聚在一起，聚类区域旁展示对应示例图像" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/mars/mars-teaser.webp"><img src="/assets/works/mars/mars-teaser.jpg" alt="MARS 音频嵌入的 t-SNE 可视化：飞机飞掠声与牛叫声的同类嵌入聚在一起，聚类区域旁展示对应示例图像" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 1</b><span>MARS 音频嵌入的 t-SNE 可视化——(e) 飞机飞掠声、(f) 牛哞声。同一声学类别的嵌入相互聚集，聚类区域旁展示对应的示例图像。</span></figcaption>
             </figure>
           </section>
@@ -146,7 +146,7 @@
             </div>
             <div class="work-prose"><p>三个组件分工。<strong>基于 Mamba 的音频编码器</strong>处理长音频序列，避开了Transformer 在此处的平方复杂度。<strong>细粒度对齐策略</strong>用多模态大模型写出的视觉描述作为监督信号——对齐学自丰富描述而非稀缺标签。<strong>审美感知生成器</strong>再对图像生成器微调，使语义保真不以视觉质量为代价。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/mars/mars-arch.jpg" alt="MARS 总体框架：音频输入、预处理、音频生图、多模态信息整合与理解" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/mars/mars-arch.webp"><img src="/assets/works/mars/mars-arch.jpg" alt="MARS 总体框架：音频输入、预处理、音频生图、多模态信息整合与理解" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 2</b><span>MARS 流水线——音频进、图像出，中间由多模态信息抽取与理解衔接。</span></figcaption>
             </figure>
           </section>
@@ -159,7 +159,7 @@
             <div class="work-prose"><p>在 VGGSound（37,250 条）与 VEGAS（9,500 条）上，MARS 相对最强 AIG 基线取得<strong>语义相关性平均 +28.73%、审美得分平均 +127.35%</strong> 的提升。</p>
 <p>在 AudioCaps 与 Clotho 上的跨域评估（只有音频描述、没有配对图像）验证了表征的泛化能力：V2A 指标平均提升 <strong>73.9%</strong>。</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/mars/mars-qual.jpg" alt="MARS 按类别展示的定性结果：与参考图像和 Sound2Scene 对比" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/mars/mars-qual.webp"><img src="/assets/works/mars/mars-qual.jpg" alt="MARS 按类别展示的定性结果：与参考图像和 Sound2Scene 对比" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>图 3</b><span>按类别展示的定性结果：参考图像与 Sound2Scene 输出与 MARS 生成结果并列。</span></figcaption>
             </figure>
           </section>

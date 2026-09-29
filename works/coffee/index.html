@@ -134,7 +134,7 @@
             <div class="work-prose"><p>Audio-to-image generation fails on two fronts. Semantically, the representational gap between abstract sound and concrete image means alignment training data is scarce and noisy — including false negatives, pairs that look mismatched but are not. Visually, compressing audio toward an image tends to strip high-resolution detail, hurting aesthetics.</p>
 <p>The question: can semantic fidelity and visual detail be pursued as two explicit paths — and reconciled in one output?</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/coffee/coffee-demo.jpg" alt="Demonstration of semantic misalignment cases in audio-driven image synthesis vs text-driven generation" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/coffee/coffee-demo.webp"><img src="/assets/works/coffee/coffee-demo.jpg" alt="Demonstration of semantic misalignment cases in audio-driven image synthesis vs text-driven generation" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>Fig. 1</b><span>The two failure fronts — (a) audio-driven synthesis drifting semantically; (b) text-driven generation keeping detail but missing what the audio actually contained.</span></figcaption>
             </figure>
           </section>
@@ -146,7 +146,7 @@
             </div>
             <div class="work-prose"><p>COFFEE's three modules divide the problem. The <strong>Semantic-based Alignment (SA)</strong> module learns audio-visual alignment with a retrieval-based data selection strategy and a <strong>false negative suppression loss</strong> — fixing the training signal itself. The <strong>Audio-caption-oriented Image Generation (AIG)</strong> module uses textual descriptions to construct visual detail. The <strong>Multi-scale Fusion (MFA)</strong> module integrates both paths across scales into the final image.</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/coffee/coffee-framework.jpg" alt="COFFEE framework: PNS contrastive learning with retrieval selection, audio-caption generation, and multi-scale fusion alignment" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/coffee/coffee-framework.webp"><img src="/assets/works/coffee/coffee-framework.jpg" alt="COFFEE framework: PNS contrastive learning with retrieval selection, audio-caption generation, and multi-scale fusion alignment" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>Fig. 2</b><span>The COFFEE framework — SA with false-negative suppression, AIG for detail, and MFA fusing semantic and visual streams into the final generation.</span></figcaption>
             </figure>
           </section>

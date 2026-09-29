@@ -141,7 +141,7 @@
             </div>
             <div class="work-prose"><p>SSGCN maintains two parallel graphs. A <strong>semantic latent graph</strong>, parsed from self-attention networks, captures relations the dependency tree never draws. A <strong>syntactic dependency graph enhanced with SenticNet</strong> carries affective knowledge along grammatical structure.</p><p>A <strong>gate mechanism</strong> then decides — per input — how much each graph contributes to the aspect-specific representation. Fusion is dynamic, not a fixed weighted average.</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/gc/gc-arch.jpg" alt="SSGCN overall architecture: word embedding, semantic latent graph, enhanced syntactic graph, hybrid graph convolution with gates" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/gc/gc-arch.webp"><img src="/assets/works/gc/gc-arch.jpg" alt="SSGCN overall architecture: word embedding, semantic latent graph, enhanced syntactic graph, hybrid graph convolution with gates" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>Fig. 1</b><span>Overall SSGCN architecture — word embedding feeds both the semantic latent graph and the SenticNet-enhanced syntactic graph; gates fuse them for aspect-specific prediction.</span></figcaption>
             </figure>
           </section>
@@ -153,7 +153,7 @@
             </div>
             <div class="work-prose"><p>On three benchmark datasets, SSGCN outperforms syntax-only and single-enhancement baselines, <strong>achieving state-of-the-art performance</strong> — evidence that semantic and affective relations are complementary, not redundant.</p><p>The gate analysis shows the fusion weighting shifts across inputs: short noisy sentences lean more on the semantic latent graph, grammatically clean sentences lean more on the enhanced dependency graph.</p></div>
             <figure class="work-figure">
-              <img src="/assets/works/gc/gc-case.jpg" alt="SSGCN ablation: accuracy and F1 versus the number of GCN layers" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/works/gc/gc-case.webp"><img src="/assets/works/gc/gc-case.jpg" alt="SSGCN ablation: accuracy and F1 versus the number of GCN layers" loading="lazy" /></picture>
               <figcaption class="work-figcaption"><b>Fig. 2</b><span>Ablation over GCN depth — accuracy and F1 respond to the number of graph-convolution layers, supporting the hybrid-graph design.</span></figcaption>
             </figure>
           </section>
