@@ -11,17 +11,9 @@
     <meta property="og:image" content="/assets/works/before-the-score/fig2-equal-messages.png" />
     <title>Before the Score | 许俊杰</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
     <link rel="stylesheet" href="/styles.css" />
     <style>
-      .work-page {
-        --wk-line: rgba(170, 199, 230, 0.18);
-        --wk-muted: #9eafc4;
-        --wk-card: rgba(255, 255, 255, 0.03);
-        --wk-blue: #75b7ff;
-        --wk-green: #69ddb5;
-        --wk-red: #ff8b72;
-      }
-
       .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
 
       .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
@@ -59,7 +51,7 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        max-width: 760px; margin: 48px 0 0; color: var(--wk-tldr);
         font-size: 19px; line-height: 1.85; letter-spacing: 0.002em;
       }
 
@@ -89,19 +81,19 @@
         font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15;
       }
 
-      .work-prose { max-width: 820px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose { max-width: 820px; color: var(--wk-body); font-size: 15px; line-height: 1.95; }
       .work-prose p { margin: 0 0 14px; }
       .work-prose strong { color: var(--hero-ink); font-weight: 620; }
 
       .work-prose code {
         padding: 1px 7px; border: 1px solid var(--wk-line); border-radius: 6px;
-        background: rgba(117, 183, 255, 0.07); color: #dff0ff;
+        background: rgba(117, 183, 255, 0.07); color: var(--wk-code-ink);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em;
       }
 
       .work-figure {
         margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+        background: linear-gradient(180deg, var(--wk-fig-a), var(--wk-fig-b));
       }
 
       .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
@@ -153,22 +145,22 @@
       .boundary-card li { margin: 6px 0; }
 
       .boundary-card.is-yes {
-        border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: #c9e9dd;
+        border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: var(--wk-yes-ink);
       }
       .boundary-card.is-yes h3 { color: var(--wk-green); }
 
       .boundary-card.is-no {
-        border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: #ecd2c9;
+        border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: var(--wk-no-ink);
       }
-      .boundary-card.is-no h3 { color: #ff8b72; }
+      .boundary-card.is-no h3 { color: var(--wk-red); }
 
       .work-cite {
         position: relative; margin-top: 30px; padding: 24px 26px;
-        border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55);
+        border: 1px solid var(--wk-line); border-radius: 18px; background: var(--wk-cite-bg);
       }
 
       .work-cite pre {
-        margin: 0; overflow-x: auto; color: #b9cfe8;
+        margin: 0; overflow-x: auto; color: var(--wk-cite-code);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         font-size: 12.5px; line-height: 1.7;
       }
@@ -218,6 +210,7 @@
         </nav>
         <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
         <div class="rail-tools" aria-label="页面工具">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换亮色模式" aria-pressed="false">☀</button>
           <a href="/works/before-the-score/" lang="en">English</a>
           <a href="/cv/zh/">简历</a>
         </div>
@@ -232,7 +225,7 @@
             </div>
             <p class="work-kicker"><span class="dot"></span> 作品 05 · 评估完整性审计</p>
             <h1 class="work-title">Before <em>the</em> Score<span style="color: var(--hero-accent)">.</span></h1>
-            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+            <p style="max-width: 700px; margin: 18px 0 0; color: var(--wk-muted); font-size: 16.5px; line-height: 1.6;">
               审计 LLM 评估中的目标证据——评委真的收到了归因给目标的那份比较所需的证据吗？
             </p>
             <div class="work-meta">
@@ -243,10 +236,10 @@
             </div>
             <p class="work-authors">双盲匿名投稿 · <strong>许俊杰</strong> 及合作者 · 华东师范大学</p>
             <p class="work-tldr">
-              一个外部评估可以在输入<strong style="color:#f6fffb">完全不区分目标行为</strong>的情况下，
-              产出可复带的模型标签分数。一项基于溯源的审计横跨 <strong style="color:#f6fffb">129 个新闻交互运行</strong>：
+              一个外部评估可以在输入<strong style="color:var(--wk-strong)">完全不区分目标行为</strong>的情况下，
+              产出可复带的模型标签分数。一项基于溯源的审计横跨 <strong style="color:var(--wk-strong)">129 个新闻交互运行</strong>：
               认证了不同目标标签下完全相同的评委消息，记录了 313 组目标文本从未变化的时间对比，
-              并发现 <strong style="color:#f6fffb">85 个运行中 79 个</strong>重复出"先升后降"的分数模式——全程零新增模型调用。
+              并发现 <strong style="color:var(--wk-strong)">85 个运行中 79 个</strong>重复出"先升后降"的分数模式——全程零新增模型调用。
             </p>
           </header>
 
@@ -430,6 +423,7 @@
 
     <script defer src="/assets/vendor/lenis.min.js"></script>
     <script defer src="/assets/scroll-feel.js"></script>
+    <script defer src="/assets/theme-toggle.js"></script>
     <script>
       /* stat-count-up */
       document.documentElement.classList.add("js");

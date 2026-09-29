@@ -46,6 +46,7 @@
       }
     </script>
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
@@ -64,7 +65,7 @@
           <a href="#honors">荣誉</a>
         </nav>
         <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
-        <div class="rail-tools" aria-label="页面工具"><a href="../" lang="en">English</a><a href="../studio/" data-studio-link>工作台</a></div>
+        <div class="rail-tools" aria-label="页面工具"><button class="theme-toggle" type="button" data-theme-toggle aria-label="切换亮色模式" aria-pressed="false">☀</button><a href="../" lang="en">English</a><a href="../studio/" data-studio-link>工作台</a></div>
       </aside>
 
       <main>
@@ -100,6 +101,7 @@
     </div>
     <script defer src="../assets/vendor/lenis.min.js"></script>
     <script defer src="../assets/scroll-feel.js"></script>
+    <script defer src="../assets/theme-toggle.js"></script>
     <script type="module" src="../script.js"></script>
   </body>
 </html>

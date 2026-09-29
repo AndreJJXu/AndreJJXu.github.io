@@ -17,17 +17,9 @@
     <meta property="og:image" content="/assets/works/ani/phase1-overview.png" />
     <title>ANI — Affective Non-Interference | Junjie Xu</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
     <link rel="stylesheet" href="/styles.css" />
     <style>
-      .work-page {
-        --wk-line: rgba(170, 199, 230, 0.18);
-        --wk-muted: #9eafc4;
-        --wk-card: rgba(255, 255, 255, 0.03);
-        --wk-blue: #75b7ff;
-        --wk-green: #69ddb5;
-        --wk-red: #ff8b72;
-      }
-
       .work-page {
         padding: 84px 0 40px;
         font-family: var(--hero-font-body);
@@ -112,7 +104,7 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        max-width: 760px; margin: 48px 0 0; color: var(--wk-tldr);
         font-size: 19px; line-height: 1.8; letter-spacing: 0.002em;
       }
 
@@ -176,7 +168,7 @@
 
       .work-prose {
         max-width: 800px;
-        color: #c3d1e1;
+        color: var(--wk-body);
         font-size: 15px;
         line-height: 1.85;
       }
@@ -188,7 +180,7 @@
         border: 1px solid var(--wk-line);
         border-radius: 6px;
         background: rgba(117, 183, 255, 0.07);
-        color: #dff0ff;
+        color: var(--wk-code-ink);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         font-size: 0.88em;
       }
@@ -198,7 +190,7 @@
         padding: 20px;
         border: 1px solid var(--wk-line);
         border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+        background: linear-gradient(180deg, var(--wk-fig-a), var(--wk-fig-b));
       }
 
       .work-figure img {
@@ -318,7 +310,7 @@
       .boundary-card.is-yes {
         border: 1px solid rgba(105, 221, 181, 0.3);
         background: rgba(105, 221, 181, 0.05);
-        color: #c9e9dd;
+        color: var(--wk-yes-ink);
       }
 
       .boundary-card.is-yes h3 { color: var(--wk-green); }
@@ -326,10 +318,10 @@
       .boundary-card.is-no {
         border: 1px solid rgba(255, 139, 114, 0.28);
         background: rgba(255, 139, 114, 0.045);
-        color: #ecd2c9;
+        color: var(--wk-no-ink);
       }
 
-      .boundary-card.is-no h3 { color: #ff8b72; }
+      .boundary-card.is-no h3 { color: var(--wk-red); }
 
       .work-footer {
         display: flex;
@@ -378,6 +370,7 @@
         </nav>
         <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
         <div class="rail-tools" aria-label="Page tools">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false">☀</button>
           <a href="/zh/" lang="zh-CN">中文</a>
           <a href="/cv/">CV</a>
         </div>
@@ -392,7 +385,7 @@
             </div>
             <p class="work-kicker"><span class="dot"></span> Work 04 · Agent safety benchmark</p>
             <h1 class="work-title">ANI — <em>Affective</em> Non-Interference.</h1>
-            <p style="max-width: 700px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+            <p style="max-width: 700px; margin: 18px 0 0; color: var(--wk-muted); font-size: 16.5px; line-height: 1.6;">
               A preregistered, two-phase study of whether policy-irrelevant affect changes what LLM agents do with protected actions — and what replicates.
             </p>
             <div class="work-meta">
@@ -405,7 +398,7 @@
             <p class="work-tldr">
               When task facts, risk, permissions, and policy evidence are byte-identical, does pure emotional
               expression change an LLM agent's protected-action behavior? Phase 1's preregistered answer was
-              <strong style="color:#f6fffb">NONE_CONFIRMED</strong> — the affect effect did not replicate. What the
+              <strong style="color:var(--wk-strong)">NONE_CONFIRMED</strong> — the affect effect did not replicate. What the
               audit surfaced instead: an affect-independent policy-compliance fragility. Phase 2 scales the question
               to multi-agent composite attacks.
             </p>
@@ -555,6 +548,7 @@
 
     <script defer src="/assets/vendor/lenis.min.js"></script>
     <script defer src="/assets/scroll-feel.js"></script>
+    <script defer src="/assets/theme-toggle.js"></script>
     <script>
       /* stat-count-up */
       document.documentElement.classList.add("js");

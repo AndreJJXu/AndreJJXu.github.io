@@ -17,16 +17,9 @@
     <meta property="og:image" content="/assets/works/healbench/teaser-overview.png" />
     <title>Evidence Before Severity | Junjie Xu</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
     <link rel="stylesheet" href="/styles.css" />
     <style>
-      .work-page {
-        --wk-line: rgba(170, 199, 230, 0.18);
-        --wk-muted: #9eafc4;
-        --wk-card: rgba(255, 255, 255, 0.03);
-        --wk-blue: #75b7ff;
-        --wk-green: #69ddb5;
-      }
-
       .work-page {
         padding: 84px 0 40px;
         font-family: var(--hero-font-body);
@@ -115,7 +108,7 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        max-width: 760px; margin: 48px 0 0; color: var(--wk-tldr);
         font-size: 19px; line-height: 1.8; letter-spacing: 0.002em;
       }
 
@@ -190,7 +183,7 @@
 
       .work-prose {
         max-width: 780px;
-        color: #c3d1e1;
+        color: var(--wk-body);
         font-size: 15px;
         line-height: 1.85;
       }
@@ -204,7 +197,7 @@
         border: 1px solid var(--wk-line);
         border-radius: 6px;
         background: rgba(117, 183, 255, 0.07);
-        color: #dff0ff;
+        color: var(--wk-code-ink);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         font-size: 0.88em;
       }
@@ -216,7 +209,7 @@
         padding: 26px;
         border: 1px solid var(--wk-line);
         border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+        background: linear-gradient(180deg, var(--wk-fig-a), var(--wk-fig-b));
       }
 
       .work-figure img,
@@ -305,7 +298,7 @@
 
       .workflow-card p {
         margin: 10px 0 0;
-        color: #c3d1e1;
+        color: var(--wk-body);
         font-size: 13.5px;
         line-height: 1.75;
       }
@@ -365,7 +358,7 @@
       .boundary-card.is-yes {
         border: 1px solid rgba(105, 221, 181, 0.3);
         background: rgba(105, 221, 181, 0.05);
-        color: #c9e9dd;
+        color: var(--wk-yes-ink);
       }
 
       .boundary-card.is-yes h3 { color: var(--wk-green); }
@@ -373,10 +366,10 @@
       .boundary-card.is-no {
         border: 1px solid rgba(255, 139, 114, 0.28);
         background: rgba(255, 139, 114, 0.045);
-        color: #ecd2c9;
+        color: var(--wk-no-ink);
       }
 
-      .boundary-card.is-no h3 { color: var(--danger, #ff8b72); }
+      .boundary-card.is-no h3 { color: var(--danger, var(--wk-red)); }
 
       /* ---------- citation ---------- */
 
@@ -386,13 +379,13 @@
         padding: 24px 26px;
         border: 1px solid var(--wk-line);
         border-radius: 18px;
-        background: rgba(1, 8, 17, 0.55);
+        background: var(--wk-cite-bg);
       }
 
       .work-cite pre {
         margin: 0;
         overflow-x: auto;
-        color: #b9cfe8;
+        color: var(--wk-cite-code);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         font-size: 12.5px;
         line-height: 1.7;
@@ -470,6 +463,7 @@
         </nav>
         <div class="rail-meta"><p>ECNU · Shanghai</p><p>2019 — 2028</p></div>
         <div class="rail-tools" aria-label="Page tools">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" aria-pressed="false">☀</button>
           <a href="/zh/" lang="zh-CN">中文</a>
           <a href="/cv/">CV</a>
         </div>
@@ -485,7 +479,7 @@
             </div>
             <p class="work-kicker"><span class="dot"></span> Work 01 · Safety evaluation audit</p>
             <h1 class="work-title">Evidence <em>before</em> Severity.</h1>
-            <p style="max-width: 640px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+            <p style="max-width: 640px; margin: 18px 0 0; color: var(--wk-muted); font-size: 16.5px; line-height: 1.6;">
               Auditing safety-evidence fidelity and metadata sensitivity in depression-related dialogues.
             </p>
             <div class="work-meta">
@@ -496,11 +490,11 @@
             </div>
             <p class="work-authors"><strong>Junjie Xu</strong> and collaborators · East China Normal University</p>
             <p class="work-tldr">
-              Do LLM safety judgments follow <strong style="color:#f0f6ff">expressed evidence</strong> — or just
+              Do LLM safety judgments follow <strong style="color:var(--wk-strong)">expressed evidence</strong> — or just
               depression severity cues? A 742-dialogue same-text intervention with
-              <strong style="color:#f0f6ff">21,628 evaluations</strong> found Direct classification barely moved when
+              <strong style="color:var(--wk-strong)">21,628 evaluations</strong> found Direct classification barely moved when
               severity changed; an evidence-first workflow changed its behavior
-              <strong style="color:#f0f6ff">50× more</strong> — but that, too, may not mean fidelity.
+              <strong style="color:var(--wk-strong)">50× more</strong> — but that, too, may not mean fidelity.
             </p>
           </header>
 
@@ -671,6 +665,7 @@
 
     <script defer src="/assets/vendor/lenis.min.js"></script>
     <script defer src="/assets/scroll-feel.js"></script>
+    <script defer src="/assets/theme-toggle.js"></script>
     <script>
       /* stat-count-up */
       document.documentElement.classList.add("js");

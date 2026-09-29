@@ -11,16 +11,9 @@
     <meta property="og:image" content="/assets/works/healbench/teaser-overview.png" />
     <title>Evidence Before Severity | 许俊杰</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
     <link rel="stylesheet" href="/styles.css" />
     <style>
-      .work-page {
-        --wk-line: rgba(170, 199, 230, 0.18);
-        --wk-muted: #9eafc4;
-        --wk-card: rgba(255, 255, 255, 0.03);
-        --wk-blue: #75b7ff;
-        --wk-green: #69ddb5;
-      }
-
       .work-page {
         padding: 84px 0 40px;
         font-family: var(--hero-font-body);
@@ -86,7 +79,7 @@
       .work-authors strong { color: var(--hero-ink); font-weight: 600; }
 
       .work-tldr {
-        max-width: 760px; margin: 48px 0 0; color: #e6effa;
+        max-width: 760px; margin: 48px 0 0; color: var(--wk-tldr);
         font-size: 19px; line-height: 1.8; letter-spacing: 0.002em;
       }
 
@@ -149,7 +142,7 @@
         line-height: 1.15;
       }
 
-      .work-prose { max-width: 800px; color: #c3d1e1; font-size: 15px; line-height: 1.95; }
+      .work-prose { max-width: 800px; color: var(--wk-body); font-size: 15px; line-height: 1.95; }
       .work-prose p { margin: 0 0 14px; }
       .work-prose strong { color: var(--hero-ink); font-weight: 620; }
 
@@ -158,7 +151,7 @@
         border: 1px solid var(--wk-line);
         border-radius: 6px;
         background: rgba(117, 183, 255, 0.07);
-        color: #dff0ff;
+        color: var(--wk-code-ink);
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         font-size: 0.88em;
       }
@@ -168,7 +161,7 @@
         padding: 26px;
         border: 1px solid var(--wk-line);
         border-radius: 18px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+        background: linear-gradient(180deg, var(--wk-fig-a), var(--wk-fig-b));
       }
 
       .work-figure img {
@@ -227,7 +220,7 @@
         font-weight: 630;
       }
 
-      .workflow-card p { margin: 10px 0 0; color: #c3d1e1; font-size: 13.5px; line-height: 1.75; }
+      .workflow-card p { margin: 10px 0 0; color: var(--wk-body); font-size: 13.5px; line-height: 1.75; }
 
       .workflow-nums {
         display: grid;
@@ -276,7 +269,7 @@
       .boundary-card.is-yes {
         border: 1px solid rgba(105, 221, 181, 0.3);
         background: rgba(105, 221, 181, 0.05);
-        color: #c9e9dd;
+        color: var(--wk-yes-ink);
       }
 
       .boundary-card.is-yes h3 { color: var(--wk-green); }
@@ -284,10 +277,10 @@
       .boundary-card.is-no {
         border: 1px solid rgba(255, 139, 114, 0.28);
         background: rgba(255, 139, 114, 0.045);
-        color: #ecd2c9;
+        color: var(--wk-no-ink);
       }
 
-      .boundary-card.is-no h3 { color: #ff8b72; }
+      .boundary-card.is-no h3 { color: var(--wk-red); }
 
       .work-footer {
         display: flex;
@@ -341,6 +334,7 @@
         </nav>
         <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
         <div class="rail-tools" aria-label="页面工具">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换亮色模式" aria-pressed="false">☀</button>
           <a href="/works/evidence-before-severity/" lang="en">English</a>
           <a href="/cv/zh/">简历</a>
         </div>
@@ -355,7 +349,7 @@
             </div>
             <p class="work-kicker"><span class="dot"></span> 作品 01 · 安全评估审计</p>
             <h1 class="work-title">Evidence <em>before</em> Severity<span style="color: var(--hero-accent)">.</span></h1>
-            <p style="max-width: 640px; margin: 18px 0 0; color: #9eafc4; font-size: 16.5px; line-height: 1.6;">
+            <p style="max-width: 640px; margin: 18px 0 0; color: var(--wk-muted); font-size: 16.5px; line-height: 1.6;">
               一项关于抑郁相关对话中安全证据保真度与元数据敏感性的受控审计。
             </p>
             <div class="work-meta">
@@ -366,9 +360,9 @@
             </div>
             <p class="work-authors"><strong>许俊杰</strong> 及合作者 · 华东师范大学</p>
             <p class="work-tldr">
-              LLM 的安全判断究竟跟随<strong style="color:#f0f6ff">明示的安全证据</strong>，还是只跟随抑郁严重度线索？
+              LLM 的安全判断究竟跟随<strong style="color:var(--wk-strong)">明示的安全证据</strong>，还是只跟随抑郁严重度线索？
               742 段对话的同文本干预、21,628 次评估显示：直接分类几乎不随严重度变化；
-              证据先行工作流的行为变化率高 <strong style="color:#f0f6ff">50 倍</strong>——
+              证据先行工作流的行为变化率高 <strong style="color:var(--wk-strong)">50 倍</strong>——
               但这同样不等于保真。
             </p>
           </header>
@@ -511,9 +505,9 @@
               <span class="num">05</span>
               <h2>引用</h2>
             </div>
-            <div class="work-cite" style="position: relative; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: rgba(1, 8, 17, 0.55);">
+            <div class="work-cite" style="position: relative; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: var(--wk-cite-bg);">
               <button class="copy-btn" type="button" data-copy-cite style="position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer;">复制</button>
-              <pre id="cite-text" style="margin: 0; overflow-x: auto; color: #b9cfe8; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7;">@inproceedings{xu2026evidence,
+              <pre id="cite-text" style="margin: 0; overflow-x: auto; color: var(--wk-cite-code); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7;">@inproceedings{xu2026evidence,
   title     = {Evidence Before Severity: Auditing Safety-Evidence Fidelity
                and Metadata Sensitivity in Depression-Related Dialogues},
   author    = {Xu, Junjie and collaborators},
@@ -533,6 +527,7 @@
 
     <script defer src="/assets/vendor/lenis.min.js"></script>
     <script defer src="/assets/scroll-feel.js"></script>
+    <script defer src="/assets/theme-toggle.js"></script>
     <script>
       /* stat-count-up */
       document.documentElement.classList.add("js");
