@@ -226,7 +226,7 @@ ${items}
           </div>
           <footer class="writing-footer">
             <span>${zh ? "工作记录 — " : "Work blog — "}<a href="${zh ? "/zh/" : "/"}">junjiexu.github.io</a></span>
-            <span>${zh ? "订阅" : "Subscribe"} <a href="/feed.xml">RSS ↗</a></span>
+            <span>${zh ? "订阅" : "Subscribe"} <a href="${zh ? "/zh/feed.xml" : "/feed.xml"}">RSS ↗</a></span>
           </footer>
         </div>`;
   await writeFile(
@@ -264,7 +264,7 @@ ${items}
 ${giscusBlockFor(lang, article.id)}
           <footer class="writing-footer">
             <span><a href="${zh ? "/writing/zh/" : "/writing/"}">${zh ? "全部记录" : "All posts"}</a> · <a href="${zh ? "/zh/" : "/"}">junjiexu.github.io</a></span>
-            <span>${zh ? "订阅" : "Subscribe"} <a href="/feed.xml">RSS ↗</a></span>
+            <span>${zh ? "订阅" : "Subscribe"} <a href="${zh ? "/zh/feed.xml" : "/feed.xml"}">RSS ↗</a></span>
           </footer>
         </article>`;
     const jsonLd = {
