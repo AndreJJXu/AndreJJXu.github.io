@@ -3379,3 +3379,19 @@ main > .section.is-revealed {
   border-color: var(--blue);
   background: rgba(117, 183, 255, 0.08);
 }
+
+/* Site-wide sci-fi starfield backdrop (assets/backdrop.js) */
+.backdrop-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-canvas {
+    display: none;
+  }
+}

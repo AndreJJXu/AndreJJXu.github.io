@@ -163,6 +163,7 @@ ${body}
     <script defer src="/assets/vendor/lenis.min.js"></script>
     <script defer src="/assets/scroll-feel.js"></script>
     <script defer src="/assets/theme-toggle.js"></script>
+    <script defer src="/assets/backdrop.js"></script>
   </body>
 </html>
 `;
