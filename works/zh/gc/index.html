@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -140,9 +141,9 @@
               <h2>方法</h2>
             </div>
             <div class="work-prose"><p>SSGCN 维护两张并行的图。<strong>语义隐图</strong>从自注意力网络解析而来，捕捉依存树画不出的关系。<strong>经 SenticNet 增强的句法依存图</strong>让情感知识沿语法结构流动。</p><p>随后<strong>门控机制</strong>按输入逐例决定两张图对方面表征的贡献占比——融合是动态的，不是固定加权平均。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/gc/gc-arch.webp"><img src="/assets/works/gc/gc-arch.jpg" alt="SSGCN 总体架构：词嵌入、语义隐图、增强句法图、带门控的混合图卷积" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 1</b><span>SSGCN 总体架构——词嵌入同时供给语义隐图与 SenticNet 增强的句法图，门控融合后做方面级预测。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>SSGCN 总体架构——词嵌入同时供给语义隐图与 SenticNet 增强的句法图，门控融合后做方面级预测。</span></figcaption>
             </figure>
           </section>
 
@@ -152,9 +153,9 @@
               <h2>结果</h2>
             </div>
             <div class="work-prose"><p>在三个基准数据集上，SSGCN 超过纯句法与单一增强的基线，<strong>取得最优性能</strong>——证明语义关系与情感关系互补而非冗余。</p><p>门控分析显示融合权重随输入而变：短而嘈杂的句子更依赖语义隐图，语法清晰的句子更依赖增强依存图。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/gc/gc-case.webp"><img src="/assets/works/gc/gc-case.jpg" alt="SSGCN 消融实验：准确率与 F1 随 GCN 层数的变化" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 2</b><span>GCN 深度消融——准确率与 F1 随图卷积层数变化，支持混合图设计。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>GCN 深度消融——准确率与 F1 随图卷积层数变化，支持混合图设计。</span></figcaption>
             </figure>
           </section>
 

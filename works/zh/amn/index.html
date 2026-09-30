@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -141,9 +142,9 @@
               <h2>方法</h2>
             </div>
             <div class="work-prose"><p>AMNet 的共享特征 extractor 同时供给<strong>注意力图生成器</strong>（二值，候选人群区域）与<strong>密度图生成器</strong>（非二值，拥挤梯度）。<strong>二值化迁移模块</strong>把二值化变成可微的联合优化环节——把二值图里干净的区域选择迁移进密度估计，同时保留多尺度细节。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/amn/amn-concept.webp"><img src="/assets/works/amn/amn-concept.jpg" alt="传统注意力人群计数流水线与 AMN 的二值+密度注意力协同流水线" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 1</b><span>传统注意力流水线（蓝、黄流）vs AMN 流水线（红流）——二值与密度注意力图由竞争转为协作。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>传统注意力流水线（蓝、黄流）vs AMN 流水线（红流）——二值与密度注意力图由竞争转为协作。</span></figcaption>
             </figure>
           </section>
 
@@ -154,9 +155,9 @@
             </div>
             <div class="work-prose"><p>在 ShanghaiTech PartA/B、UCF_CC_50、WorldExpo'10、UCF-QNRF 上，AMNet 取得<strong>显著的计数精度提升并超过当时的最优方法</strong>——增益最大的正是单用二值注意力失效的场景：密集、杂乱。</p>
 <p>定性密度图显示机制按设计工作：二值化注意力压制背景，人群内部的密度梯度保持完整。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/amn/amn-density.webp"><img src="/assets/works/amn/amn-density.jpg" alt="AMNet 架构：共享特征供给注意力图生成器与密度图生成器，多尺度融合" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 2</b><span>AMNet 架构——特征流向注意力图生成器（AMG）与密度图生成器（DMG），多尺度融合得到最终密度估计。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>AMNet 架构——特征流向注意力图生成器（AMG）与密度图生成器（DMG），多尺度融合得到最终密度估计。</span></figcaption>
             </figure>
           </section>
 

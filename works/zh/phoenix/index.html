@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -133,9 +134,9 @@
             </div>
             <div class="work-prose"><p>文生图模型已经这么强，为什么还要直接从音频生成？因为流行的捷径——先给音频写字幕、再从字幕生成——要付两次代价：误差跨阶段累积，而文本这个中介会系统性丢掉字幕本就不曾承载的听觉信息。端到端方案保住了语义，却在成本、稳定性与泛化上挣扎。</p>
 <p>要问的是：两阶段设计能否既借到预训练生成器的力，又拒绝那个有损瓶颈。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/phoenix/phx-teaser.webp"><img src="/assets/works/phoenix/phx-teaser.jpg" alt="端到端与两阶段音频生图方法、对齐失配，以及 Phoenix 连接音频片段与生成的方式" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 1</b><span>捷径为何失败——端到端 vs 两阶段链路、语义相关性差距，以及 Phoenix 的片段感知替代方案。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>捷径为何失败——端到端 vs 两阶段链路、语义相关性差距，以及 Phoenix 的片段感知替代方案。</span></figcaption>
             </figure>
           </section>
 
@@ -145,9 +146,9 @@
               <h2>方法</h2>
             </div>
             <div class="work-prose"><p>Phoenix 的两个阶段都按失败模式来设计。第一阶段，<strong>本质片段感知的音频块</strong>识别并保留音频中有信息量的片段，而不是将其平均掉；<strong>多维字幕</strong>沿多个层次描述音频，而非一句话。第二阶段在<strong>互信息引导</strong>下、叠加印象与审美视角生成图像，使输出忠实于听觉表达。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/phoenix/phx-overview.webp"><img src="/assets/works/phoenix/phx-overview.jpg" alt="Phoenix 总览：分层音频编码器、音频描述、互信息图像生成与审美精炼" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 2</b><span>Phoenix 流水线——对音频的分层观测、多维描述，以及互信息引导、带审美精炼的生成。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>Phoenix 流水线——对音频的分层观测、多维描述，以及互信息引导、带审美精炼的生成。</span></figcaption>
             </figure>
           </section>
 

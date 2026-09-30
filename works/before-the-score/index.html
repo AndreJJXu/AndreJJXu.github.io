@@ -205,6 +205,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -225,7 +226,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -282,9 +283,9 @@
                 different consequences at each level — and unknown stays unknown rather than being imputed.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <img src="/assets/works/before-the-score/fig1-audit-chain.png" alt="Audit the evidence before interpreting the score: the interface chain, evidence certificates relative to a claim, and two protocols with different evidence limits" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-01">
                 <b>Fig. 1</b>
                 <span>Evidence must survive each interface. The checks separate message identity, target-text identity, and unknown provenance; none supplies a universal construct-validity certificate. Choice records verify behavior but cannot certify unrecorded judge requests.</span>
               </figcaption>
@@ -342,9 +343,9 @@
                 PANAS-NA spans 28–37 and BDI 15–31.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <img src="/assets/works/before-the-score/fig2-equal-messages.png" alt="Equal evaluator messages, different target-labelled scores: audit coverage, all exact groups, and one identical message chain per scale across twelve target-model labels" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-02">
                 <b>Fig. 2</b>
                 <span>Equal evaluator messages, different target-labelled scores. Every recorded point is shown; points preserve every score and do not represent independent target-state trials.</span>
               </figcaption>
@@ -358,9 +359,9 @@
                 by itself document any change in the target's literal expression.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-03">
               <img src="/assets/works/before-the-score/fig3-repeatable-direction.png" alt="Repeatable score direction does not supply missing target-text variation: coverage bars and paired score-change scatters for every constant-text eligible run" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-03">
                 <b>Fig. 3</b>
                 <span>Every eligible constant-text run is shown. The lower-right quadrant denotes a rise over steps 2–8 and a fall over 8–11. Supplied news changes across time; fixed visible text does not imply a fixed internal state.</span>
               </figcaption>

@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -141,9 +142,9 @@
               <h2>方法</h2>
             </div>
             <div class="work-prose"><p>两个组件，一个原理。<strong>梯度感知优势（GA）</strong>在标准优势上叠加方向分：参考图像处奖励梯度与"参考→候选"方向的对齐程度——对局部奖励提升的一阶近似。由于梯度感知的更新重尾且依赖方向，<strong>梯度塑形稳定器（GSS）</strong>对其归一化以保证训练稳定。SDE 窗口采样让整体保持高效。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/garbo/garbo-schedule.webp"><img src="/assets/works/garbo/garbo-schedule.jpg" alt="GARBO 总览：带方向对齐分的梯度感知优势与梯度塑形，附示例可视化" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 1</b><span>GARBO 流程——方向对齐打分、梯度感知优势塑形与稳定后的训练目标，附示例图像。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>GARBO 流程——方向对齐打分、梯度感知优势塑形与稳定后的训练目标，附示例图像。</span></figcaption>
             </figure>
           </section>
 
@@ -154,9 +155,9 @@
             </div>
             <div class="work-prose"><p>在 T2I-CompBench 与 WISE、多个奖励模型上，GARBO 相对强基线<strong>同时提升自动指标与人类偏好</strong>——并显著缓解了催生它的"高分低质"模式。</p>
 <p>分析隔离了两个组件：GA 提供方向信号，GSS 让信号可训练。去掉任何一个，设计想消除的不稳定性都会复现。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/garbo/garbo-denoise.webp"><img src="/assets/works/garbo/garbo-denoise.jpg" alt="GARBO 组件：方向对齐打分、梯度感知优势塑形与扩散生成器" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 2</b><span>方法内部——围绕扩散生成器的方向对齐打分与梯度塑形。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>方法内部——围绕扩散生成器的方向对齐打分与梯度塑形。</span></figcaption>
             </figure>
           </section>
 

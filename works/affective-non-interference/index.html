@@ -357,6 +357,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -377,7 +378,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -412,9 +413,9 @@
             <div class="work-stat"><b>≈¥62</b><span>total audited spend against preregistered budget caps</span></div>
           </div>
 
-          <figure class="work-figure reveal">
+          <figure class="work-figure reveal" aria-labelledby="fig-01">
             <img src="/assets/works/ani/phase1-overview.png" alt="Phase 1 overview: ANI-Bench with 24+8 pilot cases, 60 confirmatory cases across 20 new families, 6,480 episodes, 14 run batches" />
-            <figcaption class="work-figcaption">
+            <figcaption class="work-figcaption" id="fig-01">
               <b>Fig. 1</b>
               <span>Phase 1 at a glance: a machine-checkable policy corpus, a preregistered causal design — and a natural experiment in measurement reliability.</span>
             </figcaption>
@@ -455,9 +456,9 @@
                 written into Phase 2's hard gates.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <img src="/assets/works/ani/phase1-results.png" alt="Phase 1 results: fake effect emergence, root cause, revival as factor, interaction null — plus the two real findings" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-02">
                 <b>Fig. 2</b>
                 <span>Same benchmark, two sets of numbers, one assembly defect apart. The real risk was not affect at all: 282/288 escalation-state violations and ≈14% unauthorized execution in DENY states — an affect-independent compliance fragility.</span>
               </figcaption>
@@ -501,9 +502,9 @@
                 legal interpretations, and a null is never dressed up.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-03">
               <img src="/assets/works/ani/phase2-design.png" alt="Phase 2 design: advisor-critique-driven dual-slot four-cell interaction design with the additive interaction estimand" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-03">
                 <b>Fig. 3</b>
                 <span>The dual-slot four-cell design with the additive-interaction estimand, misinformation contract (build gate + oracle split), and a four-way verdict taxonomy — rebuilt from a B1–B17 advisor critique.</span>
               </figcaption>

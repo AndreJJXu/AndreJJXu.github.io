@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -141,9 +142,9 @@
               <h2>方法</h2>
             </div>
             <div class="work-prose"><p>研究构建了两套工具——<strong>9S-State-Eval</strong> 量表与 <strong>KUCRE-Bench</strong>——并在三类数据资源上跑了六组实验。模型在锁定记忆下读 15 轮悲伤新闻，再读 10 轮<em>自主选择</em>的新闻；状态分数形成时间序列。下游实验把诱导状态对任务表现、开放式生成、人类体验与多智能体集体的作用逐一检验。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/coa/coa-framework.webp"><img src="/assets/works/coa/coa-framework.jpg" alt="LLM 情感链研究总框架：数据、模型选择、诱导与四个实验分支" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 1</b><span>研究设计——带情感标注的新闻语料、八个模型家族、锁定记忆的 15+10 轮诱导，以及四个下游实验分支。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>研究设计——带情感标注的新闻语料、八个模型家族、锁定记忆的 15+10 轮诱导，以及四个下游实验分支。</span></figcaption>
             </figure>
           </section>
 
@@ -154,9 +155,9 @@
             </div>
             <div class="work-prose"><p>三个发现撑起全文。<strong>指纹</strong>：每个模型家族有跨量表稳定的情感签名。<strong>轨迹</strong>：重复负性暴露下，模型收敛到累积 → 过载 → 防御麻木，应对风格各有不同。<strong>后果</strong>：诱导情绪重塑开放式生成（2,267 条）、用户体验（464 次互动）与多智能体动态——情绪组织出涌现角色，并加剧极化与偏见。</p>
 <p>什么<em>没有</em>动同样重要：核心知识与推理基本完好——最早、最大的效应在情感侧，而非认知侧。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/coa/coa-trends.webp"><img src="/assets/works/coa/coa-trends.jpg" alt="多面板结果：基准响应景观、敏感性分析、跨维度表现" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 2</b><span>情绪状态在任务表现与人机互动中的功能与社会后果——A-E 五组面板，附 95% 置信区间。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>情绪状态在任务表现与人机互动中的功能与社会后果——A-E 五组面板，附 95% 置信区间。</span></figcaption>
             </figure>
           </section>
 

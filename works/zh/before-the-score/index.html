@@ -197,6 +197,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="页面导航">
         <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
@@ -217,7 +218,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -269,9 +270,9 @@
                 而未知就保持未知，绝不用插值补齐。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <img src="/assets/works/before-the-score/fig1-audit-chain.png" alt="在解读分数之前先审计证据：接口链、相对于主张的证据证书、以及两个证据边界不同的协议" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-01">
                 <b>图 1</b>
                 <span>证据必须在每一层接口上幸存。三层检查分别分离消息同一性、目标文本同一性与未知溯源；没有任何一层提供通用的构念效度证书。选择记录能验证行为，但无法认证未记录的评委请求。</span>
               </figcaption>
@@ -327,9 +328,9 @@
                 然而 PANAS-NA 分数横跨 28–37，BDI 横跨 15–31。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <img src="/assets/works/before-the-score/fig2-equal-messages.png" alt="相同的评估器消息、不同的目标标签分数：审计覆盖表、全部精确组，以及每个量表一条相同消息链在十二个目标-模型标签上的分数分布" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-02">
                 <b>图 2</b>
                 <span>相同的评估器消息，不同的目标标签分数。图中保留每一个已记录的分数点；这些点不代表独立的目标状态试验。</span>
               </figcaption>
@@ -342,9 +343,9 @@
                 这是一种重复出现的评估器分数响应，但它本身无法证明目标的字面表达发生过任何变化。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-03">
               <img src="/assets/works/before-the-score/fig3-repeatable-direction.png" alt="可重复的分数方向不能补齐缺失的目标文本变化：覆盖条形图与每个常文本合格运行的配对分数变化散点" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-03">
                 <b>图 3</b>
                 <span>每个合格的目标文本不变运行都在图中。右下象限表示步骤 2–8 上升、8–11 下降。新闻随时间变化；可见文本固定不意味着内部状态固定。</span>
               </figcaption>

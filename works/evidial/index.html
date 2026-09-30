@@ -327,6 +327,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -347,7 +348,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -424,9 +425,9 @@
                 viable substitute for model diversity.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <img src="/assets/works/evidial/fig-mechanism.png" alt="Mechanism experiment: error rate by evidence and distractor presence across four systems, with a difference-in-differences analysis specific to binding failure." />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-01">
                 <b>Fig. 1</b>
                 <span>The T08 2×2 mechanism experiment (64 scenarios / 256 views, four systems + two ablations): the full mechanism absorbs distractor interference; the no-binding ablation does not — a difference-in-differences analysis isolates binding-specific failure.</span>
               </figcaption>

@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -141,9 +142,9 @@
               <h2>The approach</h2>
             </div>
             <div class="work-prose"><p>MusePainter first deconstructs music into fine-grained attributes — melody, rhythm, harmony, instrumentation, overall structure — captured as structured descriptors across structural, stylistic, and affective dimensions. Generation is then optimized with a <strong>multi-axis preference scheme</strong> that disentangles emotional consistency, semantic alignment, and creative appeal, and optimizes each independently. The music understanding side is a two-stage fine-tuned audio-LLM (MuseAes-LLM), with descriptor lengths balanced (20/50/70 tokens) to trade hallucination against detail.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/musepainter/cmalign-arch.webp"><img src="/assets/works/musepainter/cmalign-arch.jpg" alt="The overall MusePainter pipeline from music analysis to preference-guided image generation" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 1</b><span>The MusePainter pipeline — structured descriptors feed generation, and multi-axis preference optimization shapes the output.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>Fig. 1</b><span>The MusePainter pipeline — structured descriptors feed generation, and multi-axis preference optimization shapes the output.</span></figcaption>
             </figure>
           </section>
 
@@ -154,9 +155,9 @@
             </div>
             <div class="work-prose"><p>On curated benchmarks, MusePainter surpasses strong audio-to-image and audio→text→image baselines in <strong>semantic fidelity, stylistic congruence, and affective resonance</strong>. The qualitative comparisons show the three axes separating cleanly: the same piece can be steered toward accuracy, toward style, or toward mood without retraining.</p>
 <p>User studies corroborate the automatic metrics — participants prefer MusePainter outputs along the axes the optimization targeted.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/musepainter/cmalign-qual.webp"><img src="/assets/works/musepainter/cmalign-qual.jpg" alt="Qualitative comparison of music-to-image generation across models, annotated by scenario, genre, style, mood, and fixture" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 2</b><span>Music-to-image comparison — each sample annotated with scenario, genre, style, mood, and fixture to separate the axes the method controls.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>Fig. 2</b><span>Music-to-image comparison — each sample annotated with scenario, genre, style, mood, and fixture to separate the axes the method controls.</span></figcaption>
             </figure>
           </section>
 

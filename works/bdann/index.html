@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -142,9 +143,9 @@
             </div>
             <div class="work-prose"><p>BDAGNN makes two structural moves. First, the <strong>bidirectional directed acyclic graph (BDAG)</strong> reconstructs the dependency tree — replacing a single rooted view with coordinated bottom-up and top-down directions over an acyclic structure. Second, the <strong>BDAGNN encoder</strong> propagates sentiment information multi-hop through this structure efficiently, instead of relying on many stacked GNN layers.</p>
 <p>Affective commonsense from <strong>SenticNet</strong> enriches the graph's edges, so classification can consult world knowledge about sentiment, not only sentence-internal co-occurrence.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/bdann/bdann-bdag.webp"><img src="/assets/works/bdann/bdann-bdag.jpg" alt="BDAGNN framework: word embedding, dependency tree, bidirectional DAGs, multi-hop information transmission, and aspect-specific masking" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 1</b><span>The BDAGNN framework — from dependency tree to bidirectional DAGs, through multi-hop information transmission, to aspect-specific masking and prediction.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>Fig. 1</b><span>The BDAGNN framework — from dependency tree to bidirectional DAGs, through multi-hop information transmission, to aspect-specific masking and prediction.</span></figcaption>
             </figure>
           </section>
 
@@ -155,9 +156,9 @@
             </div>
             <div class="work-prose"><p>BDAGNN obtains <strong>partial state-of-the-art performance across four benchmark datasets</strong> — comparable to, and on several settings better than, the strongest GNN-based baselines.</p>
 <p>Ablations vary the number of BDAG layers and directions: accuracy and F1 respond as the structure predicts, supporting the claim that it is the bidirectional acyclic reconstruction — not added capacity alone — that carries the improvement.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/bdann/bdann-analysis.webp"><img src="/assets/works/bdann/bdann-analysis.jpg" alt="Accuracy and F1 of BDAGNN + BERT with different numbers of BDAG layers" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 2</b><span>Accuracy (left) and F1 (right) as BDAG depth varies — the effect of the structure is measurable, not incidental.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>Fig. 2</b><span>Accuracy (left) and F1 (right) as BDAG depth varies — the effect of the structure is measurable, not incidental.</span></figcaption>
             </figure>
           </section>
 

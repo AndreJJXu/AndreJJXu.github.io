@@ -168,6 +168,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="页面导航">
         <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
@@ -188,7 +189,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -222,9 +223,9 @@
             <div class="work-stat"><b>≈¥62</b><span>预注册预算上限内的全部审计花费</span></div>
           </div>
 
-          <figure class="work-figure reveal">
+          <figure class="work-figure reveal" aria-labelledby="fig-01">
             <img src="/assets/works/ani/phase1-overview.png" alt="一期概览：24+8 pilot 案例、20 个新家族 60 个确认案例、6,480 episodes、14 个运行批次" />
-            <figcaption class="work-figcaption">
+            <figcaption class="work-figcaption" id="fig-01">
               <b>图 1</b>
               <span>一期全景：机器可查的政策语料、预注册因果设计——以及一次关于测量可靠性的天然实验。</span>
             </figcaption>
@@ -260,9 +261,9 @@
                 于是"政策送达断言"（每个 agent 系统提示含 <code>policy_hash</code>，缺失即熔断）被写进二期的硬门。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <img src="/assets/works/ani/phase1-results.png" alt="一期结果：伪效应出现、定位根因、复活为因子、交互归零——以及两项真发现" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-02">
                 <b>图 2</b>
                 <span>同一个基准，两套数字，只差一个组装缺陷。真正的风险与情绪无关：282/288 次 escalation-state 违规，以及 DENY 状态下约 14% 的未授权执行——纯粹的合规管道问题。</span>
               </figcaption>
@@ -302,9 +303,9 @@
                 正、负、等效、不确定四类结果都有合法解释，零结果绝不会被包装。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-03">
               <img src="/assets/works/ani/phase2-design.png" alt="二期设计：导师批评驱动的双槽四格交互设计，含可加交互估计量" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-03">
                 <b>图 3</b>
                 <span>双槽四格设计与可加交互估计量、误信息合同（build gate / oracle 拆分）、四分互斥判读——由 B1–B17 导师批评驱动重构。</span>
               </figcaption>

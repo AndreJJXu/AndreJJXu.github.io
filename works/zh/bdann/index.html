@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -142,9 +143,9 @@
             </div>
             <div class="work-prose"><p>BDAGNN 做了两步结构改造。其一，<strong>双向有向无环图（BDAG）</strong>对依存树进行重构——以无环结构上协调的自底向上与自顶向下两个方向，取代单一根节点视角。其二，<strong>BDAGNN 编码器</strong>在该结构上高效地多跳传播情感信息，而不是依赖层层堆叠的 GNN。</p>
 <p><strong>SenticNet</strong> 的情感常识增强图的边，让分类在句子内部共现之外，还能查询关于情感的世界知识。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/bdann/bdann-bdag.webp"><img src="/assets/works/bdann/bdann-bdag.jpg" alt="BDAGNN 框架：词嵌入、依存树、双向 DAG、多跳信息传递与方面级掩码" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 1</b><span>BDAGNN 框架——从依存树到双向 DAG，经多跳信息传递，到方面级掩码与预测。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>BDAGNN 框架——从依存树到双向 DAG，经多跳信息传递，到方面级掩码与预测。</span></figcaption>
             </figure>
           </section>
 
@@ -155,9 +156,9 @@
             </div>
             <div class="work-prose"><p>BDAGNN 在<strong>四个基准数据集上取得部分最优性能</strong>——与最强 GNN 基线相当，并在若干设置上更优。</p>
 <p>消融实验改变 BDAG 层数与方向：准确率与 F1 的响应与结构预测一致，说明带来提升的是双向无环重建本身，而不只是容量增加。</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/bdann/bdann-analysis.webp"><img src="/assets/works/bdann/bdann-analysis.jpg" alt="BDAGNN + BERT 在不同 BDAG 层数下的准确率与 F1" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>图 2</b><span>BDAG 深度变化下的准确率（左）与 F1（右）——结构的作用可测量、非偶然。</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>BDAG 深度变化下的准确率（左）与 F1（右）——结构的作用可测量、非偶然。</span></figcaption>
             </figure>
           </section>
 

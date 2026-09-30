@@ -450,6 +450,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -470,7 +471,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <!-- ============ hero ============ -->
           <header>
@@ -508,9 +509,9 @@
           </div>
 
           <!-- ============ teaser ============ -->
-          <figure class="work-figure reveal" style="margin-top: 26px;">
+          <figure class="work-figure reveal" style="margin-top: 26px;" aria-labelledby="fig-01">
             <img src="/assets/works/healbench/teaser-overview.png" alt="Same-text intervention audit overview: only the depression-burden cue P1 changes while safety evidence P2 stays fixed; Direct and Evidence-first workflows are compared." />
-            <figcaption class="work-figcaption">
+            <figcaption class="work-figcaption" id="fig-01">
               <b>Fig. 1</b>
               <span>The same-text intervention audit: only the non-safety depression-burden cue (P1) changes from 7 to 22 while safety evidence (P2) stays byte-identical. Direct outputs a judgment directly; Evidence-first extracts evidence spans first and abstains when evidence is non-decisive.</span>
             </figcaption>
@@ -546,9 +547,9 @@
                 The design keeps <strong>every text field byte-identical</strong> and manipulates only the depression-burden cue, so any behavioral difference must come from that single metadata field — not from what the patient actually said.
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <img src="/assets/works/healbench/method-pipeline.png" alt="Three-panel pipeline: upstream measurement boundary from 869,268 records; main same-text audit over 742 matched dialogues; separate later-window P2 responsiveness control." />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-02">
                 <b>Fig. 2</b>
                 <span>Left: the upstream Evidence Atlas bounds transport but is an inventory, not a cohort. Middle: the main same-text audit — two evaluation workflows applied to paired P1=7 / P1=22 configurations. Right: a separate later-window P2 responsiveness control with 1,920 planned trial IDs.</span>
               </figcaption>
@@ -588,21 +589,21 @@
                 The headline result is a <strong>double negative</strong>: the deployed-style Direct workflow was insensitive to the manipulated cue (selected-set predictability did not translate into observed sensitivity), and the more "engaged" Evidence-first workflow churned 50× more between paired repeats — yet its net effect stayed compatible with zero. <strong>More behavioral change is not more fidelity.</strong>
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-03">
               <object data="/assets/works/healbench/fig-primary-results.svg" type="image/svg+xml" role="img" aria-label="Primary results figure"></object>
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-03">
                 <b>Fig. 3</b>
                 <span>Primary results: paired high-minus-low contrasts with uncertainty intervals for both workflows in the main audit.</span>
               </figcaption>
             </figure>
             <div class="figure-grid">
-              <figure class="work-figure">
+              <figure class="work-figure" aria-labelledby="fig-04">
                 <object data="/assets/works/healbench/fig-effect-forest.svg" type="image/svg+xml" role="img" aria-label="Effect forest plot"></object>
-                <figcaption class="work-figcaption"><b>Fig. 4</b><span>Effect estimates with confidence intervals, per evaluation route.</span></figcaption>
+                <figcaption class="work-figcaption" id="fig-04"><b>Fig. 4</b><span>Effect estimates with confidence intervals, per evaluation route.</span></figcaption>
               </figure>
-              <figure class="work-figure">
+              <figure class="work-figure" aria-labelledby="fig-05">
                 <object data="/assets/works/healbench/fig-multiconfig-churn.svg" type="image/svg+xml" role="img" aria-label="Multi-configuration churn composition"></object>
-                <figcaption class="work-figcaption"><b>Fig. 5</b><span>Response churn composition across the eight-configuration R1 extension (17,280 calls).</span></figcaption>
+                <figcaption class="work-figcaption" id="fig-05"><b>Fig. 5</b><span>Response churn composition across the eight-configuration R1 extension (17,280 calls).</span></figcaption>
               </figure>
             </div>
           </section>

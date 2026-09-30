@@ -321,6 +321,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="页面导航">
         <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
@@ -341,7 +342,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -375,9 +376,9 @@
             <div class="work-stat"><b>17,280</b><span>R1 扩展中八配置的调用次数</span></div>
           </div>
 
-          <figure class="work-figure reveal" style="margin-top: 26px;">
+          <figure class="work-figure reveal" style="margin-top: 26px;" aria-labelledby="fig-01">
             <img src="/assets/works/healbench/teaser-overview.png" alt="同文本干预审计总览：仅抑郁负担线索 P1 变化，安全证据 P2 保持不变；比较 Direct 与 Evidence-first 两种工作流。" />
-            <figcaption class="work-figcaption">
+            <figcaption class="work-figcaption" id="fig-01">
               <b>图 1</b>
               <span>同文本干预审计：只有非安全的抑郁负担线索（P1）从 7 变到 22，安全证据（P2）逐字节不变。Direct 直接输出判断；Evidence-first 先抽取证据跨度，证据不可判定时弃答。</span>
             </figcaption>
@@ -411,9 +412,9 @@
                 设计保持<strong>所有文本字段逐字节一致</strong>，只操纵抑郁负担线索——因此任何行为差异只能归因于这一个元数据字段，而非患者实际说了什么。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <img src="/assets/works/healbench/method-pipeline.png" alt="三层流程：上游测量边界（869,268 条记录）；742 段匹配对话的主审计；独立的后期 P2 响应性控制。" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-02">
                 <b>图 2</b>
                 <span>左：上游证据图谱约束传输，但它是清单而非队列。中：主同文本审计——两种评估工作流作用于 P1=7 / P1=22 的配对配置。右：独立的后期 P2 响应性控制，1,920 个计划试验 ID。</span>
               </figcaption>
@@ -452,21 +453,21 @@
                 核心结论是一个<strong>双重否定</strong>：部署风格的 Direct 工作流对被操纵的线索不敏感（选集可预测性没有转化为实际敏感性）；而更"投入"的证据先行工作流在配对重复之间的行为变化率高 50 倍——但净效应仍与零相容。<strong>更多的行为变化不等于更高的保真度。</strong>
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-03">
               <object data="/assets/works/healbench/fig-primary-results.svg" type="image/svg+xml" role="img" aria-label="主结果图"></object>
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-03">
                 <b>图 3</b>
                 <span>主结果：主审计中两种工作流的配对高减低对比及不确定性区间。</span>
               </figcaption>
             </figure>
             <div class="workflow-grid" style="grid-template-columns: none; display: grid;">
-              <figure class="work-figure" style="margin: 18px 0 0;">
+              <figure class="work-figure" style="margin: 18px 0 0;" aria-labelledby="fig-04">
                 <object data="/assets/works/healbench/fig-effect-forest.svg" type="image/svg+xml" role="img" aria-label="效应森林图"></object>
-                <figcaption class="work-figcaption"><b>图 4</b><span>各评估路线的效应估计与置信区间。</span></figcaption>
+                <figcaption class="work-figcaption" id="fig-04"><b>图 4</b><span>各评估路线的效应估计与置信区间。</span></figcaption>
               </figure>
-              <figure class="work-figure" style="margin: 18px 0 0;">
+              <figure class="work-figure" style="margin: 18px 0 0;" aria-labelledby="fig-05">
                 <object data="/assets/works/healbench/fig-multiconfig-churn.svg" type="image/svg+xml" role="img" aria-label="多配置响应翻转构成"></object>
-                <figcaption class="work-figcaption"><b>图 5</b><span>八配置 R1 扩展（17,280 次调用）中的响应翻转构成。</span></figcaption>
+                <figcaption class="work-figcaption" id="fig-05"><b>图 5</b><span>八配置 R1 扩展（17,280 次调用）中的响应翻转构成。</span></figcaption>
               </figure>
             </div>
           </section>

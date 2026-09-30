@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -141,9 +142,9 @@
               <h2>The approach</h2>
             </div>
             <div class="work-prose"><p>EmoMV mirrors human cognition in two directions. <strong>Bottom-up</strong>: fundamental structural elements of music — pitch, rhythm, chord changes — are composed into an emotional representation. <strong>Top-down</strong>: that emotion is embodied into aesthetic low-level dimensions — light, exposure, color — as image manipulation. A <strong>Mus-Vis Textual Alignment</strong> module harmonizes musical and visual descriptions; an <strong>Emotion-aware Aesthetic Image Refinement</strong> module applies the edit.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/aim/aim-framework.webp"><img src="/assets/works/aim/aim-framework.jpg" alt="EmoMV framework: Mus-Vis Textual Alignment and Emotion-aware Aesthetic Description Generation" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 1</b><span>The EmoMV framework — musical and visual descriptions are aligned, then emotion-aware aesthetic descriptions drive image refinement.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>Fig. 1</b><span>The EmoMV framework — musical and visual descriptions are aligned, then emotion-aware aesthetic descriptions drive image refinement.</span></figcaption>
             </figure>
           </section>
 
@@ -154,9 +155,9 @@
             </div>
             <div class="work-prose"><p>Qualitative results show the same image stylized differently under different musical emotions — harmony shifts read as color and lighting shifts, not arbitrary filters.</p>
 <p>The multi-scale evaluation combines image quality metrics, aesthetic assessment, and <strong>EEG measurements</strong> that track real-time emotional responses — giving the subjective side of the claim an objective instrument.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/aim/aim-qual.webp"><img src="/assets/works/aim/aim-qual.jpg" alt="EmoMV qualitative results: image manipulations driven by different musical emotions" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 2</b><span>Image manipulations driven by different musical emotions — the visual edits track the emotional content of the input music.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>Fig. 2</b><span>Image manipulations driven by different musical emotions — the visual edits track the emotional content of the input music.</span></figcaption>
             </figure>
           </section>
 

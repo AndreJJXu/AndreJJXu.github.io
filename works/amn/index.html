@@ -74,6 +74,7 @@
 </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="en">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="Site navigation">
         <a class="monogram" href="/#about" aria-label="Back to home">JX</a>
@@ -94,7 +95,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -141,9 +142,9 @@
               <h2>The approach</h2>
             </div>
             <div class="work-prose"><p>AMNet shares a feature extractor between an <strong>attention map generator</strong> (binary, candidate crowd regions) and a <strong>density map generator</strong> (non-binary, congestion gradients). The <strong>Binarization Transfer Module</strong> turns binarization into a differentiable, jointly-optimized step — transferring the clean region selection from the binary map into the density estimation while preserving multi-scale detail.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <picture><source type="image/webp" srcset="/assets/works/amn/amn-concept.webp"><img src="/assets/works/amn/amn-concept.jpg" alt="Traditional attention-based crowd counting pipeline versus the AMN pipeline with binary and density attention maps" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 1</b><span>Traditional attention-based pipelines (blue and yellow flows) vs the AMN pipeline (red flow) — binary and density attention maps cooperate instead of competing.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-01"><b>Fig. 1</b><span>Traditional attention-based pipelines (blue and yellow flows) vs the AMN pipeline (red flow) — binary and density attention maps cooperate instead of competing.</span></figcaption>
             </figure>
           </section>
 
@@ -154,9 +155,9 @@
             </div>
             <div class="work-prose"><p>Across ShanghaiTech PartA and PartB, UCF_CC_50, WorldExpo'10, and UCF-QNRF, AMNet achieves <strong>significant improvements in counting accuracy and outperforms state-of-the-art methods</strong> — with the largest gains exactly where binary attention alone fails: dense, cluttered scenes.</p>
 <p>Qualitative density maps show the mechanism working as designed: backgrounds suppressed by the binarized attention while density gradients inside the crowd remain intact.</p></div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-02">
               <picture><source type="image/webp" srcset="/assets/works/amn/amn-density.webp"><img src="/assets/works/amn/amn-density.jpg" alt="AMNet architecture: shared features feeding attention map generator and density map generator with multi-scale fusion" loading="lazy" /></picture>
-              <figcaption class="work-figcaption"><b>Fig. 2</b><span>The AMNet architecture — feature maps flow to the attention map generator (AMG) and density map generator (DMG), fused multi-scale for the final density estimate.</span></figcaption>
+              <figcaption class="work-figcaption" id="fig-02"><b>Fig. 2</b><span>The AMNet architecture — feature maps flow to the attention map generator (AMG) and density map generator (DMG), fused multi-scale for the final density estimate.</span></figcaption>
             </figure>
           </section>
 

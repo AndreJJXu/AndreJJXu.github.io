@@ -153,6 +153,7 @@
     </style>
   </head>
   <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
       <aside class="site-rail" aria-label="页面导航">
         <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
@@ -173,7 +174,7 @@
         </div>
       </aside>
 
-      <main>
+      <main id="main">
         <article class="work-page">
           <header>
             <div class="work-top">
@@ -239,9 +240,9 @@
                 M1 全量面板交付了 <strong>1,910/1,910 次裁定、100% 覆盖、零现金成本</strong>；M2 分层扩展追加 205 段 × 5 协议 = 1,025 次。试点线确立了定量核心：同底座模型的协议面板有效裁判数达 <strong>1.59</strong>，而五族模型面板为 1.56——协议多样性是模型多样性的可行替代。
               </p>
             </div>
-            <figure class="work-figure">
+            <figure class="work-figure" aria-labelledby="fig-01">
               <img src="/assets/works/evidial/fig-mechanism.png" alt="机制实验：四个系统在证据/干扰存在与否下的错误率，以及针对绑定失败的双重差分分析。" />
-              <figcaption class="work-figcaption">
+              <figcaption class="work-figcaption" id="fig-01">
                 <b>图 1</b>
                 <span>T08 2×2 机制实验（64 场景 / 256 视图，4 系统 + 2 消融）：完整机制吸收了干扰影响；去掉绑定的消融则不能——双重差分把绑定特有的失败分离了出来。</span>
               </figcaption>
