@@ -24,10 +24,10 @@ const escapeXml = (value) =>
 
 const htmlFiles = await collectHtmlFiles(distRoot);
 // Skip noindex pages (admin/, demos/) — they must not appear in the sitemap.
-const noindexPrefixes = ["admin/", "demos/"];
+const noindexPrefixes = ["admin/", "demos/", "404.html"];
 const routes = htmlFiles
   .map((file) => relative(distRoot, file).split(sep).join("/"))
-  .filter((path) => !noindexPrefixes.some((p) => path.startsWith(p)))
+  .filter((path) => !noindexPrefixes.some((p) => path === p || path.startsWith(p)))
   .map((path) => (path === "index.html" ? "" : path.replace(/index\.html$/, "")))
   .map((path) => `${siteBase}/${path}`)
   .sort();
