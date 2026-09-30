@@ -33,8 +33,9 @@ const entries = articles
     if (!updated) return null;
     const title = article.titleEn || article.title || article.id;
     const summary = article.summaryEn || article.summary || "";
-    const id = `${siteBase}/#writing-${article.id}`;
-    return { updated, title, summary, id, sortKey: article.date || "" };
+    const id = `${siteBase}/writing/${article.id}/`;
+    const link = `${siteBase}/writing/${article.id}/`;
+    return { updated, title, summary, id, link, sortKey: article.date || "" };
   })
   .filter(Boolean)
   .sort((a, b) => (a.sortKey < b.sortKey ? 1 : -1));
@@ -56,7 +57,7 @@ ${entries
     <title>${escapeXml(entry.title)}</title>
     <id>${entry.id}</id>
     <updated>${entry.updated}</updated>
-    <link rel="alternate" type="text/html" href="${siteBase}/#writing" />
+    <link rel="alternate" type="text/html" href="${entry.link}" />
     <summary>${stripTags(entry.summary)}</summary>
   </entry>`,
   )

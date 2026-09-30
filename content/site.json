@@ -1,0 +1,14 @@
+{
+  "reviewHold": [
+    "evidence-before-severity",
+    "before-the-score"
+  ],
+  "giscus": {
+    "enabled": false,
+    "repo": "AndreJJXu/AndreJJXu.github.io",
+    "repoId": "R_kgDOMfDEzA",
+    "category": "Announcements",
+    "categoryId": "DIC_kwDOMfDEzM4DGujT",
+    "_setup": "Discussions are enabled and the Announcements category exists. One manual step left: install the giscus app (https://github.com/apps/giscus) on this repo in a browser, then set enabled=true here and rebuild."
+  }
+}

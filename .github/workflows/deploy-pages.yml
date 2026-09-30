@@ -26,6 +26,8 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build:public
+      - run: node scripts/check-parity.mjs
+      - run: node scripts/check-links.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

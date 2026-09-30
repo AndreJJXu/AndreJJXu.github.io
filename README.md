@@ -52,13 +52,41 @@ npm run build
 
 The build reads `content/published.json`. The checked-in seed content remains available until a published package supplies a non-empty collection. Contact and CV values are intentionally blank until verified information is provided.
 
-For stable, source-controlled edits, update the seed data at the top of `script.js`:
+For stable, source-controlled edits, update `content/published.json` — it is the single content source the whole site reads:
 
-- `projects`: selected research projects
-- `publications`: first-author papers with publication-stage labels
+- `profiles`: academic profile links (Scholar, GitHub, ORCID)
+- `projects`: selected research projects (supports `url` to a project page)
+- `publications`: papers with publication-stage labels and citation counts
 - `patents`: patent applications where Junjie Xu is listed as a co-inventor
-- `articles`: work blog posts, research notes, and full article text
-- `awards`: recognition and awards
+- `articles`: work blog posts (bilingual fields; rendered on the homepage and as permalink pages under `/writing/`)
+- `awards`: recognition and awards (bilingual fields)
+- `news`: the compact latest-updates strip on the homepages
+
+The defaults inside `script.js` are only a no-JSON fallback; the JSON wins whenever a collection is non-empty.
+
+## Build pipeline and site config
+
+`npm run build:public` runs, in order:
+
+1. `vite build --config vite.public.config.mjs` — the multipage build. Its work-page inputs are filtered by `content/site.json` → `reviewHold`: slugs listed there are excluded from the public build while their papers are under double-blind review (remove a slug to restore its pages).
+2. `scripts/build-cv.mjs` — generates `/cv/` and `/cv/zh/` (self-contained HTML).
+3. `scripts/build-writing.mjs` — generates `/writing/` permalink pages (one per article per locale) from `published.json`, and publishes two stable asset paths (`/styles.css`, `/assets/favicon.svg`) for post-build generators.
+4. `scripts/generate-sitemap.mjs` — sitemap.xml from `dist/` (noindex paths excluded).
+5. `scripts/generate-feed.mjs` — Atom feed at `/feed.xml`, one entry per article linking its permalink.
+6. `scripts/generate-bib.mjs` — `/assets/junjie-xu-publications.bib` from the publication list.
+7. `scripts/export-cv-pdf.mjs` — prints the CV pages to A4 PDFs (`/assets/cv/…`) with headless Chrome. PDFs are build outputs, never committed binaries.
+
+Quality gates (also enforced in CI after every build):
+
+- `npm run check` — validates `published.json` structure.
+- `node scripts/check-parity.mjs` — fails when the EN/ZH mirrors drift (missing pages, scene/card count mismatches, tile sequence).
+- `node scripts/check-links.mjs` — fails when any internal link in `dist/` does not resolve.
+
+Adding a new work page: create `content/works/<slug>.json` (see `affective-dynamics.json` for the schema, both locales in one file), run `npm run gen:works`, add figures under `public/assets/works/<slug>/`, and list the slug in `vite.public.config.mjs`. The 13 legacy paper pages predate the generator and live as hand-authored HTML — the generator only writes pages that have a JSON file.
+
+Weekly automation: `.github/workflows/update-citations.yml` refreshes `publications[].citations` from the Semantic Scholar Graph API (DOI map inside `scripts/update-citations.mjs`) and opens a PR — review the diffs before merging; Semantic Scholar counts can differ from Google Scholar.
+
+Comments (giscus): Discussions are enabled with an `Announcements` category. To turn comments on, install the giscus app on this repo (https://github.com/apps/giscus), then set `giscus.enabled = true` in `content/site.json` — the writing pages pick it up on the next build.
 
 ## Edit local research notes
 

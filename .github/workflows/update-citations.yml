@@ -1,0 +1,30 @@
+name: Refresh citation counts
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Mondays 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/update-citations.mjs
+      - name: Open pull request when counts changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: refresh citation counts (Semantic Scholar)"
+          title: "chore: refresh citation counts"
+          body: |
+            Automatic weekly refresh of `publications[].citations` in
+            `content/published.json` via the Semantic Scholar Graph API.
+            Review the diffs and merge — the site deploys on merge.
+          branch: chore/citation-refresh
+          delete-branch: true

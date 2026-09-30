@@ -1,0 +1,196 @@
+{
+  "slug": "digital-healing",
+  "updated": "2026.09",
+  "en": {
+    "description": "Digital Healing (数智疗愈): a multimodal support platform for subthreshold depression — affective assessment plus emotion-controllable music and visual generation, entered into the 2026 China International College Students' Innovation Competition.",
+    "ogTitle": "Digital Healing (数智疗愈) | Junjie Xu",
+    "ogImage": "dh-architecture.jpg",
+    "kicker": "Competition project · Digital therapeutics",
+    "titleHtml": "Digital Healing (数智疗愈): a Support Platform for <em>Subthreshold Depression</em><span style=\"color: var(--hero-accent)\">.</span>",
+    "subtitle": "A research-translation project: the lab's affective-computing work, turned into a daily support service concept for the population just below the clinical threshold.",
+    "chips": [
+      { "text": "CICSC 2026 · Higher-Education Main Track", "accent": true },
+      { "text": "Graduate Creative Group" },
+      { "text": "Digital therapeutics" },
+      { "text": "Multimodal affective computing" }
+    ],
+    "authors": "<strong>Project lead — Junjie Xu</strong> · team at East China Normal University",
+    "tldr": "Subthreshold depression is widespread — especially among young adults — yet it sits below the clinical threshold where treatment resources concentrate. Digital Healing pairs <strong style=\"color:var(--wk-strong)\">multimodal affective assessment</strong> with <strong style=\"color:var(--wk-strong)\">emotion-controllable music and visual generation</strong> to offer low-threshold daily support: two product concepts (guided digital meditation, music–visual healing) on a five-layer platform, entered into the 2026 China International College Students' Innovation Competition as project lead.",
+    "stats": [
+      { "value": "2", "label": "product concepts: guided digital meditation &amp; music–visual healing" },
+      { "value": "5", "label": "platform layers: sensing → fusion → decision → execution → feedback" },
+      { "value": "371", "label": "participants in the ethics-approved university pilot (Dec 2025 – Aug 2026)" },
+      { "value": "2026", "label": "national round of the competition, in progress" }
+    ],
+    "sections": [
+      {
+        "id": "question",
+        "num": "01",
+        "heading": "The gap",
+        "paragraphs": [
+          "<p>Subthreshold depression — depressive symptoms that do not reach a clinical diagnosis — affects a large population, with young adults hit hardest. It is precisely this group that the current system serves worst: clinical resources concentrate on diagnosed patients, while what is offered below the threshold is mostly self-report trackers and canned content, with no generative, personally responsive support.</p>\n<p>The project starts from a research bet this lab has been making for years: if models can <strong>assess affect multimodally</strong> and <strong>generate emotion-controlled music and imagery</strong>, those capabilities can compose into a daily support service — not by replacing clinicians, but by catching the space between journaling and therapy.</p>"
+        ],
+        "figure": {
+          "id": "fig-01",
+          "label": "Fig. 1",
+          "file": "dh-architecture",
+          "alt": "Five-layer platform architecture of Digital Healing: sensing, fusion, decision, execution, and feedback layers",
+          "caption": "The five-layer platform architecture — from multimodal data sensing through affective fusion and decision to generation execution and feedback adjustment. From the team's 2026 competition materials."
+        }
+      },
+      {
+        "id": "approach",
+        "num": "02",
+        "heading": "The approach",
+        "paragraphs": [
+          "<p>The platform is organized as a closed loop across five layers. <strong>Sensing</strong> collects multimodal signals; <strong>fusion</strong> forms an affective assessment; <strong>decision</strong> selects the support strategy; <strong>execution</strong> generates the intervention content; <strong>feedback</strong> closes the loop by measuring response and adjusting.</p>\n<p>The execution layer is where the lab's research lines converge: <strong>emotion-controllable text-to-music generation</strong> and <strong>music-to-image generation</strong> with affective intent — the same alignment and preference-learning questions studied in the lab's publication line, here composed into a service pipeline rather than a benchmark.</p>\n<p>An ethics-approved pilot study at a university psychology center (371 participants, Dec 2025 – Aug 2026) informed the requirement design: what people below the threshold actually experience, respond to, and drop.</p>"
+        ],
+        "figure": {
+          "id": "fig-02",
+          "label": "Fig. 2",
+          "file": "dh-tech",
+          "alt": "Controllable text-to-music generation pipeline with emotion extraction from text",
+          "caption": "The emotion-controllable generation pipeline — emotion extraction from text feeding controllable music generation. From the team's 2026 competition materials."
+        }
+      },
+      {
+        "id": "products",
+        "num": "03",
+        "heading": "The products",
+        "paragraphs": [
+          "<p>Two concepts carry the loop to users. <strong>Guided digital meditation</strong> (数智冥想) adapts session pacing and sonic texture to the assessed state. <strong>Music–visual healing</strong> (音画疗愈) turns a user's emotional state into a personalized piece of music and matching generated imagery — support that is made for the moment rather than retrieved from a library.</p>\n<p>The interfaces follow one principle: assessment stays ambient, generation stays legible. The user always sees what the system inferred and what it made, in plain form.</p>"
+        ],
+        "figure": {
+          "id": "fig-03",
+          "label": "Fig. 3",
+          "file": "dh-product",
+          "alt": "Product interface screens: mood home, check-in, guided meditation player, and generation report",
+          "caption": "The app concepts — mood home, check-in, guided meditation player, and the generation report view. From the team's 2026 competition materials."
+        }
+      }
+    ],
+    "boundaryHeading": "Claim boundary",
+    "boundary": {
+      "yesTitle": "Established",
+      "yes": [
+        "A five-layer platform architecture with a closed assessment–generation loop",
+        "Two product concepts with interface prototypes",
+        "An ethics-approved university pilot (N=371) informing design",
+        "2026 competition entry as project lead — higher-education main track, graduate creative group"
+      ],
+      "noTitle": "Explicitly not claimed",
+      "no": [
+        "Not a medical device; no diagnosis or treatment claim",
+        "No efficacy claim — randomized controlled trials are planned, not yet run",
+        "Institutional cooperations are in progress; no endorsement by any hospital is claimed",
+        "Competition outcome undecided at the time of writing"
+      ]
+    },
+    "linksHeading": "Related research",
+    "linksIntro": "The platform is the translation layer for a line of first-author research on affective alignment and comfort-aware generation. The pages below are the science behind the engine:",
+    "links": [
+      { "label": "Affective dynamics survey", "href": "/works/affective-dynamics/" },
+      { "label": "ElysianMV", "href": "/works/elysianmv/" },
+      { "label": "Phoenix", "href": "/works/phoenix/" },
+      { "label": "COFFEE", "href": "/works/coffee/" },
+      { "label": "HealBench", "href": "/works/healbench/" }
+    ],
+    "footerTag": "Competition project · Digital therapeutics"
+  },
+  "zh": {
+    "description": "数智疗愈：面向阈下抑郁人群的心理干预辅助平台——多模态情感评估与情感可控的音乐、图像生成，2026 中国国际大学生创新大赛参赛项目。",
+    "ogTitle": "数智疗愈 | 许俊杰",
+    "ogImage": "dh-architecture.jpg",
+    "kicker": "竞赛项目 · 数字疗法",
+    "titleHtml": "数智疗愈：面向<em>阈下抑郁人群</em>的支持平台<span style=\"color: var(--hero-accent)\">。</span>",
+    "subtitle": "一次研究落地：把实验室的情感计算工作，转化为服务于临床阈值之下人群的日常支持产品构想。",
+    "chips": [
+      { "text": "2026 中国国际大学生创新大赛 · 高教主赛道", "accent": true },
+      { "text": "研究生创意组" },
+      { "text": "数字疗法" },
+      { "text": "多模态情感计算" }
+    ],
+    "authors": "<strong>项目负责人 — 许俊杰</strong> · 华东师范大学团队",
+    "tldr": "阈下抑郁人群庞大——在青年群体中尤为突出——却恰好落在临床资源集中的阈值之下。数智疗愈把<strong style=\"color:var(--wk-strong)\">多模态情感评估</strong>与<strong style=\"color:var(--wk-strong)\">情感可控的音乐、图像生成</strong>组合起来，提供低门槛的日常支持：两个产品构想（数智冥想、音画疗愈）构建在五层平台之上，作为项目负责人参加 2026 中国国际大学生创新大赛。",
+    "stats": [
+      { "value": "2", "label": "个产品构想：数智冥想 与 音画疗愈" },
+      { "value": "5", "label": "层平台架构：感知 → 融合 → 决策 → 执行 → 反馈" },
+      { "value": "371", "label": "名高校心理中心伦理批准试点参与者（2025.12 – 2026.8）" },
+      { "value": "2026", "label": "年中国国际大学生创新大赛，进行中" }
+    ],
+    "sections": [
+      {
+        "id": "question",
+        "num": "01",
+        "heading": "缺口在哪里",
+        "paragraphs": [
+          "<p>阈下抑郁——未达到临床诊断标准的抑郁症状——影响的人群规模庞大，青年群体中比例尤高。而现行体系对这一群体服务最薄弱：临床资源集中在已确诊患者身上；阈值之下能得到的，多是自报式的打卡记录与千篇一律的固定内容，缺少可生成、可回应个人状态的支撑。</p>\n<p>项目的出发点，是本实验室持续多年的一个研究判断：如果模型能够<strong>多模态地评估情感</strong>，并<strong>按情感意图生成可控的音乐与画面</strong>，这些能力可以组合成一种日常支持服务——不是替代临床，而是接住「日记与治疗之间」的那段空白。</p>"
+        ],
+        "figure": {
+          "id": "fig-01",
+          "label": "图 1",
+          "file": "dh-architecture",
+          "alt": "数智疗愈五层平台架构：感知层、融合层、决策层、执行层、反馈层",
+          "caption": "五层平台架构——从多模态数据感知、情感融合与决策，到生成执行与反馈调节。取自团队 2026 年参赛材料。"
+        }
+      },
+      {
+        "id": "approach",
+        "num": "02",
+        "heading": "怎么做",
+        "paragraphs": [
+          "<p>平台按五层闭环组织。<strong>感知层</strong>采集多模态信号；<strong>融合层</strong>形成情感评估；<strong>决策层</strong>选择支持策略；<strong>执行层</strong>生成干预内容；<strong>反馈层</strong>以响应测量收口并调节。</p>\n<p>执行层正是实验室研究线的汇合处：<strong>情感可控的文生音乐</strong>与<strong>带情感意图的音乐生成图像</strong>——与论文线里研究的对齐、偏好学习是同一组问题，只是这里组合成服务管线，而非基准测试。</p>\n<p>一项经伦理批准的高校心理中心试点（371 名参与者，2025 年 12 月 – 2026 年 8 月）为需求设计提供依据：阈值之下的人群到底经历什么、回应什么、在哪里流失。</p>"
+        ],
+        "figure": {
+          "id": "fig-02",
+          "label": "图 2",
+          "file": "dh-tech",
+          "alt": "可控文生音乐生成管线：从文本中抽取情感并控制音乐生成",
+          "caption": "情感可控生成管线——从文本抽取情感，驱动可控的音乐生成。取自团队 2026 年参赛材料。"
+        }
+      },
+      {
+        "id": "products",
+        "num": "03",
+        "heading": "产品形态",
+        "paragraphs": [
+          "<p>两个构想把闭环交到用户手里。<strong>数智冥想</strong>按评估到的状态调整冥想节奏与声音质地；<strong>音画疗愈</strong>把用户的情绪状态转化为一段专属于此刻的音乐与相配的生成画面——支持是「为这一刻生成的」，而不是从素材库里检索的。</p>\n<p>界面遵循一条原则：评估保持无感，生成保持可读。用户始终能以直白的形式看到系统推断到了什么、生成了什么。</p>"
+        ],
+        "figure": {
+          "id": "fig-03",
+          "label": "图 3",
+          "file": "dh-product",
+          "alt": "产品界面：情绪首页、打卡、引导冥想播放器与生成报告",
+          "caption": "应用界面构想——情绪首页、打卡、引导冥想播放器与生成报告视图。取自团队 2026 年参赛材料。"
+        }
+      }
+    ],
+    "boundaryHeading": "主张边界",
+    "boundary": {
+      "yesTitle": "已确立",
+      "yes": [
+        "五层平台架构与「评估–生成」闭环",
+        "两个产品构想及界面原型",
+        "经伦理批准的高校试点（N=371）支撑需求设计",
+        "2026 参赛项目——高教主赛道 · 研究生创意组 · 项目负责人"
+      ],
+      "noTitle": "明确不主张",
+      "no": [
+        "非医疗器械，不构成诊断或治疗主张",
+        "不主张疗效——随机对照试验已在规划、尚未开展",
+        "机构合作在推进中，不代表任何医院背书",
+        "截至页面更新时，赛事结果尚未揭晓"
+      ]
+    },
+    "linksHeading": "相关研究",
+    "linksIntro": "该平台是一整条一作研究线的落地层——情感对齐与舒适度感知生成。下面这些页面，是引擎背后的科学：",
+    "links": [
+      { "label": "情感动态综述", "href": "/works/zh/affective-dynamics/" },
+      { "label": "ElysianMV", "href": "/works/zh/elysianmv/" },
+      { "label": "Phoenix", "href": "/works/zh/phoenix/" },
+      { "label": "COFFEE", "href": "/works/zh/coffee/" },
+      { "label": "HealBench", "href": "/works/zh/healbench/" }
+    ],
+    "footerTag": "竞赛项目 · 数字疗法"
+  }
+}
