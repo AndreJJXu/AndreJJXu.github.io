@@ -299,8 +299,8 @@ button {
   height: 100%;
   transform: translateX(-50%);
   /* Final layer transparent (not --hero-surface): the body already paints
-     that color, and an opaque layer here would hide the fixed backdrop
-     canvases (starfield + planet) that sit at z-index -1. */
+     that color, and an opaque layer here would hide the fixed starfield
+     backdrop canvas that sits at z-index -1. */
   background:
     linear-gradient(116deg, transparent 0 49%, rgba(91, 157, 213, 0.11) 61%, transparent 78%),
     linear-gradient(148deg, rgba(102, 220, 194, 0.045) 0, transparent 34%),
@@ -3397,14 +3397,4 @@ main > .section.is-revealed {
   .backdrop-canvas {
     display: none;
   }
-}
-
-/* Dark-theme WebGL planet backdrop (assets/planet.js) */
-.planet-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }

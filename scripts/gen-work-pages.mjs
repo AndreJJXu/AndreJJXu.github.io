@@ -343,7 +343,6 @@ ${boundary}
     <script defer src="/assets/scroll-feel.js"></script>
     <script defer src="/assets/theme-toggle.js"></script>
     <script defer src="/assets/backdrop.js"></script>
-    <script defer src="/assets/planet.js"></script>
     <script>
 ${script(lang, hasCite)}</script>
   </body>
