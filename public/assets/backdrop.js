@@ -153,7 +153,7 @@
       var sy = star.y + offsetY;
 
       var twinkle = 0.55 + 0.45 * Math.sin(time * star.twinkle + star.phase);
-      var alpha = (0.12 + 0.34 * star.depth) * twinkle;
+      var alpha = (0.18 + 0.42 * star.depth) * twinkle;
       drawStar(star, offsetX, offsetY, alpha);
 
       if (pointer.active) {
