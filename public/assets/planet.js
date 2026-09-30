@@ -36,7 +36,7 @@
 
   var renderer = null;
   var scene, camera, earth, clouds, atmosphere, lights;
-  var sun = new THREE.DirectionalLight(0xfff2e0, 2.6);
+  var sun = new THREE.DirectionalLight(0xfff4e2, 3.4);
   var system = new THREE.Group();
   var clock = new THREE.Clock();
   var rafId = 0;
@@ -58,26 +58,30 @@
     camera.position.set(0, 0, 3.4);
 
     // Key light: warm sun from the upper left, the classic limb-lit look.
-    sun.position.set(-6, 2.2, 3.5);
+    sun.position.set(-7.5, 3.2, 3.0);
     scene.add(sun);
-    scene.add(new THREE.AmbientLight(0x24344f, 1.1));
+    scene.add(new THREE.AmbientLight(0x1c2a42, 0.55));
 
     var loader = new THREE.TextureLoader();
-    var dayMap = loader.load(TEXTURES + "earth_atmos_2048.jpg");
+    var dayMap = loader.load(TEXTURES + "earth_day_4k.jpg");
     var normalMap = loader.load(TEXTURES + "earth_normal_2048.jpg");
     var specMap = loader.load(TEXTURES + "earth_specular_2048.jpg");
-    var lightsMap = loader.load(TEXTURES + "earth_lights_2048.jpg");
+    var lightsMap = loader.load(TEXTURES + "earth_night_4k.jpg");
     var cloudsMap = loader.load(TEXTURES + "earth_clouds_1024.png");
+    var maxAniso = renderer.capabilities.getMaxAnisotropy();
+    [dayMap, normalMap, specMap, lightsMap, cloudsMap].forEach(function (t) {
+      t.anisotropy = maxAniso;
+    });
     [dayMap, lightsMap, cloudsMap].forEach(function (t) { t.colorSpace = THREE.SRGBColorSpace; });
 
-    var surfaceGeo = new THREE.SphereGeometry(1, 96, 96);
+    var surfaceGeo = new THREE.SphereGeometry(1, 128, 128);
 
     earth = new THREE.Mesh(
       surfaceGeo,
       new THREE.MeshPhongMaterial({
         map: dayMap,
         normalMap: normalMap,
-        normalScale: new THREE.Vector2(0.85, 0.85),
+        normalScale: new THREE.Vector2(1.05, 1.05),
         specularMap: specMap,
         specular: new THREE.Color(0x8fa6c4),
         shininess: 16,
@@ -87,7 +91,7 @@
 
     // Night-side city lights: additive shell, revealed where the sun is not.
     lights = new THREE.Mesh(
-      new THREE.SphereGeometry(1.002, 96, 96),
+      new THREE.SphereGeometry(1.002, 128, 128),
       new THREE.ShaderMaterial({
         transparent: true,
         blending: THREE.AdditiveBlending,
@@ -124,8 +128,8 @@
     // Cloud deck: slightly larger sphere, lit by the same sun, drifting
     // a touch faster than the surface.
     clouds = new THREE.Mesh(
-      new THREE.SphereGeometry(1.012, 96, 96),
-      new THREE.MeshLambertMaterial({ map: cloudsMap, transparent: true, depthWrite: false, opacity: 0.9 })
+      new THREE.SphereGeometry(1.012, 128, 128),
+      new THREE.MeshLambertMaterial({ map: cloudsMap, transparent: true, depthWrite: false, opacity: 0.68 })
     );
     system.add(clouds);
 
@@ -153,8 +157,8 @@
           "varying vec3 vNormal;",
           "varying vec3 vViewDir;",
           "void main() {",
-          "  float rim = pow(0.72 + dot(vNormal, vViewDir), 3.2);",
-          "  gl_FragColor = vec4(uColor, 1.0) * rim * 0.85;",
+          "  float rim = pow(0.72 + dot(vNormal, vViewDir), 3.6);",
+          "  gl_FragColor = vec4(uColor, 1.0) * rim * 0.5;",
           "}",
         ].join("\n"),
       })
@@ -189,7 +193,7 @@
   }
 
   function resizeRenderer() {
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
     renderer.setPixelRatio(dpr);
     renderer.setSize(window.innerWidth, window.innerHeight);
     layout();
