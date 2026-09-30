@@ -96,8 +96,8 @@ const managed = {
       short: { en: "Publications", zh: "科研产出" },
       en: "Research Output", zh: "科研产出", score: 82,
       strength: {
-        en: "14 first-author papers across IPM, TCSVT, TALLIP and ACM MM workshop.",
-        zh: "一作论文 14 篇，覆盖 IPM、TCSVT、TALLIP、ACM MM Workshop。",
+        en: "15 first-author papers across IPM, TCSVT, TALLIP, ACM MM workshop, and a CSUR survey.",
+        zh: "一作论文 15 篇，覆盖 IPM、TCSVT、TALLIP、ACM MM Workshop 及 CSUR 综述。",
       },
       improve: {
         en: "Push the manuscripts under review to acceptance; aim for one CCF-A venue.",
@@ -280,6 +280,7 @@ function render(lang) {
           projects: "科研项目",
           awards: "荣誉奖项",
           print: "打印 / 存为 PDF",
+          pdf: "下载 PDF",
           back: "返回主页",
           updated: `更新于 ${new Date().toISOString().slice(0, 10)}`,
           switchLang: "English",
@@ -295,6 +296,7 @@ function render(lang) {
           projects: "Research Projects",
           awards: "Honors & Awards",
           print: "Print / Save as PDF",
+          pdf: "Download PDF",
           back: "Back to site",
           updated: `Updated ${new Date().toISOString().slice(0, 10)}`,
           switchLang: "中文",
@@ -478,12 +480,13 @@ function render(lang) {
     .radar-wrap { grid-template-columns: 360px minmax(0, 1fr); gap: 20px; }
     .radar-note-block span { font-size: 11px; }
   }
-  @page { margin: 14mm; }
+  @page { size: A4; margin: 14mm; }
 </style>
 </head>
 <body>
   <div class="toolbar">
     <button type="button" onclick="window.print()">${t.print}</button>
+    <a href="/assets/cv/junjie-xu-cv-${lang === "zh" ? "zh" : "en"}.pdf" download>${t.pdf} ↓</a>
     <a href="${t.switchHref}">${t.switchLang}</a>
     <a href="/">← ${t.back}</a>
   </div>

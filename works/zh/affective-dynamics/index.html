@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="人–AI 智能体协作中的情感动态综述：计算机制、协作效应、部署风险配置与测量治理，128 篇分级参考文献。" />
+    <meta property="og:title" content="人–AI 智能体协作中的情感动态 | 许俊杰" />
+    <meta property="og:description" content="人–AI 智能体协作中的情感动态综述：计算机制、协作效应、部署风险配置与测量治理，128 篇分级参考文献。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/affective-dynamics/ad-framework.jpg" />
+    <title>人–AI 智能体协作中的情感动态 | 许俊杰</title>
+    <link rel="canonical" href="https://andrejjxu.github.io/works/zh/affective-dynamics/" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+      .work-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px; color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; }
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+      .work-title { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(32px, 4.8vw, 52px); font-weight: 640; line-height: 1.14; letter-spacing: -0.01em; text-wrap: balance; }
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .meta-chip { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted); font-size: 12.5px; font-weight: 570; }
+      .meta-chip.is-accent { border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; line-height: 1.7; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+      .work-tldr { max-width: 760px; margin: 48px 0 0; color: var(--wk-tldr); font-size: 19px; line-height: 1.9; }
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .work-stat b { display: block; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+      .work-section { margin-top: 88px; }
+      .work-heading { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: baseline; margin-bottom: 26px; }
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+      .work-heading h2 { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15; }
+      .work-prose { max-width: 820px; color: var(--wk-body); font-size: 15px; line-height: 2; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-figure { margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px; background: linear-gradient(180deg, var(--wk-fig-a), var(--wk-fig-b)); }
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.85; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+      .boundary-card.is-yes { border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: var(--wk-yes-ink); }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+      .boundary-card.is-no { border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: var(--wk-no-ink); }
+      .boundary-card.is-no h3 { color: var(--wk-red); }
+      .work-cite { position: relative; margin-top: 30px; padding: 24px 26px; border: 1px solid var(--wk-line); border-radius: 18px; background: var(--wk-cite-bg); }
+      .work-cite pre { margin: 0; overflow-x: auto; color: var(--wk-cite-code); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; }
+      .copy-btn { position: absolute; top: 16px; right: 16px; padding: 7px 14px; border: 1px solid var(--wk-line); border-radius: 999px; background: transparent; color: var(--wk-muted); font-size: 11.5px; font-weight: 620; cursor: pointer; transition: color 160ms ease, border-color 160ms ease; }
+      .copy-btn:hover { color: var(--wk-blue); border-color: rgba(117, 183, 255, 0.5); }
+      .work-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px; }
+      .work-footer a { color: var(--wk-blue); }
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .work-stats, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="站点导航">
+        <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
+        <nav class="section-nav" aria-label="页面分区">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="页面工具">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换亮色模式" aria-pressed="false">☀</button>
+          <a href="/works/affective-dynamics/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main id="main">
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <span class="work-hero-right"><a href="/works/affective-dynamics/" lang="en">English</a></span>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 论文 14 · 综述</p>
+            <h1 class="work-title">人–AI 智能体协作中的情感动态：<em>机制、风险与治理</em><span style="color: var(--hero-accent)">。</span></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: var(--wk-muted); font-size: 16.5px; line-height: 1.6;">
+              当智能体会规划、会记忆、会调用工具、会行动——情感表达就不再是一种语气选择，而成为协作基础设施的一部分。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">在审 · ACM Computing Surveys</span>
+              <span class="meta-chip">综述</span>
+              <span class="meta-chip">人机协作</span>
+              <span class="meta-chip">情感计算</span>
+              <span class="meta-chip">AI 治理</span>
+            </div>
+            <p class="work-authors"><strong>许俊杰</strong> 等 · 华东师范大学 与 新加坡国立大学</p>
+            <p class="work-tldr">
+              温暖、自信、道歉、认可、被模拟出的共情——在智能体系统里这些不是风格选择：它们影响人们<strong style="color:var(--wk-strong)">何时信任、何时托付、何时核查、何时纠正、何时退出</strong>。本综述把情感计算、自动化信任、人机交互、LLM 智能体研究与 AI 治理五支文献整合为一个关于情感动态的完整叙述，严格区分<strong style="color:var(--wk-strong)">情感表达、被感知的智能体情感与真实情绪</strong>三类构念，并把情感视为人与智能体协商能力、不确定性与责任的协调层。
+            </p>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>128</b><span>篇参考文献，横跨五支研究文献的分级综合</span></div>
+            <div class="work-stat"><b>4</b><span>类产生情感行为的计算机制</span></div>
+            <div class="work-stat"><b>5</b><span>条情感线索改变依赖与监督的协作路径</span></div>
+            <div class="work-stat"><b>3</b><span>个被严格区分的构念：表达、被感知情感、真实情绪</span></div>
+          </div>
+
+
+          <section class="work-section reveal" id="question">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>问题是什么</h2>
+            </div>
+            <div class="work-prose"><p>传统人机交互大多把系统当作工具：人设定目标、理解语境、承担责任，软件照令执行。基于大模型的智能体让这种分工难以为继——它们跨更长周期地规划、跨会话地记忆、调用工具，并在被授权的范围内行动。</p>
+<p>在这样的设定里，情感表达不再是装饰。温暖、自信、道歉与模拟共情会改变用户是否信任一个方案、是否托付一个决策、是否核查一个输出、或者干脆退出。相关证据分散在情感计算、自动化信任、人机交互、LLM 智能体与 AI 治理五支文献中，但每一支都很少回答：当系统拥有记忆、工具使用与部分自主性之后，到底什么变了。这个空档正是本综述的对象。</p></div>
+            <figure class="work-figure" aria-labelledby="fig-01">
+              <picture><source type="image/webp" srcset="/assets/works/affective-dynamics/ad-framework.webp"><img src="/assets/works/affective-dynamics/ad-framework.jpg" alt="综述框架总览：情感动态作为人机智能体协作的协调层，含交互闭环、计算生成器与校准机制" loading="lazy" /></picture>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>综述的总体框架——情感动态作为人–AI 智能体协作的协调层：交互闭环、情感行为的计算生成器，以及围绕它们的校准机制。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="approach">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>怎么做</h2>
+            </div>
+            <div class="work-prose"><p>综述围绕一条闭环与四层结构展开。<strong>情感交互闭环</strong>从用户情感出发，经过情感输入线索、模型情感表达、被感知的智能体情感，回到人类行为响应——并分叉为校准的协作或若干风险路径。</p>
+<p>在闭环之上，综述综合了<strong>四类计算机制</strong>（感知与响应生成、情感化提示、人格与记忆与情感连续性、对齐与安全门控含谄媚问题），追踪<strong>五条协作路径</strong>（信任校准、托付与自主性、错误检测与修复、拟人化与依赖、反馈回路与共同适应），刻画让这些路径变得危险的<strong>部署配置</strong>，并梳理面向校准情感对齐的<strong>测量与治理工具</strong>。</p>
+<p>两条方法论承诺贯穿全文：论断<strong>按证据强度与到智能体系统的直接程度分级</strong>；因果措辞与实验设计严格匹配——相关发现不会被悄悄升格为因果结论。</p></div>
+            <figure class="work-figure" aria-labelledby="fig-02">
+              <picture><source type="image/webp" srcset="/assets/works/affective-dynamics/ad-loop.webp"><img src="/assets/works/affective-dynamics/ad-loop.jpg" alt="情感交互闭环：用户情感、情感输入线索、模型情感表达、被感知的智能体情感与人类行为响应，分叉为校准协作或风险路径" loading="lazy" /></picture>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>情感交互闭环——从用户情感到行为响应的五个阶段，以及协作走向校准或风险的分叉点。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="findings">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>贡献是什么</h2>
+            </div>
+            <div class="work-prose"><p>其一，一个可辩护的归因立场：当前智能体拥有的是<strong>交互性表达与用户感知到的情感角色，而非主观感受</strong>——混淆这两者，正是过度宣称与监管不足共同的起点。</p>
+<p>其二，一个整合框架，把<strong>情感当作协调层</strong>：人与智能体借以协商能力、不确定性与责任的媒介，而不是输出上的语气旋钮。</p>
+<p>其三，一条从机制到配置的<strong>风险梯度</strong>：记忆、自主性与情感表达的哪些组合会让协作路径变得危险，并沿这条梯度映射治理与监管工具。</p>
+<p>其四，一份明确的<strong>智能体专属纵向证据缺口清单</strong>——综述标出自己的边界，而不是掩盖它们。</p></div>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul><li>对五支文献、128 篇参考文献的整合综合</li><li>表达 / 被感知情感 / 真实情绪的三分构念，全文一致贯彻</li><li>机制–路径–配置–治理框架，附领域风险量表</li><li>论断按证据强度分级，因果措辞与实验设计匹配</li></ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul><li>在审稿件——尚非同行评议结果</li><li>不主张当前智能体具有任何主观感受</li><li>文献覆盖截止投稿时点，领域演进很快</li><li>治理映射属阐释性学术工作，不构成法律意见</li></ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="cite">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>引用</h2>
+            </div>
+            <div class="work-cite">
+              <button class="copy-btn" type="button" data-copy-cite>复制</button>
+              <pre id="cite-text">@article{xu2026affectivedynamics,
+  title   = {Affective Dynamics in Human--AI Agent Collaboration:
+             A Survey of Mechanisms, Risks, and Governance},
+  author  = {Xu, Junjie and Wu, Xingjiao and Zhang, Zihao and Xu, Yujia
+             and Yang, Yuzhe and Zhu, Jin and Xiao, Luwei and Wu, Wen
+             and He, Liang},
+  journal = {Manuscript submitted to ACM Computing Surveys},
+  year    = {2026}
+}</pre>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>论文 14 · 综述 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">junjiexu.github.io</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script defer src="/assets/vendor/lenis.min.js"></script>
+    <script defer src="/assets/scroll-feel.js"></script>
+    <script defer src="/assets/theme-toggle.js"></script>
+    <script>
+      /* stat-count-up */
+      document.documentElement.classList.add("js");
+      setTimeout(function () { document.documentElement.classList.add("entrance-done"); }, 1500);
+
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals);
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      }
+      document.querySelector("[data-copy-cite]").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(document.getElementById("cite-text").textContent.trim());
+          button.textContent = "已复制 ✓";
+        } catch {
+          button.textContent = "请按 ⌘C";
+        }
+        setTimeout(() => (button.textContent = "复制"), 1800);
+      });
+      /* stat-count-up */
+      function setupStatCountUp() {
+        const stats = document.querySelector(".work-stats");
+        if (!stats || stats.dataset.statCountUp) return;
+        stats.dataset.statCountUp = "1";
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const items = [...stats.querySelectorAll("b")].flatMap((b) => {
+          const m = /^(\D*)([0-9][0-9,]*(?:\.[0-9]+)?)(\D*)$/.exec((b.textContent || "").trim());
+          if (!m) return [];
+          const dec = m[2].includes(".") ? m[2].length - m[2].indexOf(".") - 1 : 0;
+          const grouped = m[2].includes(",");
+          const fmt = (v) => m[1] + (grouped
+            ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })
+            : v.toFixed(dec)) + m[3];
+          return [{ el: b, target: parseFloat(m[2].replace(/,/g, "")), fmt }];
+        });
+        if (!items.length) return;
+        let start = 0;
+        let finished = false;
+        const step = (ts) => {
+          if (finished) return;
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / 900, 1);
+          const e = 1 - Math.pow(1 - p, 3);
+          items.forEach((it) => { it.el.textContent = it.fmt(it.target * e); });
+          if (p < 1) requestAnimationFrame(step);
+        };
+        const run = () => {
+          requestAnimationFrame(step);
+          setTimeout(() => {
+            finished = true;
+            items.forEach((it) => { it.el.textContent = it.fmt(it.target); });
+          }, 1000);
+        };
+        if (stats.classList.contains("is-in")) run();
+        else {
+          const obs = new MutationObserver(() => {
+            if (stats.classList.contains("is-in")) { obs.disconnect(); run(); }
+          });
+          obs.observe(stats, { attributes: true, attributeFilter: ["class"] });
+        }
+      }
+      setupStatCountUp();
+</script>
+  </body>
+</html>

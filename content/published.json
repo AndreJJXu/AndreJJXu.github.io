@@ -4,7 +4,7 @@
   "profiles": [],
   "contact": {
     "email": "jjxu_dr@stu.ecnu.edu.cn",
-    "cvUrl": "/cv/"
+    "cvUrl": "/assets/cv/junjie-xu-cv-en.pdf"
   },
   "projects": [],
   "publications": [
@@ -221,8 +221,15 @@
       "authors": "Junjie Xu and collaborators",
       "venue": "Under review · AAAI 2027",
       "status": "Under review",
+      "statusZh": "评审中"
+    },
+    {
+      "title": "Affective Dynamics in Human–AI Agent Collaboration: A Survey of Mechanisms, Risks, and Governance",
+      "authors": "Junjie Xu, Xingjiao Wu, Zihao Zhang, Yujia Xu, Yuzhe Yang, Jin Zhu, Luwei Xiao, Wen Wu, Liang He",
+      "venue": "Under review · ACM Computing Surveys",
+      "status": "Under review",
       "statusZh": "评审中",
-      "url": "/works/evidence-before-severity/"
+      "url": "/works/affective-dynamics/"
     }
   ],
   "patents": [

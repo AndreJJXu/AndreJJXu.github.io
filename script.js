@@ -102,6 +102,11 @@ const siteData = {
   articles: [],
   awards: [
     {
+      year: "2026",
+      name: "China International College Students' Innovation Competition",
+      org: "Higher-Education Main Track · Graduate Creative Group · Project Lead — national round in progress",
+    },
+    {
       year: "2025",
       name: "Kuanrui Talent Scholarship",
       org: "ECNU School of Computer Science and Technology",

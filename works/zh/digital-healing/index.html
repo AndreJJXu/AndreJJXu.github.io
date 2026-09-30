@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="数智疗愈：面向阈下抑郁人群的心理干预辅助平台——多模态情感评估与情感可控的音乐、图像生成，2026 中国国际大学生创新大赛参赛项目。" />
+    <meta property="og:title" content="数智疗愈 | 许俊杰" />
+    <meta property="og:description" content="数智疗愈：面向阈下抑郁人群的心理干预辅助平台——多模态情感评估与情感可控的音乐、图像生成，2026 中国国际大学生创新大赛参赛项目。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="/assets/works/digital-healing/dh-architecture.jpg" />
+    <title>数智疗愈 | 许俊杰</title>
+    <link rel="canonical" href="https://andrejjxu.github.io/works/zh/digital-healing/" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
+      .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
+      .work-hero-right { display: inline-flex; gap: 20px; align-items: center; }
+      .work-top a { color: var(--wk-muted); font-size: 12.5px; font-weight: 600; }
+      .work-top a:hover { color: var(--wk-blue); }
+      .work-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 26px; color: var(--wk-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; }
+      .work-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wk-green); }
+      .work-title { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(32px, 4.8vw, 52px); font-weight: 640; line-height: 1.14; letter-spacing: -0.01em; text-wrap: balance; }
+      .work-title em { font-style: normal; color: var(--wk-blue); }
+      .work-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+      .meta-chip { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-muted); font-size: 12.5px; font-weight: 570; }
+      .meta-chip.is-accent { border-color: rgba(117, 183, 255, 0.4); background: rgba(117, 183, 255, 0.1); color: var(--wk-blue); }
+      .work-authors { margin: 26px 0 0; color: var(--wk-muted); font-size: 14px; line-height: 1.7; }
+      .work-authors strong { color: var(--hero-ink); font-weight: 600; }
+      .work-tldr { max-width: 760px; margin: 48px 0 0; color: var(--wk-tldr); font-size: 19px; line-height: 1.9; }
+      .work-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 64px; }
+      .work-stat { padding: 22px 22px 20px; border: 1px solid var(--wk-line); border-radius: 16px; background: var(--wk-card); }
+      .work-stat b { display: block; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+      .work-stat span { display: block; margin-top: 7px; color: var(--wk-muted); font-size: 12px; line-height: 1.45; }
+      .work-section { margin-top: 88px; }
+      .work-heading { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 28px; align-items: baseline; margin-bottom: 26px; }
+      .work-heading .num { color: var(--wk-blue); font-family: var(--font-serif); font-size: 17px; }
+      .work-heading h2 { margin: 0; color: var(--hero-ink); font-family: var(--hero-font-display); font-size: clamp(25px, 3vw, 33px); font-weight: 630; letter-spacing: -0.01em; line-height: 1.15; }
+      .work-prose { max-width: 820px; color: var(--wk-body); font-size: 15px; line-height: 2; }
+      .work-prose p { margin: 0 0 14px; }
+      .work-prose strong { color: var(--hero-ink); font-weight: 620; }
+      .work-figure { margin: 30px 0 0; padding: 22px; border: 1px solid var(--wk-line); border-radius: 18px; background: linear-gradient(180deg, var(--wk-fig-a), var(--wk-fig-b)); }
+      .work-figure img { display: block; width: 100%; height: auto; border-radius: 8px; background: #fff; }
+      .work-figcaption { display: flex; gap: 14px; margin-top: 18px; color: var(--wk-muted); font-size: 12.5px; line-height: 1.6; }
+      .work-figcaption b { flex: 0 0 auto; color: var(--wk-blue); font-family: var(--font-serif); font-weight: 500; }
+      .boundary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+      .boundary-card { padding: 24px 26px; border-radius: 18px; font-size: 13.5px; line-height: 1.85; }
+      .boundary-card h3 { margin: 0 0 12px; font-family: var(--hero-font-display); font-size: 16px; font-weight: 640; }
+      .boundary-card ul { margin: 0; padding-left: 18px; }
+      .boundary-card li { margin: 6px 0; }
+      .boundary-card.is-yes { border: 1px solid rgba(105, 221, 181, 0.3); background: rgba(105, 221, 181, 0.05); color: var(--wk-yes-ink); }
+      .boundary-card.is-yes h3 { color: var(--wk-green); }
+      .boundary-card.is-no { border: 1px solid rgba(255, 139, 114, 0.28); background: rgba(255, 139, 114, 0.045); color: var(--wk-no-ink); }
+      .boundary-card.is-no h3 { color: var(--wk-red); }
+      .work-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .work-links a { display: inline-flex; padding: 8px 15px; border: 1px solid var(--wk-line); border-radius: 999px; color: var(--wk-blue); font-size: 12.5px; font-weight: 620; text-decoration: none; transition: border-color 160ms ease, background 160ms ease; }
+      .work-links a:hover { border-color: rgba(117, 183, 255, 0.5); background: rgba(117, 183, 255, 0.08); }
+      .work-footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--wk-line); color: var(--wk-muted); font-size: 12.5px; }
+      .work-footer a { color: var(--wk-blue); }
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+      .reveal.is-in { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .work-stats, .boundary-grid { grid-template-columns: minmax(0, 1fr); }
+        .work-heading { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        .work-figure { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+  </head>
+  <body class="hero-rail-active" data-page="public" data-locale="zh">
+    <a class="skip-link" href="#main">跳转到正文</a>
+    <div class="page-shell">
+      <aside class="site-rail" aria-label="站点导航">
+        <a class="monogram" href="/zh/#about" aria-label="返回首页">JX</a>
+        <nav class="section-nav" aria-label="页面分区">
+          <a href="/zh/#about">关于</a>
+          <a href="/zh/#work">研究</a>
+          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
+          <a href="/zh/#publications">论文</a>
+          <a href="/zh/#patents">专利</a>
+          <a href="/zh/#writing">工作记录</a>
+          <a href="/zh/#honors">荣誉</a>
+        </nav>
+        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
+        <div class="rail-tools" aria-label="页面工具">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换亮色模式" aria-pressed="false">☀</button>
+          <a href="/works/digital-healing/" lang="en">English</a>
+          <a href="/cv/zh/">简历</a>
+        </div>
+      </aside>
+
+      <main id="main">
+        <article class="work-page">
+          <header>
+            <div class="work-top">
+              <a href="/works/zh/">← 全部作品</a>
+              <span class="work-hero-right"><a href="/works/digital-healing/" lang="en">English</a></span>
+            </div>
+            <p class="work-kicker"><span class="dot"></span> 竞赛项目 · 数字疗法</p>
+            <h1 class="work-title">数智疗愈：面向<em>阈下抑郁人群</em>的支持平台<span style="color: var(--hero-accent)">。</span></h1>
+            <p style="max-width: 700px; margin: 18px 0 0; color: var(--wk-muted); font-size: 16.5px; line-height: 1.6;">
+              一次研究落地：把实验室的情感计算工作，转化为服务于临床阈值之下人群的日常支持产品构想。
+            </p>
+            <div class="work-meta">
+              <span class="meta-chip is-accent">2026 中国国际大学生创新大赛 · 高教主赛道</span>
+              <span class="meta-chip">研究生创意组</span>
+              <span class="meta-chip">数字疗法</span>
+              <span class="meta-chip">多模态情感计算</span>
+            </div>
+            <p class="work-authors"><strong>项目负责人 — 许俊杰</strong> · 华东师范大学团队</p>
+            <p class="work-tldr">
+              阈下抑郁人群庞大——在青年群体中尤为突出——却恰好落在临床资源集中的阈值之下。数智疗愈把<strong style="color:var(--wk-strong)">多模态情感评估</strong>与<strong style="color:var(--wk-strong)">情感可控的音乐、图像生成</strong>组合起来，提供低门槛的日常支持：两个产品构想（数智冥想、音画疗愈）构建在五层平台之上，作为项目负责人参加 2026 中国国际大学生创新大赛。
+            </p>
+          </header>
+
+          <div class="work-stats reveal">
+            <div class="work-stat"><b>2</b><span>个产品构想：数智冥想 与 音画疗愈</span></div>
+            <div class="work-stat"><b>5</b><span>层平台架构：感知 → 融合 → 决策 → 执行 → 反馈</span></div>
+            <div class="work-stat"><b>371</b><span>名高校心理中心伦理批准试点参与者（2025.12 – 2026.8）</span></div>
+            <div class="work-stat"><b>2026</b><span>年中国国际大学生创新大赛，进行中</span></div>
+          </div>
+
+
+          <section class="work-section reveal" id="question">
+            <div class="work-heading">
+              <span class="num">01</span>
+              <h2>缺口在哪里</h2>
+            </div>
+            <div class="work-prose"><p>阈下抑郁——未达到临床诊断标准的抑郁症状——影响的人群规模庞大，青年群体中比例尤高。而现行体系对这一群体服务最薄弱：临床资源集中在已确诊患者身上；阈值之下能得到的，多是自报式的打卡记录与千篇一律的固定内容，缺少可生成、可回应个人状态的支撑。</p>
+<p>项目的出发点，是本实验室持续多年的一个研究判断：如果模型能够<strong>多模态地评估情感</strong>，并<strong>按情感意图生成可控的音乐与画面</strong>，这些能力可以组合成一种日常支持服务——不是替代临床，而是接住「日记与治疗之间」的那段空白。</p></div>
+            <figure class="work-figure" aria-labelledby="fig-01">
+              <picture><source type="image/webp" srcset="/assets/works/digital-healing/dh-architecture.webp"><img src="/assets/works/digital-healing/dh-architecture.jpg" alt="数智疗愈五层平台架构：感知层、融合层、决策层、执行层、反馈层" loading="lazy" /></picture>
+              <figcaption class="work-figcaption" id="fig-01"><b>图 1</b><span>五层平台架构——从多模态数据感知、情感融合与决策，到生成执行与反馈调节。取自团队 2026 年参赛材料。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="approach">
+            <div class="work-heading">
+              <span class="num">02</span>
+              <h2>怎么做</h2>
+            </div>
+            <div class="work-prose"><p>平台按五层闭环组织。<strong>感知层</strong>采集多模态信号；<strong>融合层</strong>形成情感评估；<strong>决策层</strong>选择支持策略；<strong>执行层</strong>生成干预内容；<strong>反馈层</strong>以响应测量收口并调节。</p>
+<p>执行层正是实验室研究线的汇合处：<strong>情感可控的文生音乐</strong>与<strong>带情感意图的音乐生成图像</strong>——与论文线里研究的对齐、偏好学习是同一组问题，只是这里组合成服务管线，而非基准测试。</p>
+<p>一项经伦理批准的高校心理中心试点（371 名参与者，2025 年 12 月 – 2026 年 8 月）为需求设计提供依据：阈值之下的人群到底经历什么、回应什么、在哪里流失。</p></div>
+            <figure class="work-figure" aria-labelledby="fig-02">
+              <picture><source type="image/webp" srcset="/assets/works/digital-healing/dh-tech.webp"><img src="/assets/works/digital-healing/dh-tech.jpg" alt="可控文生音乐生成管线：从文本中抽取情感并控制音乐生成" loading="lazy" /></picture>
+              <figcaption class="work-figcaption" id="fig-02"><b>图 2</b><span>情感可控生成管线——从文本抽取情感，驱动可控的音乐生成。取自团队 2026 年参赛材料。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="products">
+            <div class="work-heading">
+              <span class="num">03</span>
+              <h2>产品形态</h2>
+            </div>
+            <div class="work-prose"><p>两个构想把闭环交到用户手里。<strong>数智冥想</strong>按评估到的状态调整冥想节奏与声音质地；<strong>音画疗愈</strong>把用户的情绪状态转化为一段专属于此刻的音乐与相配的生成画面——支持是「为这一刻生成的」，而不是从素材库里检索的。</p>
+<p>界面遵循一条原则：评估保持无感，生成保持可读。用户始终能以直白的形式看到系统推断到了什么、生成了什么。</p></div>
+            <figure class="work-figure" aria-labelledby="fig-03">
+              <picture><source type="image/webp" srcset="/assets/works/digital-healing/dh-product.webp"><img src="/assets/works/digital-healing/dh-product.jpg" alt="产品界面：情绪首页、打卡、引导冥想播放器与生成报告" loading="lazy" /></picture>
+              <figcaption class="work-figcaption" id="fig-03"><b>图 3</b><span>应用界面构想——情绪首页、打卡、引导冥想播放器与生成报告视图。取自团队 2026 年参赛材料。</span></figcaption>
+            </figure>
+          </section>
+
+          <section class="work-section reveal" id="boundary">
+            <div class="work-heading">
+              <span class="num">04</span>
+              <h2>主张边界</h2>
+            </div>
+            <div class="boundary-grid">
+              <div class="boundary-card is-yes">
+                <h3>✓ 已确立</h3>
+                <ul><li>五层平台架构与「评估–生成」闭环</li><li>两个产品构想及界面原型</li><li>经伦理批准的高校试点（N=371）支撑需求设计</li><li>2026 参赛项目——高教主赛道 · 研究生创意组 · 项目负责人</li></ul>
+              </div>
+              <div class="boundary-card is-no">
+                <h3>✗ 明确不主张</h3>
+                <ul><li>非医疗器械，不构成诊断或治疗主张</li><li>不主张疗效——随机对照试验已在规划、尚未开展</li><li>机构合作在推进中，不代表任何医院背书</li><li>截至页面更新时，赛事结果尚未揭晓</li></ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="work-section reveal" id="related">
+            <div class="work-heading">
+              <span class="num">05</span>
+              <h2>相关研究</h2>
+            </div>
+            <div class="work-prose"><p>该平台是一整条一作研究线的落地层——情感对齐与舒适度感知生成。下面这些页面，是引擎背后的科学：</p></div>
+            <div class="work-links">
+              <a href="/works/zh/affective-dynamics/">情感动态综述 ↗</a>
+              <a href="/works/zh/elysianmv/">ElysianMV ↗</a>
+              <a href="/works/zh/phoenix/">Phoenix ↗</a>
+              <a href="/works/zh/coffee/">COFFEE ↗</a>
+              <a href="/works/zh/healbench/">HealBench ↗</a>
+            </div>
+          </section>
+
+          <footer class="work-footer">
+            <span>竞赛项目 · 数字疗法 — <a href="/works/zh/">全部作品</a></span>
+            <span><a href="/zh/">junjiexu.github.io</a> · 更新于 2026.09</span>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script defer src="/assets/vendor/lenis.min.js"></script>
+    <script defer src="/assets/scroll-feel.js"></script>
+    <script defer src="/assets/theme-toggle.js"></script>
+    <script>
+      document.documentElement.classList.add("js");
+      setTimeout(function () { document.documentElement.classList.add("entrance-done"); }, 1500);
+
+      const reveals = [...document.querySelectorAll(".reveal")];
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+      } else {
+        let revealTimer = 0;
+        const checkReveals = () => {
+          if (revealTimer) { clearTimeout(revealTimer); revealTimer = 0; }
+          const threshold = window.innerHeight * 0.92;
+          for (const el of reveals) {
+            if (!el.classList.contains("is-in") && el.getBoundingClientRect().top < threshold) el.classList.add("is-in");
+          }
+        };
+        const scheduleReveals = () => { if (!revealTimer) revealTimer = setTimeout(checkReveals, 60); };
+        window.addEventListener("scroll", scheduleReveals, { passive: true });
+        window.addEventListener("resize", scheduleReveals);
+        window.addEventListener("load", scheduleReveals);
+        setTimeout(scheduleReveals, 300);
+        checkReveals();
+      };
+      /* stat-count-up */
+      function setupStatCountUp() {
+        const stats = document.querySelector(".work-stats");
+        if (!stats || stats.dataset.statCountUp) return;
+        stats.dataset.statCountUp = "1";
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const items = [...stats.querySelectorAll("b")].flatMap((b) => {
+          const m = /^(\D*)([0-9][0-9,]*(?:\.[0-9]+)?)(\D*)$/.exec((b.textContent || "").trim());
+          if (!m) return [];
+          const dec = m[2].includes(".") ? m[2].length - m[2].indexOf(".") - 1 : 0;
+          const grouped = m[2].includes(",");
+          const fmt = (v) => m[1] + (grouped
+            ? v.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec })
+            : v.toFixed(dec)) + m[3];
+          return [{ el: b, target: parseFloat(m[2].replace(/,/g, "")), fmt }];
+        });
+        if (!items.length) return;
+        let start = 0;
+        let finished = false;
+        const step = (ts) => {
+          if (finished) return;
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / 900, 1);
+          const e = 1 - Math.pow(1 - p, 3);
+          items.forEach((it) => { it.el.textContent = it.fmt(it.target * e); });
+          if (p < 1) requestAnimationFrame(step);
+        };
+        const run = () => {
+          requestAnimationFrame(step);
+          setTimeout(() => {
+            finished = true;
+            items.forEach((it) => { it.el.textContent = it.fmt(it.target); });
+          }, 1000);
+        };
+        if (stats.classList.contains("is-in")) run();
+        else {
+          const obs = new MutationObserver(() => {
+            if (stats.classList.contains("is-in")) { obs.disconnect(); run(); }
+          });
+          obs.observe(stats, { attributes: true, attributeFilter: ["class"] });
+        }
+      }
+      setupStatCountUp();
+</script>
+  </body>
+</html>
