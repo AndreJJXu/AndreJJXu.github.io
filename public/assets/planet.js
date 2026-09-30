@@ -35,8 +35,8 @@
   canvas.setAttribute("aria-hidden", "true");
 
   var renderer = null;
-  var scene, camera, earth, clouds, atmosphere, lights;
-  var sun = new THREE.DirectionalLight(0xfff4e2, 3.4);
+  var scene, camera, earth, clouds, atmosphere;
+  var sun = new THREE.DirectionalLight(0xffffff, 3.2);
   var system = new THREE.Group();
   var clock = new THREE.Clock();
   var rafId = 0;
@@ -57,22 +57,22 @@
     camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
     camera.position.set(0, 0, 3.4);
 
-    // Key light: warm sun from the upper left, the classic limb-lit look.
-    sun.position.set(-7.5, 3.2, 3.0);
+    // WeChat-splash style: the whole visible disc is lit — the sun rides
+    // along with the camera (updated every frame) with a slight upper-left
+    // bias so the sphere keeps gentle dimension instead of going flat.
     scene.add(sun);
-    scene.add(new THREE.AmbientLight(0x1c2a42, 0.55));
+    scene.add(new THREE.AmbientLight(0x2e4362, 1.5));
 
     var loader = new THREE.TextureLoader();
     var dayMap = loader.load(TEXTURES + "earth_day_4k.jpg");
     var normalMap = loader.load(TEXTURES + "earth_normal_2048.jpg");
     var specMap = loader.load(TEXTURES + "earth_specular_2048.jpg");
-    var lightsMap = loader.load(TEXTURES + "earth_night_4k.jpg");
     var cloudsMap = loader.load(TEXTURES + "earth_clouds_1024.png");
     var maxAniso = renderer.capabilities.getMaxAnisotropy();
-    [dayMap, normalMap, specMap, lightsMap, cloudsMap].forEach(function (t) {
+    [dayMap, normalMap, specMap, cloudsMap].forEach(function (t) {
       t.anisotropy = maxAniso;
     });
-    [dayMap, lightsMap, cloudsMap].forEach(function (t) { t.colorSpace = THREE.SRGBColorSpace; });
+    [dayMap, cloudsMap].forEach(function (t) { t.colorSpace = THREE.SRGBColorSpace; });
 
     var surfaceGeo = new THREE.SphereGeometry(1, 128, 128);
 
@@ -88,42 +88,6 @@
       })
     );
     system.add(earth);
-
-    // Night-side city lights: additive shell, revealed where the sun is not.
-    lights = new THREE.Mesh(
-      new THREE.SphereGeometry(1.002, 128, 128),
-      new THREE.ShaderMaterial({
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        uniforms: {
-          uLights: { value: lightsMap },
-          uSunDirection: { value: sun.position.clone().normalize() },
-        },
-        vertexShader: [
-          "varying vec2 vUv;",
-          "varying vec3 vWorldNormal;",
-          "void main() {",
-          "  vUv = uv;",
-          "  vWorldNormal = normalize(mat3(modelMatrix) * normal);",
-          "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
-          "}",
-        ].join("\n"),
-        fragmentShader: [
-          "uniform sampler2D uLights;",
-          "uniform vec3 uSunDirection;",
-          "varying vec2 vUv;",
-          "varying vec3 vWorldNormal;",
-          "void main() {",
-          "  float lit = dot(normalize(vWorldNormal), normalize(uSunDirection));",
-          "  float night = smoothstep(0.12, -0.28, lit);",
-          "  vec3 city = texture2D(uLights, vUv).rgb;",
-          "  gl_FragColor = vec4(city * night * 1.55, 1.0);",
-          "}",
-        ].join("\n"),
-      })
-    );
-    system.add(lights);
 
     // Cloud deck: slightly larger sphere, lit by the same sun, drifting
     // a touch faster than the surface.
@@ -217,6 +181,9 @@
     var delta = Math.min(clock.getDelta(), 0.05);
     var time = clock.elapsedTime;
 
+    // frontal key light riding with the camera — full-disc illumination
+    sun.position.set(camera.position.x - 2.4, camera.position.y + 1.8, camera.position.z + 4.2);
+
     if (!reducedMotion.matches) {
       earth.rotation.y = baseEarthSpin += delta * 0.012;
       clouds.rotation.y += delta * 0.016;
@@ -273,7 +240,7 @@
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.12;
 
   buildScene();
   document.body.appendChild(canvas);
