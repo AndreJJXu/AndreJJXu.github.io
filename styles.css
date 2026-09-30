@@ -3253,3 +3253,129 @@ main > .section.is-revealed {
     overflow-wrap: anywhere;
   }
 }
+
+/* Writing section: article titles link to permalink pages */
+.featured-story h3 a,
+.article h3 a {
+  text-decoration: underline;
+  text-decoration-color: var(--line-dark);
+  text-underline-offset: 5px;
+}
+
+.featured-story h3 a:hover,
+.featured-story h3 a:focus-visible,
+.article h3 a:hover,
+.article h3 a:focus-visible {
+  color: var(--blue);
+  text-decoration-color: var(--blue);
+  outline: 0;
+}
+
+.read-toggle {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* News strip — compact latest-updates line under the hero */
+.news-strip {
+  margin: 26px 0 -8px;
+  padding: 18px 22px;
+  border: 1px solid var(--hero-line);
+  border-radius: 14px;
+  background: var(--wk-card, rgba(148, 178, 214, 0.04));
+}
+
+.news-strip ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-strip li {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 16px;
+  padding: 7px 0;
+}
+
+.news-strip li + li {
+  border-top: 1px solid var(--hero-line);
+}
+
+.news-date {
+  color: var(--hero-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.news-text {
+  color: var(--hero-body, var(--hero-muted));
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.news-text a {
+  color: var(--hero-accent);
+  text-decoration: none;
+}
+
+.news-text a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+  .news-strip li { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+}
+
+/* Publication filter controls */
+.pub-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.pub-filter {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-body, inherit);
+  font-size: 12.5px;
+  font-weight: 620;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+
+.pub-filter:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.pub-filter.is-active {
+  border-color: var(--blue);
+  background: rgba(117, 183, 255, 0.1);
+  color: var(--blue);
+}
+
+.pub-bib {
+  margin-left: auto;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 620;
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.pub-bib:hover {
+  border-color: var(--blue);
+  background: rgba(117, 183, 255, 0.08);
+}

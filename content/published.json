@@ -1,12 +1,63 @@
 {
   "version": 1,
   "publishedAt": null,
-  "profiles": [],
+  "profiles": [
+    {
+      "label": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=Ezn3PjgAAAAJ"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/AndreJJXu"
+    },
+    {
+      "label": "ORCID",
+      "url": "https://orcid.org/0009-0007-1965-867X"
+    }
+  ],
   "contact": {
     "email": "jjxu_dr@stu.ecnu.edu.cn",
     "cvUrl": "/assets/cv/junjie-xu-cv-en.pdf"
   },
-  "projects": [],
+  "projects": [
+    {
+      "title": "Multimodal Digital Therapeutics",
+      "url": "/works/digital-healing/",
+      "summary": "负责人项目「人机混合下基于多模态的数字药物研究」。围绕情感体验与多模态交互探索数字健康支持；项目结题评定为优秀。",
+      "summaryEn": "A research project on multimodal digital support, emotional experience, and human-centered interaction. The project was rated excellent at completion.",
+      "role": "Project Director",
+      "roleZh": "项目负责人",
+      "fund": "Interdisciplinary Research Project · ECNU",
+      "fundZh": "交叉学科研究项目 · 华东师范大学",
+      "period": "2024 — 2025 · Excellent",
+      "periodZh": "2024 — 2025 · 结题优秀",
+      "color": "blue"
+    },
+    {
+      "title": "Emotion-Controllable Music-to-Image",
+      "summary": "负责人项目「人机混合智能下情感可控的音乐图像生成研究」。探索如何将人类反馈与情感意图带入音乐到图像的跨模态生成。",
+      "summaryEn": "Exploring how human feedback and affective intent can shape cross-modal music-to-image generation.",
+      "role": "Project Director",
+      "roleZh": "项目负责人",
+      "fund": "Doctoral Research Innovation Fund · ECNU",
+      "fundZh": "博士生科研创新基金 · 华东师范大学",
+      "period": "2023 · Advised by Liang He",
+      "periodZh": "2023 · 指导教师 Liang He",
+      "color": "red"
+    },
+    {
+      "title": "EduChat-R1",
+      "summary": "参与 ECNU EduChat-R1 开源教育推理模型项目，支持面向教育场景的推理能力建设与开源协作。",
+      "summaryEn": "Contributing to an open education reasoning model through research, engineering, and open-source collaboration.",
+      "role": "Participant",
+      "roleZh": "项目参与",
+      "fund": "Open Education Reasoning Model · ECNU",
+      "fundZh": "开源教育推理模型 · 华东师范大学",
+      "period": "2025 · Open-source release",
+      "periodZh": "2025 · 开源发布",
+      "color": "green"
+    }
+  ],
   "publications": [
     {
       "title": "APEX: Learning Adaptive Priorities for Multi-Objective Alignment in Vision-Language Generation",
@@ -318,7 +369,43 @@
       "inventor": "马天龙"
     }
   ],
-  "awards": [],
+  "awards": [
+    {
+      "year": "2026",
+      "name": "China International College Students' Innovation Competition",
+      "nameZh": "中国国际大学生创新大赛（原“互联网+”）",
+      "org": "Higher-Education Main Track · Graduate Creative Group · Project Lead — national round in progress",
+      "orgZh": "高教主赛道 · 研究生创意组 · 项目负责人 — 国赛进行中"
+    },
+    {
+      "year": "2025",
+      "name": "Kuanrui Talent Scholarship",
+      "nameZh": "宽睿人才奖学金",
+      "org": "ECNU School of Computer Science and Technology",
+      "orgZh": "华东师范大学计算机科学与技术学院"
+    },
+    {
+      "year": "2023",
+      "name": "Shanghai Outstanding Graduate",
+      "nameZh": "上海市优秀毕业生",
+      "org": "Shanghai Municipal Education Commission",
+      "orgZh": "上海市教育委员会"
+    },
+    {
+      "year": "2023",
+      "name": "National Third Prize · Challenge Cup",
+      "nameZh": "“挑战杯”全国三等奖",
+      "org": "China Association for Science and Technology",
+      "orgZh": "中国科学技术协会"
+    },
+    {
+      "year": "2022",
+      "name": "Huaxin Scholarship",
+      "nameZh": "华信奖学金",
+      "org": "ECNU School of Computer Science and Technology",
+      "orgZh": "华东师范大学计算机科学与技术学院"
+    }
+  ],
   "articles": [
     {
       "id": "music-to-image-project-log",
@@ -471,5 +558,25 @@
       ]
     }
   ],
-  "researchNotes": []
+  "researchNotes": [],
+  "news": [
+    {
+      "date": "2026.11",
+      "href": "",
+      "en": "CSC-funded visiting researcher at Nanyang Technological University begins — hosted by Prof. Eric Cambria, through Nov 2027.",
+      "zh": "获国家留学基金委（CSC）资助，赴新加坡南洋理工大学访学（师从 Eric Cambria 教授，至 2027 年 11 月）。"
+    },
+    {
+      "date": "2026.09",
+      "href": "/works/affective-dynamics/",
+      "en": "First-author survey “Affective Dynamics in Human–AI Agent Collaboration” submitted to ACM Computing Surveys.",
+      "zh": "一作综述《人–AI 智能体协作中的情感动态》投稿 ACM Computing Surveys。"
+    },
+    {
+      "date": "2026.09",
+      "href": "/works/digital-healing/",
+      "en": "“Digital Healing (数智疗愈)” entered the national round of the 2026 China International College Students' Innovation Competition as project lead.",
+      "zh": "「数智疗愈」作为项目负责人项目进入 2026 中国国际大学生创新大赛国赛。"
+    }
+  ]
 }

@@ -18,6 +18,7 @@ const siteData = {
     email: "jjxu_dr@stu.ecnu.edu.cn",
     cvUrl: "/cv/",
   },
+  news: [],
   profiles: [
     {
       label: "Google Scholar",
@@ -140,6 +141,9 @@ if (Array.isArray(publishedContent?.patents) && publishedContent.patents.length)
 }
 if (Array.isArray(publishedContent?.awards) && publishedContent.awards.length) {
   siteData.awards = publishedContent.awards;
+}
+if (Array.isArray(publishedContent?.news) && publishedContent.news.length) {
+  siteData.news = publishedContent.news;
 }
 if (Array.isArray(publishedContent?.articles) && publishedContent.articles.length) {
   siteData.articles = publishedContent.articles;
@@ -295,10 +299,38 @@ function renderProjects() {
     .join("");
 }
 
+let pubFilter = "all";
+
+const isFirstAuthor = (publication) => /^Junjie Xu/i.test(String(publication.authors || ""));
+
+function setupPublicationControls() {
+  const controls = document.querySelector(".pub-controls");
+  if (!controls || controls.dataset.bound) return;
+  controls.dataset.bound = "1";
+  const totalCount = siteData.publications.length;
+  const firstCount = siteData.publications.filter(isFirstAuthor).length;
+  controls.querySelectorAll("[data-pub-filter]").forEach((button) => {
+    const mode = button.dataset.pubFilter;
+    button.textContent = `${mode === "first" ? (locale === "zh" ? "一作" : "First-author") : locale === "zh" ? "全部" : "All"} · ${mode === "first" ? firstCount : totalCount}`;
+    button.addEventListener("click", () => {
+      if (pubFilter === mode) return;
+      pubFilter = mode;
+      controls.querySelectorAll("[data-pub-filter]").forEach((b) => {
+        const active = b.dataset.pubFilter === mode;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      renderPublications();
+    });
+  });
+}
+
 function renderPublications() {
   const target = document.querySelector("#publication-list");
   if (!target) return;
-  target.innerHTML = siteData.publications
+  const list = pubFilter === "first" ? siteData.publications.filter(isFirstAuthor) : siteData.publications;
+  setupPublicationControls();
+  target.innerHTML = list
     .map((publication, index) => {
       const href = safeUrl(publication.url);
       const rawStatus = locale === "zh" ? publication.statusZh || publication.status : publication.status;
@@ -358,10 +390,28 @@ function renderAwards() {
       (award) => `
         <li>
           <span class="award-year">${escapeHTML(award.year)}</span>
-          <span class="award-name">${escapeHTML(award.name)}<span class="award-org">${escapeHTML(award.org)}</span></span>
+          <span class="award-name">${escapeHTML(locale === "zh" ? award.nameZh || award.name : award.name)}<span class="award-org">${escapeHTML(locale === "zh" ? award.orgZh || award.org : award.org)}</span></span>
         </li>`,
     )
     .join("");
+}
+
+function renderNews() {
+  const target = document.querySelector("#news-list");
+  if (!target) return;
+  const items = (Array.isArray(siteData.news) ? siteData.news : []).slice(0, 4);
+  target.innerHTML = items
+    .map((item) => {
+      const text = locale === "zh" ? item.zh || item.en : item.en || item.zh;
+      const href = safeUrl(item.href);
+      const inner = href
+        ? `<a href="${escapeHTML(href)}"${linkAttributes(href)}>${escapeHTML(text)} <span aria-hidden="true">↗</span></a>`
+        : escapeHTML(text);
+      return `<li><span class="news-date">${escapeHTML(item.date || "")}</span><span class="news-text">${inner}</span></li>`;
+    })
+    .join("");
+  const strip = document.querySelector("#news-strip");
+  if (strip) strip.hidden = items.length === 0;
 }
 
 function articleMeta(article) {
@@ -406,6 +456,10 @@ function renderFilters() {
   });
 }
 
+function articleHref(article) {
+  return locale === "zh" ? `/writing/zh/${article.id}/` : `/writing/${article.id}/`;
+}
+
 function renderWriting() {
   if (!document.querySelector("#article-count")) return;
   const articles = blogStore.getArticles().map((article) =>
@@ -438,16 +492,13 @@ function renderWriting() {
       <article class="featured-story">
         <div>
           <span class="featured-label">${ui.featured}</span>
-          <h3>${escapeHTML(featured.title)}</h3>
+          <h3><a href="${articleHref(featured)}">${escapeHTML(featured.title)}<span class="title-arrow" aria-hidden="true">&nbsp;↗</span></a></h3>
           <p class="featured-summary">${escapeHTML(featured.summary)}</p>
         </div>
         <div class="featured-side">
           <div>${articleMeta(featured)}</div>
-          <button class="read-toggle" type="button" aria-expanded="false" aria-controls="article-body-${featured.id}" data-article-toggle="${featured.id}" aria-label="${escapeHTML(ui.readArticle)}《${escapeHTML(featured.title)}》">
-            ${ui.read} <span class="toggle-icon" aria-hidden="true">↓</span>
-          </button>
+          <a class="read-toggle" href="${articleHref(featured)}">${ui.read} <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="article-body" id="article-body-${featured.id}">${articleBody(featured)}</div>
       </article>`;
   } else {
     featuredTarget.classList.add("is-hidden");
@@ -460,29 +511,12 @@ function renderWriting() {
         <article class="article">
           ${articleMeta(article)}
           <div>
-            <h3>${escapeHTML(article.title)}</h3>
+            <h3><a href="${articleHref(article)}">${escapeHTML(article.title)}<span class="title-arrow" aria-hidden="true">&nbsp;↗</span></a></h3>
             <p class="article-summary">${escapeHTML(article.summary)}</p>
           </div>
-          <button class="read-toggle" type="button" aria-expanded="false" aria-controls="article-body-${article.id}" data-article-toggle="${article.id}" aria-label="${escapeHTML(ui.readArticle)}《${escapeHTML(article.title)}》">
-            <span class="toggle-icon" aria-hidden="true">↓</span>
-          </button>
-          <div class="article-body" id="article-body-${article.id}">${articleBody(article)}</div>
         </article>`,
     )
     .join("");
-
-  document.querySelectorAll("[data-article-toggle]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const body = document.querySelector(`#article-body-${button.dataset.articleToggle}`);
-      const isOpen = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!isOpen));
-      body.classList.toggle("is-open", !isOpen);
-
-      if (button.closest(".featured-story")) {
-        button.firstChild.textContent = isOpen ? `${ui.read} ` : `${ui.close} `;
-      }
-    });
-  });
 }
 
 function updateImportCount() {
@@ -1709,6 +1743,7 @@ renderProjects();
 renderPublications();
 renderPatents();
 renderAwards();
+renderNews();
 renderResearchNow();
 renderWriting();
 
