@@ -43,7 +43,9 @@
     if (!target) return;
     event.preventDefault();
     try {
-      lenis.scrollTo(hash, { duration: 1.1 });
+      // Match native anchor positioning, including the two-row mobile rail.
+      var scrollMargin = parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
+      lenis.scrollTo(hash, { duration: 1.1, offset: -scrollMargin });
     } catch (error) {
       target.scrollIntoView({ behavior: "smooth" });
     }
