@@ -62,6 +62,17 @@ for (const [enFile, zhFile] of galleryFiles) {
   const enTiles = tiles(en).join("|");
   const zhTiles = tiles(zh).join("|");
   if (enTiles !== zhTiles) problems.push(`gallery: paper tiles differ EN=[${enTiles}] ZH=[${zhTiles}]`);
+  const records = (html) => [...html.matchAll(/class="paper-row" data-first-author="([^"]+)"/g)].map(m => m[1]).join("|");
+  if (records(en) !== records(zh)) problems.push("research: publication sequence or authorship differs across locales");
+  const features = html => count(html, /class="feature-card\s/g);
+  if (features(en) !== features(zh)) problems.push("research: selected work cards differ across locales");
+}
+
+const enHome = readFileSync(resolve(distRoot, "index.html"), "utf8");
+const zhHome = readFileSync(resolve(distRoot, "zh/index.html"), "utf8");
+for (const className of ["feature-card", "strength-item", "direction-card", "credential-details"]) {
+  const pattern = new RegExp(`class="${className}(?:\\s|\")`, "g");
+  if ((enHome.match(pattern) || []).length !== (zhHome.match(pattern) || []).length) problems.push(`home: ${className} count differs across locales`);
 }
 
 // 4. Locale switch targets resolve: every /works/zh/… link on EN pages has a

@@ -3,6 +3,7 @@ import { readdirSync, copyFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
+import { header, footer } from "./build-portfolio.mjs";
 
 // Post-build step: emit permalink pages for the work blog. Reads the articles
 // in content/published.json (bilingual: title/titleEn, bodyMarkdown variants)
@@ -24,7 +25,12 @@ const distAssets = resolve(distRoot, "assets");
 await mkdir(distAssets, { recursive: true });
 const builtCss = readdirSync(distAssets).find((f) => /^styles-[^/]*\.css$/.test(f));
 if (builtCss) copyFileSync(resolve(distAssets, builtCss), resolve(distRoot, "styles.css"));
+const portfolioCss = readdirSync(distAssets).find(f => /^portfolio-[^/]*\.css$/.test(f));
+if (portfolioCss) copyFileSync(resolve(distAssets, portfolioCss), resolve(distRoot, "portfolio.css"));
+const portfolioJs = readdirSync(distAssets).find(f => /^portfolio-[^/]*\.js$/.test(f));
+if (portfolioJs) await writeFile(resolve(distRoot, "portfolio.js"), `import "/assets/${portfolioJs}";\n`);
 copyFileSync(resolve(projectRoot, "assets/favicon.svg"), resolve(distAssets, "favicon.svg"));
+copyFileSync(resolve(projectRoot, "assets/junjie-xu-portrait-web.jpg"), resolve(distAssets, "junjie-xu-portrait-web.jpg"));
 
 // giscus comments: disabled until the giscus GitHub App is installed on the
 // repo (https://github.com/apps/giscus) and a discussion category exists.
@@ -35,7 +41,7 @@ const giscus = site.giscus || { enabled: false };
 const esc = (value) =>
   String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const themeInit = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();`;
+const themeInit = `(function(){try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="dark"?"dark":"light";}catch(e){document.documentElement.dataset.theme="light";}})();`;
 
 const pick = (article, lang) =>
   lang === "zh"
@@ -83,47 +89,6 @@ const css = `      .writing-page { padding: 84px 0 40px; font-family: var(--hero
       @media (max-width: 760px) { .writing-item { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
 `;
 
-function rail(lang, active) {
-  const zh = lang === "zh";
-  const root = zh ? "/zh" : "";
-  const t = {
-    label: zh ? "站点导航" : "Site navigation",
-    back: zh ? "返回首页" : "Back to home",
-    sections: zh ? "页面分区" : "Sections",
-    about: zh ? "关于" : "About",
-    work: zh ? "研究" : "Work",
-    works: zh ? "作品页" : "Works",
-    pubs: zh ? "论文" : "Publications",
-    patents: zh ? "专利" : "Patents",
-    writing: zh ? "工作记录" : "Blog",
-    honors: zh ? "荣誉" : "Honors",
-    tools: zh ? "页面工具" : "Page tools",
-    theme: zh ? "切换亮色模式" : "Switch to light mode",
-    cv: zh ? "简历" : "CV",
-    locale: zh ? "上海" : "Shanghai",
-  };
-  const item = (href, label, isActive) =>
-    `          <a href="${href}"${isActive ? ' class="is-active" aria-current="page"' : ""}>${label}</a>`;
-  return `      <aside class="site-rail" aria-label="${t.label}">
-        <a class="monogram" href="${root}/#about" aria-label="${t.back}">JX</a>
-        <nav class="section-nav" aria-label="${t.sections}">
-${item(`${root}/#about`, t.about, false)}
-${item(`${root}/#work`, t.work, false)}
-${item(zh ? "/works/zh/" : "/works/", t.works, false)}
-${item(`${root}/#publications`, t.pubs, false)}
-${item(`${root}/#patents`, t.patents, false)}
-${item(zh ? "/writing/zh/" : "/writing/", t.writing, active === "writing")}
-${item(`${root}/#honors`, t.honors, false)}
-        </nav>
-        <div class="rail-meta"><p>ECNU · ${t.locale}</p><p>2019 — 2028</p></div>
-        <div class="rail-tools" aria-label="${t.tools}">
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="${t.theme}" aria-pressed="false">☀</button>
-          <a href="${zh ? "/writing/" : "/writing/zh/"}" lang="${zh ? "en" : "zh-CN"}">${zh ? "English" : "中文"}</a>
-          <a href="${zh ? "/cv/zh/" : "/cv/"}">${t.cv}</a>
-        </div>
-      </aside>`;
-}
-
 function shell({ lang, title, description, canonical, active, body, jsonLd }) {
   const zh = lang === "zh";
   return `<!doctype html>
@@ -146,24 +111,22 @@ function shell({ lang, title, description, canonical, active, body, jsonLd }) {
     <link rel="canonical" href="${canonical}" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <script>${themeInit}</script>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css" /><link rel="stylesheet" href="/portfolio.css" />
 ${jsonLd ? `    <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n` : ""}    <style>
 ${css}</style>
   </head>
-  <body class="hero-rail-active" data-page="public" data-locale="${zh ? "zh" : "en"}">
+  <body class="portfolio-page" data-view="research-detail" data-page="public" data-locale="${zh ? "zh" : "en"}">
     <a class="skip-link" href="#main">${zh ? "跳转到正文" : "Skip to content"}</a>
     <div class="page-shell">
-${rail(lang, active)}
+${header(zh, zh ? "/writing/" : "/writing/zh/", active)}
 
       <main id="main">
 ${body}
       </main>
     </div>
 
-    <script defer src="/assets/vendor/lenis.min.js"></script>
-    <script defer src="/assets/scroll-feel.js"></script>
-    <script defer src="/assets/theme-toggle.js"></script>
-    <script defer src="/assets/backdrop.js"></script>
+    ${footer(zh)}
+    <script type="module" src="/portfolio.js"></script>
   </body>
 </html>
 `;

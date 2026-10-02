@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, rmSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
@@ -8,31 +8,15 @@ const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 // Double-blind hold: slugs whose project pages are excluded from the public
 // build while their papers are under review. Controlled by content/site.json
 // (reviewHold) — remove a slug there to restore its pages; no code edits.
-const site = JSON.parse(readFileSync(resolve(projectRoot, "content/site.json"), "utf8"));
+const site = JSON.parse(
+  readFileSync(resolve(projectRoot, "content/site.json"), "utf8"),
+);
 const hold = new Set(Array.isArray(site.reviewHold) ? site.reviewHold : []);
 
-const workSlugs = [
-  "evidence-before-severity",
-  "evidial",
-  "counterfactual-evidence-fidelity",
-  "affective-non-interference",
-  "before-the-score",
-  "digital-healing",
-  "affective-dynamics",
-  "mars",
-  "bdann",
-  "aim",
-  "amn",
-  "gc",
-  "cwf",
-  "coa",
-  "elysianmv",
-  "phoenix",
-  "coffee",
-  "musepainter",
-  "garbo",
-  "healbench",
-];
+// New research needs an explicit decision to publish.
+const workSlugs = Array.isArray(site.publicWorks)
+  ? site.publicWorks.filter((slug) => !hold.has(slug))
+  : [];
 
 const input = {
   main: resolve(projectRoot, "index.html"),
@@ -49,6 +33,20 @@ for (const slug of workSlugs) {
 }
 
 export default defineConfig({
+  appType: "mpa",
+  plugins: [
+    {
+      name: "public-research-boundary",
+      writeBundle(options) {
+        const assets = resolve(options.dir || "dist", "assets/works");
+        if (!existsSync(assets)) return;
+        for (const entry of readdirSync(assets)) {
+          if (!workSlugs.includes(entry))
+            rmSync(resolve(assets, entry), { recursive: true, force: true });
+        }
+      },
+    },
+  ],
   define: {
     __PUBLIC_BUILD__: "true",
   },

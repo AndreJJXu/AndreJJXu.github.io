@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { publicContent } from "../content/public-policy.mjs";
 
 // Post-build step: export the full publication list as a BibTeX file at
 // /assets/junjie-xu-publications.bib, linked from the homepage publications
@@ -9,7 +10,7 @@ import { fileURLToPath } from "node:url";
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const siteBase = "https://andrejjxu.github.io";
 
-const published = JSON.parse(await readFile(resolve(projectRoot, "content/published.json"), "utf8"));
+const published = publicContent(JSON.parse(await readFile(resolve(projectRoot, "content/published.json"), "utf8")));
 const publications = Array.isArray(published.publications) ? published.publications : [];
 
 const venueYear = (venue) => {

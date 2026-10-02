@@ -1,17 +1,3 @@
-import { resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { defineConfig } from "vite";
-
-const projectRoot = fileURLToPath(new URL(".", import.meta.url));
-
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(projectRoot, "index.html"),
-        zh: resolve(projectRoot, "zh/index.html"),
-        studio: resolve(projectRoot, "studio/index.html"),
-      },
-    },
-  },
-});
+// Production always uses the public disclosure boundary.
+// The authoring studio remains available only during local development.
+export { default } from "./vite.public.config.mjs";

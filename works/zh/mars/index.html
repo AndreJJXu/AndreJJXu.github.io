@@ -17,8 +17,8 @@
     <title>MARS | Junjie Xu</title>
     <link rel="canonical" href="https://andrejjxu.github.io/works/zh/mars/" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-    <script>(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
-    <link rel="stylesheet" href="/styles.css" />
+    <script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="dark"?"dark":"light";}catch(e){document.documentElement.dataset.theme="light";}})();</script>
+    <link rel="stylesheet" href="/styles.css" /><link rel="stylesheet" href="/portfolio.css" />
     <style>
       .work-page { padding: 84px 0 40px; font-family: var(--hero-font-body); }
       .work-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 76px; }
@@ -78,27 +78,19 @@
       @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
   </head>
-  <body class="hero-rail-active" data-page="public" data-locale="zh">
+  <body class="portfolio-page" data-view="research-detail" data-page="public" data-locale="zh">
     <a class="skip-link" href="#main">跳转到正文</a>
     <div class="page-shell">
-      <aside class="site-rail" aria-label="Site navigation">
-        <a class="monogram" href="/zh/#about" aria-label="Back to home">JX</a>
-        <nav class="section-nav" aria-label="Sections">
-          <a href="/zh/#about">关于</a>
-          <a href="/zh/#work">研究</a>
-          <a href="/works/zh/" class="is-active" aria-current="page">作品页</a>
-          <a href="/zh/#publications">论文</a>
-          <a href="/zh/#patents">专利</a>
-          <a href="/zh/#writing">工作记录</a>
-          <a href="/zh/#honors">荣誉</a>
-        </nav>
-        <div class="rail-meta"><p>ECNU · 上海</p><p>2019 — 2028</p></div>
-        <div class="rail-tools" aria-label="Page tools">
-          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换亮色模式" aria-pressed="false">☀</button>
-          <a href="/works/mars/" lang="en">English</a>
-          <a href="/cv/zh/">简历</a>
-        </div>
-      </aside>
+      <header class="site-header"><div class="header-inner">
+    <a class="brand" href="/zh/" aria-label="许俊杰 — 首页"><span class="brand-symbol" aria-hidden="true">jx<span>·</span></span><span class="brand-name">许俊杰</span></a>
+    <nav class="primary-nav" aria-label="主导航">
+      <a href="/zh/#work">代表工作</a>
+      <a href="/works/zh/" aria-current="page">研究成果</a>
+      <a href="/zh/#directions">未来方向</a>
+      <a href="/writing/zh/">随笔</a>
+    </nav>
+    <div class="header-tools"><button class="theme-toggle" type="button" data-theme-toggle aria-label="切换颜色主题" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.5 13.2A8.5 8.5 0 0 1 10.8 3.5a8.5 8.5 0 1 0 9.7 9.7Z"/></svg></button><a class="language-link" href="/works/mars/" lang="en">EN</a><a class="nav-contact" href="mailto:jjxu_dr@stu.ecnu.edu.cn">联系我 <span aria-hidden="true">↗</span></a></div>
+  </div></header>
 
       <main id="main">
         <article class="work-page">
@@ -214,11 +206,6 @@
         </article>
       </main>
     </div>
-
-    <script defer src="/assets/vendor/lenis.min.js"></script>
-    <script defer src="/assets/scroll-feel.js"></script>
-    <script defer src="/assets/theme-toggle.js"></script>
-    <script defer src="assets/backdrop.js"></script>
     <script>
       /* stat-count-up */
       document.documentElement.classList.add("js");
@@ -298,5 +285,6 @@
       }
       setupStatCountUp();
 </script>
-  </body>
+  <script type="module" src="/portfolio.js"></script>
+</body>
 </html>

@@ -1,11 +1,12 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { publicContent } from "../content/public-policy.mjs";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const published = JSON.parse(
+const published = publicContent(JSON.parse(
   await readFile(resolve(projectRoot, "content/published.json"), "utf8"),
-);
+));
 
 // ------------------------------------------------------------------
 // Manually managed CV facts that are not part of the published content
@@ -33,8 +34,8 @@ const managed = {
     {
       period: "2026.11 — 2027.11",
       periodZh: "2026.11 — 2027.11",
-      en: "Visiting researcher, Nanyang Technological University — hosted by Prof. Eric Cambria (CSC-funded)",
-      zh: "国家留学基金委（CSC）资助，新加坡南洋理工大学 联合培养（师从 Eric Cambria 教授）",
+      en: "Upcoming visiting research, Nanyang Technological University — hosted by Prof. Eric Cambria (CSC-funded)",
+      zh: "计划开展 CSC 资助的新加坡南洋理工大学联合培养（师从 Eric Cambria 教授）",
     },
   ],
   projects: [
@@ -88,83 +89,7 @@ const managed = {
     { year: "2023", en: "National Third Prize · Challenge Cup", zh: "“挑战杯”全国三等奖", org: "China Association for Science and Technology", orgZh: "中国科学技术协会" },
     { year: "2022", en: "Huaxin Scholarship", zh: "华鑫奖学金", org: "ECNU School of Computer Science and Technology", orgZh: "华东师范大学计算机科学与技术学院" },
   ],
-  // Hexagonal self-assessment radar. Update the scores periodically; the
-  // three highest dimensions render as strengths, the lowest three as
-  // improvement directions (improvement notes are hidden when printing).
-  radar: [
-    {
-      short: { en: "Publications", zh: "科研产出" },
-      en: "Research Output", zh: "科研产出", score: 82,
-      strength: {
-        en: "15 first-author papers across IPM, TCSVT, TALLIP, ACM MM workshop, and a CSUR survey.",
-        zh: "一作论文 15 篇，覆盖 IPM、TCSVT、TALLIP、ACM MM Workshop 及 CSUR 综述。",
-      },
-      improve: {
-        en: "Push the manuscripts under review to acceptance; aim for one CCF-A venue.",
-        zh: "推进在审论文接收，力争一篇 CCF-A 类正式发表。",
-      },
-    },
-    {
-      short: { en: "Patents", zh: "专利创新" },
-      en: "Patents & Innovation", zh: "专利创新", score: 85,
-      strength: {
-        en: "14 published Chinese patent applications as co-inventor.",
-        zh: "以共同发明人身份公开中国专利 14 项。",
-      },
-      improve: {
-        en: "Try to transfer one patent into a real product (digital therapeutics).",
-        zh: "尝试推动 1 项专利在数字疗法场景中转化落地。",
-      },
-    },
-    {
-      short: { en: "Leadership", zh: "项目领导" },
-      en: "Project Leadership", zh: "项目领导", score: 75,
-      strength: {
-        en: "Led two funded projects; both completed with excellent ratings.",
-        zh: "主持两项课题并优秀结题，具备完整的项目推进经验。",
-      },
-      improve: {
-        en: "Apply for larger grants (e.g., NSFC Young Scholars) and supervise undergraduates.",
-        zh: "申报更高级别课题（如国自然青年基金），尝试指导本科生。",
-      },
-    },
-    {
-      short: { en: "Open Source", zh: "开源工程" },
-      en: "Open Source & Engineering", zh: "开源工程", score: 62,
-      strength: {
-        en: "Contributed to EduChat-R1; site pipeline built and self-maintained.",
-        zh: "参与 EduChat-R1 开源项目；本站工具链完全自建自维护。",
-      },
-      improve: {
-        en: "Release the music-to-image pipeline and grow a visible GitHub profile.",
-        zh: "将音乐图像生成管线整理开源，持续经营 GitHub 主页。",
-      },
-    },
-    {
-      short: { en: "Communication", zh: "学术传播" },
-      en: "Academic Communication", zh: "学术传播", score: 45,
-      strength: {
-        en: "Work blog just started (7 posts) with a bilingual public site.",
-        zh: "双语站点与工作博客刚起步（已发 7 篇）。",
-      },
-      improve: {
-        en: "Give talks (group meetings, conferences) and keep the visiting diary going.",
-        zh: "争取组会与会议报告机会，坚持写访学日记。",
-      },
-    },
-    {
-      short: { en: "Global", zh: "国际合作" },
-      en: "Global Collaboration", zh: "国际合作", score: 55,
-      strength: {
-        en: "CSC-funded visiting position at NTU confirmed for 2026.11 — 2027.11.",
-        zh: "已获 CSC 资助，2026.11 — 2027.11 赴南洋理工大学访学。",
-      },
-      improve: {
-        en: "Strengthen spoken English and turn the visit into long-term collaboration.",
-        zh: "强化英语口语，把访学转化为长期合作关系。",
-      },
-    },
-  ],
+
 };
 
 const publications = Array.isArray(published.publications) ? published.publications : [];
@@ -194,79 +119,6 @@ function publicationEntry(pub, lang) {
   </li>`;
 }
 
-function radarSvg(lang) {
-  const dims = managed.radar;
-  const cx = 220;
-  const cy = 156;
-  const R = 96;
-  const angle = (i) => (Math.PI / 180) * (90 - i * 60);
-  const point = (i, v) => {
-    const a = angle(i);
-    return [cx + R * (v / 100) * Math.cos(a), cy - R * (v / 100) * Math.sin(a)];
-  };
-  const ring = (v) =>
-    dims.map((_, i) => point(i, v).map((n) => n.toFixed(1)).join(",")).join(" ");
-  const axes = dims
-    .map((_, i) => {
-      const [x, y] = point(i, 100);
-      return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
-    })
-    .join("");
-  const dataPoints = dims.map((d, i) => point(i, d.score));
-  const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-  const dots = dataPoints
-    .map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4"/>`)
-    .join("");
-  const labels = dims
-    .map((d, i) => {
-      const [x, y] = point(i, 122);
-      const anchor = Math.abs(x - cx) < 14 ? "middle" : x > cx ? "start" : "end";
-      return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${anchor}"><tspan class="radar-name">${esc(lang === "zh" ? d.short.zh : d.short.en)}</tspan><tspan class="radar-score" dx="5">${d.score}</tspan></text>`;
-    })
-    .join("");
-  return `<svg class="radar" viewBox="0 0 440 316" role="img" aria-label="${lang === "zh" ? "能力雷达图" : "competency radar"}">
-    <g class="radar-grid">
-      ${[25, 50, 75, 100].map((v) => `<polygon points="${ring(v)}"/>`).join("")}
-      ${axes}
-    </g>
-    <polygon class="radar-data" points="${dataPolygon}"/>
-    <g class="radar-dots">${dots}</g>
-    <g class="radar-labels">${labels}</g>
-  </svg>`;
-}
-
-function radarSection(lang) {
-  const t =
-    lang === "zh"
-      ? { title: "能力雷达", note: "自评参考，每季度回顾更新。虚线以下为待改进方向。", strengths: "当前优势", improves: "改进方向", rank: (n) => `Top ${n}` }
-      : { title: "Competency Radar", note: "Self-assessment, reviewed quarterly. The lowest dimensions point to where to improve next.", strengths: "Strengths", improves: "To improve", rank: (n) => `Top ${n}` };
-  const sorted = [...managed.radar].sort((a, b) => b.score - a.score);
-  const strengths = sorted.slice(0, 3);
-  const improves = sorted.slice(-3).reverse();
-  const label = (d) => esc(lang === "zh" ? d.zh : d.en);
-  return `<section>
-    <h2>${t.title}</h2>
-    <div class="radar-wrap">
-      ${radarSvg(lang)}
-      <div class="radar-notes">
-        <div class="radar-note-block">
-          <h3>${t.strengths}</h3>
-          <ul>
-            ${strengths.map((d) => `<li><strong>${label(d)} · ${d.score}</strong><span>${esc(lang === "zh" ? d.strength.zh : d.strength.en)}</span></li>`).join("\n            ")}
-          </ul>
-        </div>
-        <div class="radar-note-block improve-block">
-          <h3>${t.improves}</h3>
-          <ul>
-            ${improves.map((d) => `<li><strong>${label(d)} · ${d.score}</strong><span>${esc(lang === "zh" ? d.improve.zh : d.improve.en)}</span></li>`).join("\n            ")}
-          </ul>
-        </div>
-      </div>
-    </div>
-    <p class="note">${t.note}</p>
-  </section>`;
-}
-
 function render(lang) {
   const t =
     lang === "zh"
@@ -274,7 +126,7 @@ function render(lang) {
           interests: "研究方向",
           education: "教育经历",
           publications: "论文发表",
-          pubNote: "以下为全部一作论文；另参与多模态情感分析、视觉问答、偏好学习等研究。",
+          pubNote: "以下仅列已发表论文，包括第一作者与合作研究成果。",
           patents: "发明专利",
           patNote: "以下专利均以共同发明人身份申请，公开号可在中国专利公布公告网查询。",
           projects: "科研项目",
@@ -290,7 +142,7 @@ function render(lang) {
           interests: "Research Interests",
           education: "Education",
           publications: "Publications",
-          pubNote: "First-author publications; also contributing to multimodal sentiment analysis, visual question answering, and preference learning.",
+          pubNote: "Published papers only, including first-author and collaborative research.",
           patents: "Patents",
           patNote: "All patents filed as co-inventor; publication numbers verifiable on China's patent gazette.",
           projects: "Research Projects",
@@ -504,7 +356,7 @@ function render(lang) {
       </ul>
     </section>
 
-    ${radarSection(lang)}
+
 
     <section>
       <h2>${t.education}</h2>
